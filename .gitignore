@@ -49,3 +49,6 @@ media/.DS_Store
 
 # DB
 db/
+
+# package locks
+front/package-lock.json
