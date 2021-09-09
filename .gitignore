@@ -49,6 +49,7 @@ media/.DS_Store
 
 # DB
 db/
+back/db.sqlite3
 
 # package locks
 front/package-lock.json

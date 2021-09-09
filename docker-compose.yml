@@ -10,6 +10,8 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ~/Documents/PROJETS PERSOS/Stonkofus/db/docker/template-postgres/data:/var/lib/postgresql/data:rw
 
