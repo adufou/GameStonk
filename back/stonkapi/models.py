@@ -6,8 +6,11 @@ from django.db import models
 class ItemBank(models.Model):
     name = models.CharField(max_length=64)
 
+class Item(models.Model):
+    itemBankId = models.ForeignKey(ItemBank, on_delete=models.CASCADE, null=True)
+
 class ItemPrice(models.Model):
-    itemId = models.ForeignKey(ItemBank, on_delete=models.CASCADE)
+    itemId = models.ForeignKey(Item, on_delete=models.CASCADE)
     price = models.IntegerField()
     time = models.DateTimeField()
 

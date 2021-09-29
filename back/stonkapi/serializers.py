@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from stonkapi.models import ItemBank, ItemPrice, Report, Transaction
+from stonkapi.models import Item, ItemBank, ItemPrice, Report, Transaction
 from rest_framework import serializers
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,10 +12,15 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
+class ItemBankSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ItemBank
         fields = ['id', 'name']
+
+class ItemSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Item
+        fields = ['id', 'itemBankId']
 
 class ItemPriceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
