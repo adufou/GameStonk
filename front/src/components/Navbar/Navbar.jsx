@@ -12,11 +12,14 @@ const Navbar = () => {
 
     return (
         <nav>
-            <h1>Django React Auth</h1>
+            <h1>Stonkofus</h1>
             <ul>
                 {isAuth === true ? (
                     <Fragment>
                         {' '}
+                        <li>
+                            <Link to='/companion'>Companion</Link>
+                        </li>
                         <li>
                             <Link to='/dashboard'>Dashboard</Link>
                         </li>

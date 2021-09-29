@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Navbar";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
 import Logout from "../Auth/Logout";
+import Companion from "../Companion/Companion";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Navbar/>
               <Switch>
                   <Route exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/companion" component={Companion} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/logout" component={Logout} />
                   <Route exact path="/signup" component={Signup} />
