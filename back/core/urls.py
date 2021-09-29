@@ -26,12 +26,13 @@ router = routers.DefaultRouter()
 router.register(r'user', views.UserViewSet)
 router.register(r'group', views.GroupViewSet)
 
-router.register(r'item', views.ItemViewSet)
+router.register(r'item_bank', views.ItemBankViewSet)
 router.register(r'item_price', views.ItemPriceViewSet)
 router.register(r'report', views.ReportViewSet)
 router.register(r'transaction', views.TransactionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ]

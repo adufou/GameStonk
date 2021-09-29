@@ -3,11 +3,11 @@ from django.db import models
 
 # Create your models here.
 
-class Item(models.Model):
+class ItemBank(models.Model):
     name = models.CharField(max_length=64)
 
 class ItemPrice(models.Model):
-    itemId = models.ForeignKey(Item, on_delete=models.CASCADE)
+    itemId = models.ForeignKey(ItemBank, on_delete=models.CASCADE)
     price = models.IntegerField()
     time = models.DateTimeField()
 
