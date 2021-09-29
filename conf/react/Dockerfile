@@ -27,3 +27,4 @@ COPY /front/.eslintrc.json /app/
 
 COPY /conf/react/webpack.dev.js /app/
 COPY /conf/react/webpack.common.js /app/
+COPY /conf/react/postcss.config.js /app/

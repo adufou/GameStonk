@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 import stonkapi
 from stonkapi import views
 from django.contrib import admin
@@ -23,8 +24,8 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 
-router.register(r'user', views.UserViewSet)
-router.register(r'group', views.GroupViewSet)
+# router.register(r'user', views.UserViewSet)
+# router.register(r'group', views.GroupViewSet)
 
 router.register(r'item_bank', views.ItemBankViewSet)
 router.register(r'item', views.ItemViewSet)
@@ -34,6 +35,14 @@ router.register(r'transaction', views.TransactionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('users/', include('users.urls')),
     path('admin/', admin.site.urls),
 ]
+
+# urlpatterns = [
+#     path('', include(router.urls)),
+#     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+#     path('api-auth/token/obtain/', TokenObtainPairView.as_view()),
+#     path('api-auth/token/refresh/', TokenRefreshView.as_view()),
+#     path('admin/', admin.site.urls),
+# ]
