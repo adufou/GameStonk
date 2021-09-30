@@ -1,6 +1,6 @@
-const postTransaction = (userId, itemPriceId, volume) => {
+const postTransaction = (user, itemPrice, volume) => {
     const body = {
-        userId, itemPriceId, volume
+        user, itemPrice, volume
     }
 
     return fetch('http://127.0.0.1:8000/transaction/', {

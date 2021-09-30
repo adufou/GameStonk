@@ -1,6 +1,6 @@
-const postTrade = (userId, buyTransactionId, sellTransactionId) => {
+const postTrade = (user, buyTransaction, sellTransaction) => {
     const body = {
-        userId, buyTransactionId, sellTransactionId
+        user, buyTransaction, sellTransaction
     }
 
     return fetch('http://127.0.0.1:8000/trade/', {
@@ -13,4 +13,14 @@ const postTrade = (userId, buyTransactionId, sellTransactionId) => {
     });
 };
 
-export {postTrade}
+const getUnrealizedTrades = () => {
+    return fetch('http://127.0.0.1:8000/trade/get_unrealized_trades/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    });
+}
+
+export {postTrade, getUnrealizedTrades}

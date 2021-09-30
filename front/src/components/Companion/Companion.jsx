@@ -5,7 +5,7 @@ import {getUser} from "../../service/userService";
 import {postItem} from "../../service/itemService";
 import {postItemPrice} from "../../service/itemPriceService";
 import {postTransaction} from "../../service/transactionService";
-import {postTrade} from "../../service/tradeService";
+import {getUnrealizedTrades, postTrade} from "../../service/tradeService";
 
 const Companion = () => {
     const [loading, setLoading] = useState(true);
@@ -13,6 +13,7 @@ const Companion = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userId, setUserId] = useState(0);
     const [itemBank, setItemBank] = useState([]);
+    const [assets, setAssets] = useState([]);
 
     const [newItemBankName, setNewItemBankName] = useState('');
     const [volume, setVolume] = useState(1);
@@ -29,6 +30,7 @@ const Companion = () => {
         if (localStorage.getItem('token') === null) {
             window.location.replace('http://localhost:4000/login');
         } else {
+            // On set userId et userEmail
             getUser()
                 .then(res => res.json())
                 .then(data => {
@@ -37,6 +39,7 @@ const Companion = () => {
                     setLoading(false);
                 });
 
+            // On set itemBank et selectedItemBank
             getItemBank()
                 .then(res => res.json())
                 .then(data => {
@@ -51,6 +54,17 @@ const Companion = () => {
                     if (bank.length > 0)
                         setSelectedItemBank(bank[0])
                 })
+
+            // On set assets ( = unrealized trades)
+            getUnrealizedTrades()
+                .then(res => res.json())
+                .then(data => data.map(trade => {
+                    console.log(trade)
+                    const volume = trade.buyTransaction.volume
+                    const price = trade.buyTransaction.itemPrice.price
+                    const name = trade.buyTransaction.itemPrice.item.itemBank.name
+                    console.log({volume, price, name})
+                }) )
         }
     }, []);
 
@@ -146,6 +160,10 @@ const Companion = () => {
                     <input type="number" value={price} onChange={onHandlePriceChange}/>
 
                     <button onClick={newTradeBuy}>Confirmer l'achat</button>
+
+                    <h4>Valider vente</h4>
+
+                    <p>Ventes non réalisées</p>
                 </Fragment>
             )}
         </div>

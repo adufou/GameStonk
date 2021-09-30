@@ -1,6 +1,6 @@
-const postItem = (itemBankId) => {
+const postItem = (itemBank) => {
     const body = {
-        itemBankId
+        itemBank
     };
 
     return fetch('http://127.0.0.1:8000/item/', {

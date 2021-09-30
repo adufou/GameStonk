@@ -1,6 +1,6 @@
-const postItemPrice = (itemId, price, time) => {
+const postItemPrice = (item, price, time) => {
     const body = {
-        itemId, price, time
+        item, price, time
     };
 
     return fetch('http://127.0.0.1:8000/item_price/', {
