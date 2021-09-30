@@ -13,12 +13,12 @@ const Companion = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userId, setUserId] = useState(0);
     const [itemBank, setItemBank] = useState([]);
-    const [assets, setAssets] = useState([]);
+    const [userAssets, setUserAssets] = useState([]);
 
     const [newItemBankName, setNewItemBankName] = useState('');
     const [volume, setVolume] = useState(1);
     const [price, setPrice] = useState(1);
-    const [selectedItemBank, setSelectedItemBank] = useState(null);
+    const [selectedItemBank, setSelectedItemBank] = useState(0);
 
     const volumeBank = [
         {'value': 1, 'text': 'x1'},
@@ -52,19 +52,27 @@ const Companion = () => {
                     })
                     setItemBank(bank);
                     if (bank.length > 0)
-                        setSelectedItemBank(bank[0])
+                        setSelectedItemBank(bank[0].value)
                 })
 
             // On set assets ( = unrealized trades)
             getUnrealizedTrades()
                 .then(res => res.json())
-                .then(data => data.map(trade => {
-                    console.log(trade)
-                    const volume = trade.buyTransaction.volume
-                    const price = trade.buyTransaction.itemPrice.price
-                    const name = trade.buyTransaction.itemPrice.item.itemBank.name
-                    console.log({volume, price, name})
-                }) )
+                .then(data => {
+                    const assets = []
+
+                    data.map(trade => {
+                        const volume = trade.buyTransaction.volume
+                        const price = trade.buyTransaction.itemPrice.price
+                        const name = trade.buyTransaction.itemPrice.item.itemBank.name
+
+                        const asset = {name, volume, price}
+                        assets.push(asset)
+                    })
+
+                    console.log(assets)
+                    setUserAssets(assets)
+                })
         }
     }, []);
 
@@ -97,19 +105,18 @@ const Companion = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                itemBank.push({
+                const newItem = {
                     "value": data.id,
                     "text": data.name
-                })
-                setItemBank(itemBank)
+                };
+                setItemBank([...itemBank, newItem])
                 setNewItemBankName('')
-                // setSelectedItemBank(data.id)
             })
     }
 
     function newTradeBuy() {
         // New item
-        postItem(selectedItemBank.value)
+        postItem(selectedItemBank)
             .then(res => res.json())
 
         // New item price
