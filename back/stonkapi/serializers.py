@@ -1,3 +1,4 @@
+from re import S
 from django.contrib.auth.models import User, Group
 from rest_framework.fields import IntegerField
 from stonkapi.models import Item, ItemBank, ItemPrice, Report, Transaction, Trade
@@ -90,8 +91,14 @@ class TradeGetSerializer(serializers.ModelSerializer):
 class TradePostSerializer(serializers.ModelSerializer):
     buyTransaction = serializers.PrimaryKeyRelatedField(queryset=Transaction.objects.all())
     sellTransaction = serializers.PrimaryKeyRelatedField(queryset=Transaction.objects.all(), required=False, allow_null=True)
-    # sellTransaction = serializers.IntegerField(write_only=True, required=False, allow_null=True)
 
     class Meta:
         model = Trade
         fields = ['id', 'user', 'buyTransaction', 'sellTransaction']
+
+    def update(self, instance, data):
+        instance.user = data['user']
+        instance.buyTransaction = data['buyTransaction']
+        instance.sellTransaction = data['sellTransaction']
+        instance.save()
+        return instance

@@ -13,6 +13,21 @@ const postTrade = (user, buyTransaction, sellTransaction) => {
     });
 };
 
+const updateTrade = (user, buyTransaction, sellTransaction, id) => {
+    const body = {
+        user, buyTransaction, sellTransaction
+    }
+
+    return fetch('http://127.0.0.1:8000/trade/' + id + '/', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(body)
+    });
+};
+
 const getUnrealizedTrades = () => {
     return fetch('http://127.0.0.1:8000/trade/get_unrealized_trades/', {
         method: 'GET',
@@ -23,4 +38,4 @@ const getUnrealizedTrades = () => {
     });
 }
 
-export {postTrade, getUnrealizedTrades}
+export {postTrade, updateTrade, getUnrealizedTrades}

@@ -5,7 +5,7 @@ import {getUser} from "../../service/userService";
 import {postItem} from "../../service/itemService";
 import {postItemPrice} from "../../service/itemPriceService";
 import {postTransaction} from "../../service/transactionService";
-import {getUnrealizedTrades, postTrade} from "../../service/tradeService";
+import {getUnrealizedTrades, updateTrade, postTrade} from "../../service/tradeService";
 
 const Companion = () => {
     const [loading, setLoading] = useState(true);
@@ -16,9 +16,11 @@ const Companion = () => {
     const [userAssets, setUserAssets] = useState([]);
 
     const [newItemBankName, setNewItemBankName] = useState('');
-    const [volume, setVolume] = useState(1);
-    const [price, setPrice] = useState(1);
+    const [selectedVolume, setSelectedVolume] = useState(1);
+    const [buyPrice, setBuyPrice] = useState(1);
+    const [sellPrice, setSellPrice] = useState(1);
     const [selectedItemBank, setSelectedItemBank] = useState(0);
+    const [selectedUserAsset, setSelectedUserAsset] = useState(0)
 
     const volumeBank = [
         {'value': 1, 'text': 'x1'},
@@ -59,38 +61,47 @@ const Companion = () => {
             getUnrealizedTrades()
                 .then(res => res.json())
                 .then(data => {
-                    const assets = []
-
-                    data.map(trade => {
-                        const volume = trade.buyTransaction.volume
-                        const price = trade.buyTransaction.itemPrice.price
-                        const name = trade.buyTransaction.itemPrice.item.itemBank.name
-
-                        const asset = {name, volume, price}
-                        assets.push(asset)
-                    })
-
-                    console.log(assets)
-                    setUserAssets(assets)
+                    generateAssetsFromTrades(data)
                 })
         }
     }, []);
 
-    function onHandlePriceChange (e) {
-        const oldPrice = price;
+    function onHandleBuyPriceChange (e) {
+        const oldPrice = buyPrice;
         const priceStr = e.target.value;
         const regexp = /^[0-9b]+$/
 
         if (priceStr !== '') {
             if (regexp.test(priceStr)) {
                 console.log(priceStr);
-                setPrice(Number(priceStr));
+                setBuyPrice(Number(priceStr));
             }
             else {
                 console.log(oldPrice);
-                setPrice(oldPrice);
+                setBuyPrice(oldPrice);
             }
         }
+    }
+
+    function onHandleSellPriceChange (e) {
+        const oldPrice = sellPrice;
+        const priceStr = e.target.value;
+        const regexp = /^[0-9b]+$/
+
+        if (priceStr !== '') {
+            if (regexp.test(priceStr)) {
+                console.log(priceStr);
+                setSellPrice(Number(priceStr));
+            }
+            else {
+                console.log(oldPrice);
+                setSellPrice(oldPrice);
+            }
+        }
+    }
+
+    function onHandleSelectedItemBank(e) {
+        setSelectedItemBank(Number(e))
     }
 
     function addItem() {
@@ -111,8 +122,50 @@ const Companion = () => {
                 };
                 setItemBank([...itemBank, newItem])
                 setNewItemBankName('')
+                setSelectedItemBank(Number(data.id))
             })
     }
+
+    function generateAssetsFromTrades(trades) {
+        const assets = []
+
+        trades.map(trade => {
+            const volume = trade.buyTransaction.volume
+            const price = trade.buyTransaction.itemPrice.price
+            const name = trade.buyTransaction.itemPrice.item.itemBank.name
+
+            const assetTitle = '[' + volume + '] ' + name + ' | ' + price + 'k';
+
+            const item = trade.buyTransaction.itemPrice.item.id
+            const transaction = trade.buyTransaction.id
+
+            const asset = {
+                'value': trade.id,
+                'text': assetTitle,
+                'item': item,
+                'volume': volume,
+                'transaction': transaction
+            }
+            assets.push(asset)
+        })
+
+        console.log(assets)
+        setUserAssets(assets)
+        setSelectedUserAsset(assets[0].value)
+    }
+
+    // function addAssetFromTrade(id) {
+    //     const itemName = itemBank.find(item => item.value === selectedItemBank).text
+    //
+    //     const assetTitle = '[' + selectedVolume + '] ' + itemName + ' | ' + buyPrice + 'k';
+    //
+    //     const asset = {
+    //         'value': id,
+    //         'text': assetTitle
+    //     }
+    //     setUserAssets([...userAssets, asset])
+    //     setSelectedUserAsset(Number(id))
+    // }
 
     function newTradeBuy() {
         // New item
@@ -122,13 +175,13 @@ const Companion = () => {
         // New item price
             .then(data => {
                 const now = new Date(Date.now()).toISOString();
-                return postItemPrice(data.id, price, now)
+                return postItemPrice(data.id, buyPrice, now)
             })
             .then(res => res.json())
 
         // New transaction
             .then(data => {
-                return postTransaction(userId, data.id, volume)
+                return postTransaction(userId, data.id, selectedVolume)
             })
             .then(res => res.json())
 
@@ -137,8 +190,52 @@ const Companion = () => {
                 return postTrade(userId, data.id, null)
             })
             .then(res => res.json())
+        // Reload User Assets from DB
+            .then(() => {
+                // addAssetFromTrade(data.id);
+                return getUnrealizedTrades()
+            })
+            .then(res => res.json())
             .then(data => {
-                console.log(data);
+                generateAssetsFromTrades(data)
+            })
+    }
+
+    function newTradeSell() {
+        // Get item
+        console.log(userAssets)
+        console.log(selectedUserAsset)
+
+        const correspondingAsset = userAssets.find(asset => asset.value === Number(selectedUserAsset))
+
+        // New item price for this item
+        const now = new Date(Date.now()).toISOString();
+        postItemPrice(correspondingAsset.item, sellPrice, now)
+            .then(res => res.json())
+
+        // Create sell transaction
+            .then(data => {
+                return postTransaction(userId, data.id, correspondingAsset.volume)
+            })
+            .then(res => res.json())
+        // Link sell transaction to trade
+            .then(data => {
+                const user = data.user;
+                const buyTransaction = correspondingAsset.transaction;
+                const sellTransaction = data.id;
+                const trade = selectedUserAsset;
+
+                return updateTrade(user, buyTransaction, sellTransaction, trade)
+            })
+            .then(res => res.json())
+        // Reload User Assets from DB
+            .then(() => {
+                // addAssetFromTrade(data.id);
+                return getUnrealizedTrades()
+            })
+            .then(res => res.json())
+            .then(data => {
+                generateAssetsFromTrades(data)
             })
     }
 
@@ -158,19 +255,25 @@ const Companion = () => {
                     <h4>Nouvel achat</h4>
 
                     <p>Item</p>
-                    <Select values={itemBank} selected={selectedItemBank} callback={setSelectedItemBank}/>
+                    <Select values={itemBank} selected={selectedItemBank} callback={onHandleSelectedItemBank}/>
 
                     <p>Volume</p>
-                    <Select values={volumeBank} selected={volume} callback={setVolume}/>
+                    <Select values={volumeBank} selected={selectedVolume} callback={setSelectedVolume}/>
 
                     <p>Prix total</p>
-                    <input type="number" value={price} onChange={onHandlePriceChange}/>
+                    <input type="number" value={buyPrice} onChange={onHandleBuyPriceChange}/>
 
                     <button onClick={newTradeBuy}>Confirmer l'achat</button>
 
                     <h4>Valider vente</h4>
 
-                    <p>Ventes non réalisées</p>
+                    <p>Vente à conclure</p>
+                    <Select values={userAssets} selected={selectedUserAsset} callback={setSelectedUserAsset}/>
+
+                    <p>Prix total</p>
+                    <input type="number" value={sellPrice} onChange={onHandleSellPriceChange}/>
+
+                    <button onClick={newTradeSell}>Confirmer la vente</button>
                 </Fragment>
             )}
         </div>

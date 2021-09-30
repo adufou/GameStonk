@@ -79,7 +79,7 @@ class TradeViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
     def get_serializer_class(self):
-        if (self.action == 'create'):
+        if (self.action == 'create' or self.action == 'update'):
             return TradePostSerializer
         return TradeGetSerializer
 
@@ -91,5 +91,16 @@ class TradeViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(unrealized_trades, many=True)
         return Response(serializer.data)
+
+    # @action(methods=['POST'], detail=False)
+    # def link_sell_transaction(self, request, pk=None):
+    #    transactionId = request.data["transactionId"]
+    #    transaction = Transaction.objects.first(id=transactionId)
+    #    trade = self.get_object()
+
+    #    trade.
+
+
+
 
 # Views

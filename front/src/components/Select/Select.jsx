@@ -3,7 +3,8 @@ import React from 'react';
 const Select = ({ values, callback, selected }) => {
     return (
         <select
-            defaultValue={selected}
+            // defaultValue={selected}
+            value={selected}
             onChange={({ target: { value } }) => callback(value)}
         >
             {values.map(value => (
