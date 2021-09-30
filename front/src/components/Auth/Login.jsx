@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {postLoginUser} from "../../service/userService";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -22,13 +23,7 @@ const Login = () => {
             password: password
         };
 
-        fetch('http://127.0.0.1:8000/users/auth/login/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
+        postLoginUser(user)
             .then(res => res.json())
             .then(data => {
                 if (data.key) {

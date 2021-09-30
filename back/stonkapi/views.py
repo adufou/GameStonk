@@ -1,5 +1,5 @@
-from stonkapi.serializers import ItemPriceSerializer, ItemBankSerializer, ItemSerializer, ReportSerializer, TransactionSerializer, CustomUserSerializer
-from stonkapi.models import ItemBank, Item, ItemPrice, Report, Transaction
+from stonkapi.serializers import ItemPriceSerializer, ItemBankSerializer, ItemSerializer, ReportSerializer, TransactionSerializer, CustomUserSerializer, TradeSerializer
+from stonkapi.models import ItemBank, Item, ItemPrice, Report, Transaction, Trade
 from rest_framework import viewsets
 from rest_framework import permissions, authentication
 from django.shortcuts import render
@@ -57,6 +57,11 @@ class TransactionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
+class TradeViewSet(viewsets.ModelViewSet):
+    queryset = Trade.objects.all()
+    serializer_class = TradeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
 # Views
 

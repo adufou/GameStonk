@@ -33,6 +33,7 @@ router.register(r'item', views.ItemViewSet)
 router.register(r'item_price', views.ItemPriceViewSet)
 router.register(r'report', views.ReportViewSet)
 router.register(r'transaction', views.TransactionViewSet)
+router.register(r'trade', views.TradeViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
