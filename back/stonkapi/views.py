@@ -36,7 +36,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
     def get_serializer_class(self):
-        if (self.action == 'create'):
+        if self.action == 'create':
             return ItemPostSerializer
         return ItemGetSerializer
 
@@ -48,7 +48,7 @@ class ItemPriceViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
     def get_serializer_class(self):
-        if (self.action == 'create'):
+        if self.action == 'create':
             return ItemPricePostSerializer
         return ItemPriceGetSerializer
 
@@ -79,7 +79,7 @@ class TradeViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
     def get_serializer_class(self):
-        if (self.action == 'create' or self.action == 'update'):
+        if self.action == 'create' or self.action == 'update':
             return TradePostSerializer
         return TradeGetSerializer
 
@@ -87,20 +87,18 @@ class TradeViewSet(viewsets.ModelViewSet):
     def get_unrealized_trades(self, request, pk=None):
         user = request.user
         
-        unrealized_trades = Trade.objects.filter(user=user.id, sellTransaction__isnull=True)
+        unrealized_trades = Trade.objects.filter(user=user.id, sellTransaction__isnull=True, sellOrderPrice__isnull=False)
 
         serializer = self.get_serializer(unrealized_trades, many=True)
         return Response(serializer.data)
 
-    # @action(methods=['POST'], detail=False)
-    # def link_sell_transaction(self, request, pk=None):
-    #    transactionId = request.data["transactionId"]
-    #    transaction = Transaction.objects.first(id=transactionId)
-    #    trade = self.get_object()
+    @action(methods=['GET'], detail=False)
+    def get_holding_assets(self, request, pk=None):
+        user = request.user
 
-    #    trade.
+        holding_assets = Trade.objects.filter(user=user.id, sellTransaction__isnull=True, sellOrderPrice__isnull=True)
 
-
-
+        serializer = self.get_serializer(holding_assets, many=True)
+        return Response(serializer.data)
 
 # Views

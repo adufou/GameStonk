@@ -28,3 +28,4 @@ class Trade(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     buyTransaction = models.ForeignKey(Transaction, related_name='buy_transaction', on_delete=models.CASCADE, null=True, blank=True)
     sellTransaction = models.ForeignKey(Transaction, related_name='sell_transaction', on_delete=models.CASCADE, null=True, blank=True)
+    sellOrderPrice = models.IntegerField(blank=True, null=True)

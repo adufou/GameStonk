@@ -13,9 +13,9 @@ const postTrade = (user, buyTransaction, sellTransaction) => {
     });
 };
 
-const updateTrade = (user, buyTransaction, sellTransaction, id) => {
+const updateTrade = (user, buyTransaction, sellTransaction, sellOrderPrice, id) => {
     const body = {
-        user, buyTransaction, sellTransaction
+        user, buyTransaction, sellTransaction, sellOrderPrice
     }
 
     return fetch('http://127.0.0.1:8000/trade/' + id + '/', {
@@ -38,4 +38,14 @@ const getUnrealizedTrades = () => {
     });
 }
 
-export {postTrade, updateTrade, getUnrealizedTrades}
+const getHoldingAssets = () => {
+    return fetch('http://127.0.0.1:8000/trade/get_holding_assets/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    });
+}
+
+export {postTrade, updateTrade, getUnrealizedTrades, getHoldingAssets}

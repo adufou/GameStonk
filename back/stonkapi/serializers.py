@@ -84,7 +84,7 @@ class TradeGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trade
-        fields = ['id', 'user', 'buyTransaction', 'sellTransaction']
+        fields = ['id', 'user', 'buyTransaction', 'sellTransaction', 'sellOrderPrice']
 
 
 # Serializer for Trade POST -> buyTransaction and sellTransaction are int 
@@ -94,11 +94,12 @@ class TradePostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trade
-        fields = ['id', 'user', 'buyTransaction', 'sellTransaction']
+        fields = ['id', 'user', 'buyTransaction', 'sellTransaction', 'sellOrderPrice']
 
     def update(self, instance, data):
         instance.user = data['user']
         instance.buyTransaction = data['buyTransaction']
         instance.sellTransaction = data['sellTransaction']
+        instance.sellOrderPrice = data['sellOrderPrice']
         instance.save()
         return instance

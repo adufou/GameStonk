@@ -5,22 +5,23 @@ import {getUser} from "../../service/userService";
 import {postItem} from "../../service/itemService";
 import {postItemPrice} from "../../service/itemPriceService";
 import {postTransaction} from "../../service/transactionService";
-import {getUnrealizedTrades, updateTrade, postTrade} from "../../service/tradeService";
+import {getUnrealizedTrades, updateTrade, postTrade, getHoldingAssets} from "../../service/tradeService";
 
 const Companion = () => {
     const [loading, setLoading] = useState(true);
 
-    const [userEmail, setUserEmail] = useState('');
     const [userId, setUserId] = useState(0);
     const [itemBank, setItemBank] = useState([]);
-    const [userAssets, setUserAssets] = useState([]);
+    const [userHoldingAssets, setUserHoldingAssets] = useState([]);
+    const [userUnrealizedSells, setUserUnrealizedSells] = useState([]);
 
     const [newItemBankName, setNewItemBankName] = useState('');
     const [selectedVolume, setSelectedVolume] = useState(1);
     const [buyPrice, setBuyPrice] = useState(1);
     const [sellPrice, setSellPrice] = useState(1);
     const [selectedItemBank, setSelectedItemBank] = useState(0);
-    const [selectedUserAsset, setSelectedUserAsset] = useState(0)
+    const [selectedUserHoldingAsset, setSelectedUserHoldingAsset] = useState(0)
+    const [selectedUserUnrealizedSell, setSelectedUserUnrealizedSell] = useState(0)
 
     const volumeBank = [
         {'value': 1, 'text': 'x1'},
@@ -36,9 +37,7 @@ const Companion = () => {
             getUser()
                 .then(res => res.json())
                 .then(data => {
-                    setUserEmail(data.email);
                     setUserId(data.pk)
-                    setLoading(false);
                 });
 
             // On set itemBank et selectedItemBank
@@ -57,12 +56,22 @@ const Companion = () => {
                         setSelectedItemBank(bank[0].value)
                 })
 
-            // On set assets ( = unrealized trades)
+            // On set holding assets
+            getHoldingAssets()
+                .then(res => res.json())
+                .then(data => {
+                    generateHoldingAssetsFromTrades(data)
+                })
+
+            // On set unrealized sells
             getUnrealizedTrades()
                 .then(res => res.json())
                 .then(data => {
-                    generateAssetsFromTrades(data)
+                    generateUnrealizedSellsFromTrades(data)
                 })
+
+            // End loading
+            setLoading(false);
         }
     }, []);
 
@@ -126,7 +135,7 @@ const Companion = () => {
             })
     }
 
-    function generateAssetsFromTrades(trades) {
+    function generateHoldingAssetsFromTrades(trades) {
         const assets = []
 
         trades.map(trade => {
@@ -134,24 +143,65 @@ const Companion = () => {
             const price = trade.buyTransaction.itemPrice.price
             const name = trade.buyTransaction.itemPrice.item.itemBank.name
 
-            const assetTitle = '[' + volume + '] ' + name + ' | ' + price + 'k';
+            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + price + 'k';
 
             const item = trade.buyTransaction.itemPrice.item.id
             const transaction = trade.buyTransaction.id
+            const sellOrderPrice = trade.sellOrderPrice
 
             const asset = {
                 'value': trade.id,
                 'text': assetTitle,
                 'item': item,
                 'volume': volume,
-                'transaction': transaction
+                'transaction': transaction,
+                'sellOrderPrice': sellOrderPrice
             }
             assets.push(asset)
         })
 
         console.log(assets)
-        setUserAssets(assets)
-        setSelectedUserAsset(assets[0].value)
+        setUserHoldingAssets(assets)
+
+        if (assets.length === 0)
+            setSelectedUserHoldingAsset(0)
+        else
+            setSelectedUserHoldingAsset(assets[0].value)
+    }
+
+    function generateUnrealizedSellsFromTrades(trades) {
+        const unrealizedSells = []
+
+        trades.map(trade => {
+            const volume = trade.buyTransaction.volume
+            const buyPrice = trade.buyTransaction.itemPrice.price
+            const sellPrice = trade.sellOrderPrice
+            const name = trade.buyTransaction.itemPrice.item.itemBank.name
+
+            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + buyPrice + 'k | Prix de vente ' + sellPrice;
+
+            const item = trade.buyTransaction.itemPrice.item.id
+            const transaction = trade.buyTransaction.id
+            const sellOrderPrice = trade.sellOrderPrice
+
+            const asset = {
+                'value': trade.id,
+                'text': assetTitle,
+                'item': item,
+                'volume': volume,
+                'transaction': transaction,
+                'sellOrderPrice': sellOrderPrice
+            }
+            unrealizedSells.push(asset)
+        })
+
+        console.log(unrealizedSells)
+        setUserUnrealizedSells(unrealizedSells)
+
+        if (unrealizedSells.length === 0)
+            setSelectedUserUnrealizedSell(0)
+        else
+            setSelectedUserUnrealizedSell(unrealizedSells[0].value)
     }
 
     // function addAssetFromTrade(id) {
@@ -168,6 +218,9 @@ const Companion = () => {
     // }
 
     function newTradeBuy() {
+        if (selectedItemBank === 0)
+            return
+
         // New item
         postItem(selectedItemBank)
             .then(res => res.json())
@@ -190,27 +243,30 @@ const Companion = () => {
                 return postTrade(userId, data.id, null)
             })
             .then(res => res.json())
-        // Reload User Assets from DB
+        // Reload User Holding Assets from DB
             .then(() => {
                 // addAssetFromTrade(data.id);
-                return getUnrealizedTrades()
+                return getHoldingAssets()
             })
             .then(res => res.json())
             .then(data => {
-                generateAssetsFromTrades(data)
+                generateHoldingAssetsFromTrades(data)
             })
     }
 
     function newTradeSell() {
         // Get item
-        console.log(userAssets)
-        console.log(selectedUserAsset)
+        console.log(userUnrealizedSells)
+        console.log(selectedUserUnrealizedSell)
 
-        const correspondingAsset = userAssets.find(asset => asset.value === Number(selectedUserAsset))
+        if (selectedUserUnrealizedSell === 0)
+            return
+
+        const correspondingAsset = userUnrealizedSells.find(asset => asset.value === Number(selectedUserUnrealizedSell))
 
         // New item price for this item
         const now = new Date(Date.now()).toISOString();
-        postItemPrice(correspondingAsset.item, sellPrice, now)
+        postItemPrice(correspondingAsset.item, correspondingAsset.sellOrderPrice, now)
             .then(res => res.json())
 
         // Create sell transaction
@@ -220,12 +276,13 @@ const Companion = () => {
             .then(res => res.json())
         // Link sell transaction to trade
             .then(data => {
-                const user = data.user;
+                const user = userId;
                 const buyTransaction = correspondingAsset.transaction;
                 const sellTransaction = data.id;
-                const trade = selectedUserAsset;
+                const trade = selectedUserUnrealizedSell;
+                const sellOrderPrice = correspondingAsset.sellOrderPrice;
 
-                return updateTrade(user, buyTransaction, sellTransaction, trade)
+                return updateTrade(user, buyTransaction, sellTransaction, sellOrderPrice, trade)
             })
             .then(res => res.json())
         // Reload User Assets from DB
@@ -235,7 +292,69 @@ const Companion = () => {
             })
             .then(res => res.json())
             .then(data => {
-                generateAssetsFromTrades(data)
+                generateUnrealizedSellsFromTrades(data)
+            })
+    }
+
+    function newSellOrder() {
+        if (selectedUserHoldingAsset === 0)
+            return
+
+        const correspondingAsset = userHoldingAssets.find(asset => asset.value === Number(selectedUserHoldingAsset))
+
+        // Update Trade sell order price
+        const user = userId;
+        const trade = selectedUserHoldingAsset;
+        const buyTransaction = correspondingAsset.transaction;
+        const sellOrderPrice = sellPrice;
+        updateTrade(user, buyTransaction, null, sellOrderPrice, trade)
+            .then(res => res.json())
+        // Reload User Holding Assets from DB
+            .then(() => {
+                return getHoldingAssets()
+            })
+            .then(res => res.json())
+            .then(data => {
+                generateHoldingAssetsFromTrades(data)
+            })
+        // Reload User Unrealized Trades from DB
+            .then(() => {
+                return getUnrealizedTrades()
+            })
+            .then(res => res.json())
+            .then(data => {
+                generateUnrealizedSellsFromTrades(data)
+            })
+    }
+
+    function deleteSellOrder() {
+        if (selectedUserUnrealizedSell === 0)
+            return
+
+        const correspondingAsset = userUnrealizedSells.find(asset => asset.value === Number(selectedUserUnrealizedSell))
+
+        // Update Trade sell order price
+        const user = userId;
+        const trade = selectedUserUnrealizedSell;
+        const buyTransaction = correspondingAsset.transaction;
+        const sellOrderPrice = null;
+        updateTrade(user, buyTransaction, null, sellOrderPrice, trade)
+            .then(res => res.json())
+            // Reload User Holding Assets from DB
+            .then(() => {
+                return getHoldingAssets()
+            })
+            .then(res => res.json())
+            .then(data => {
+                generateHoldingAssetsFromTrades(data)
+            })
+            // Reload User Unrealized Trades from DB
+            .then(() => {
+                return getUnrealizedTrades()
+            })
+            .then(res => res.json())
+            .then(data => {
+                generateUnrealizedSellsFromTrades(data)
             })
     }
 
@@ -265,15 +384,23 @@ const Companion = () => {
 
                     <button onClick={newTradeBuy}>Confirmer l'achat</button>
 
-                    <h4>Valider vente</h4>
+                    <h4>Mettre en vente</h4>
 
-                    <p>Vente à conclure</p>
-                    <Select values={userAssets} selected={selectedUserAsset} callback={setSelectedUserAsset}/>
+                    <p>Asset à vendre (Holdings)</p>
+                    <Select values={userHoldingAssets} selected={selectedUserHoldingAsset} callback={setSelectedUserHoldingAsset}/>
 
-                    <p>Prix total</p>
+                    <p>Prix total de mise en vente</p>
                     <input type="number" value={sellPrice} onChange={onHandleSellPriceChange}/>
 
+                    <button onClick={newSellOrder}>Confirmer la mise en vente</button>
+
+                    <h4>Gestion des ventes</h4>
+
+                    <p>Vente à confirmer ou annuler (Unrealized)</p>
+                    <Select values={userUnrealizedSells} selected={selectedUserUnrealizedSell} callback={setSelectedUserUnrealizedSell}/>
+
                     <button onClick={newTradeSell}>Confirmer la vente</button>
+                    <button onClick={deleteSellOrder}>Annuler la vente</button>
                 </Fragment>
             )}
         </div>
