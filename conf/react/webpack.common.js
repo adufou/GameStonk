@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: [
@@ -21,6 +22,14 @@ module.exports = {
         filename: './index.html'
       }
     ),
+    // new MiniCssExtractPlugin({
+    //   filename: "index.css",
+    //   chunkFilename: "index.css"
+    // }),
+    new MiniCssExtractPlugin({
+      filename: '[name].bundle.css',
+      chunkFilename: '[id].css'
+    }),
   ],
   context: path.join(__dirname),
   module: {
@@ -96,16 +105,46 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
         use: [
           'style-loader',
           {
-            loader: 'css-loader',
-            options: { importLoaders: 1 },
+            loader: MiniCssExtractPlugin.loader,
+            // options: {
+            //   hmr: argv.mode === 'development'
+            // }
           },
-          'postcss-loader',
-        ],
-      }, {
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          'postcss-loader'
+        ]
+      },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     MiniCssExtractPlugin.loader,
+      //     "css-loader", "postcss-loader",
+      //   ],
+      // },
+
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: { importLoaders: 1 },
+      //     },
+      //     'postcss-loader',
+      //   ],
+      // },
+      {
         test: /\.(gif|png|jpe?g|svg)$/,
         use: [
           {

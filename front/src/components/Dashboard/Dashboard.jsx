@@ -16,8 +16,9 @@ const Dashboard = () => {
       <div>
         {loading === false && (
             <Fragment>
-              <h1>Dashboard</h1>
-              <h2>Hello</h2>
+              {/*<h1>Dashboard</h1>*/}
+              {/*<h2>Hello</h2>*/}
+              <p className='text-red-500'>Edit <code>src/App.js</code> and save to reload.</p>
             </Fragment>
         )}
       </div>
