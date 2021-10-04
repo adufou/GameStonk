@@ -6,6 +6,8 @@ import {
     TableBody,
     TableRow,
     TableCell,
+    TableFooter,
+    Pagination,
     Badge
 } from '@windmill/react-ui'
 import {getUser} from "../../service/userService";
@@ -14,6 +16,10 @@ import {getRealizedTrades} from "../../service/tradeService";
 const TradesTable = () => {
     const [userId, setUserId] = useState(0);
     const [realizedTrades, setRealizedTrades] = useState([])
+
+    const [currentPageTrades, setCurrentPageTrades] = useState([])
+
+    const RESULTS_PER_PAGE = 10;
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
@@ -51,6 +57,9 @@ const TradesTable = () => {
 
         console.log(realized)
         setRealizedTrades(realized)
+        const pageTrades = realized.slice(0, RESULTS_PER_PAGE)
+        console.log(pageTrades)
+        setCurrentPageTrades(pageTrades)
     }
 
     return (
@@ -66,7 +75,7 @@ const TradesTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {realizedTrades.map(trade => (
+                    {currentPageTrades.map(trade => (
                         <TableRow >
                             <TableCell>
                                 <div className="flex items-center text-sm">
@@ -105,6 +114,14 @@ const TradesTable = () => {
                     ))}
                 </TableBody>
             </Table>
+            <TableFooter>
+                <Pagination totalResults={realizedTrades.length} resultsPerPage={RESULTS_PER_PAGE}
+                            onChange={page => {
+                                console.log(page)
+                                const offset = (page - 1) * RESULTS_PER_PAGE
+                                setCurrentPageTrades(realizedTrades.slice(offset, offset + RESULTS_PER_PAGE))
+                            }}/>
+            </TableFooter>
         </TableContainer>
     )
 };
