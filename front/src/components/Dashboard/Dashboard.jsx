@@ -1,4 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import TradesTable from '../Table/TradesTable'
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -16,9 +18,11 @@ const Dashboard = () => {
       <div>
         {loading === false && (
             <Fragment>
-              {/*<h1>Dashboard</h1>*/}
-              {/*<h2>Hello</h2>*/}
-              <p className='text-red-500'>Edit <code>src/App.js</code> and save to reload.</p>
+              <Card className="m-2">
+                <CardBody>
+                  <TradesTable/>
+                </CardBody>
+              </Card>
             </Fragment>
         )}
       </div>

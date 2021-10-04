@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import Select from '../Select/Select'
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+
+import SelectWrapper from '../SelectWrapper/SelectWrapper'
 import {getItemBank, postItemBank} from "../../service/itemBankService";
 import {getUser} from "../../service/userService";
 import {postItem} from "../../service/itemService";
@@ -143,7 +145,7 @@ const Companion = () => {
             const price = trade.buyTransaction.itemPrice.price
             const name = trade.buyTransaction.itemPrice.item.itemBank.name
 
-            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + price + 'k';
+            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + price + 'K';
 
             const item = trade.buyTransaction.itemPrice.item.id
             const transaction = trade.buyTransaction.id
@@ -178,7 +180,7 @@ const Companion = () => {
             const sellPrice = trade.sellOrderPrice
             const name = trade.buyTransaction.itemPrice.item.itemBank.name
 
-            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + buyPrice + 'k | Prix de vente ' + sellPrice;
+            const assetTitle = '[' + volume + '] ' + name + ' | Acheté ' + buyPrice + 'K | Prix de vente ' + sellPrice + 'K';
 
             const item = trade.buyTransaction.itemPrice.item.id
             const transaction = trade.buyTransaction.id
@@ -362,45 +364,73 @@ const Companion = () => {
         <div>
             {loading === false && (
                 <Fragment>
-                    <h1>Companion</h1>
+                    <Card className="m-2">
+                        <CardBody>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque d'item</p>
 
-                    <h3>Banque d'item</h3>
+                            <Label>
+                                <span>Ajouter un item à la banque des items</span>
+                                <Input className="mt-1" value={newItemBankName} onChange={e => setNewItemBankName(e.target.value)}/>
+                            </Label>
 
-                    <p>Ajouter un item à la banque des items</p>
-                    <input value={newItemBankName} onChange={e => setNewItemBankName(e.target.value)}/>
-                    <button onClick={addItem}>Ajouter</button>
+                            <Button className="mt-2" onClick={addItem}>Ajouter</Button>
+                        </CardBody>
+                    </Card>
 
-                    <h3>Trade</h3>
-                    <h4>Nouvel achat</h4>
+                    <Card className="m-2">
+                        <CardBody>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Nouvel achat</p>
 
-                    <p>Item</p>
-                    <Select values={itemBank} selected={selectedItemBank} callback={onHandleSelectedItemBank}/>
+                            <Label>
+                                <span>Item</span>
+                                <SelectWrapper values={itemBank} selected={selectedItemBank} callback={onHandleSelectedItemBank}/>
+                            </Label>
 
-                    <p>Volume</p>
-                    <Select values={volumeBank} selected={selectedVolume} callback={setSelectedVolume}/>
+                            <Label>
+                                <span>Volume</span>
+                                <SelectWrapper values={volumeBank} selected={selectedVolume} callback={setSelectedVolume}/>
+                            </Label>
 
-                    <p>Prix total</p>
-                    <input type="number" value={buyPrice} onChange={onHandleBuyPriceChange}/>
+                            <Label>
+                                <span>Prix total</span>
+                                <Input className="mt-1" type="number" value={buyPrice} onChange={onHandleBuyPriceChange}/>
+                            </Label>
 
-                    <button onClick={newTradeBuy}>Confirmer l'achat</button>
+                            <Button className="mt-2" onClick={newTradeBuy}>Confirmer l'achat</Button>
+                        </CardBody>
+                    </Card>
 
-                    <h4>Mettre en vente</h4>
+                    <Card className="m-2">
+                        <CardBody>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Mettre en vente</p>
 
-                    <p>Asset à vendre (Holdings)</p>
-                    <Select values={userHoldingAssets} selected={selectedUserHoldingAsset} callback={setSelectedUserHoldingAsset}/>
+                            <Label>
+                                <span>Asset à vendre (Holdings)</span>
+                                <SelectWrapper values={userHoldingAssets} selected={selectedUserHoldingAsset} callback={setSelectedUserHoldingAsset}/>
+                            </Label>
 
-                    <p>Prix total de mise en vente</p>
-                    <input type="number" value={sellPrice} onChange={onHandleSellPriceChange}/>
+                            <Label>
+                                <span>Prix total de mise en vente</span>
+                                <Input className="mt-1" type="number" value={sellPrice} onChange={onHandleSellPriceChange}/>
+                            </Label>
 
-                    <button onClick={newSellOrder}>Confirmer la mise en vente</button>
+                            <Button className="mt-2" onClick={newSellOrder}>Confirmer la mise en vente</Button>
+                        </CardBody>
+                    </Card>
 
-                    <h4>Gestion des ventes</h4>
+                    <Card className="m-2">
+                        <CardBody>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Gestion des ventes</p>
 
-                    <p>Vente à confirmer ou annuler (Unrealized)</p>
-                    <Select values={userUnrealizedSells} selected={selectedUserUnrealizedSell} callback={setSelectedUserUnrealizedSell}/>
+                        <Label>
+                            <span>Vente à confirmer ou annuler (Unrealized)</span>
+                            <SelectWrapper values={userUnrealizedSells} selected={selectedUserUnrealizedSell} callback={setSelectedUserUnrealizedSell}/>
+                        </Label>
 
-                    <button onClick={newTradeSell}>Confirmer la vente</button>
-                    <button onClick={deleteSellOrder}>Annuler la vente</button>
+                        <Button className="mt-2" onClick={newTradeSell}>Confirmer la vente</Button>
+                        <Button className="mt-2 ml-2" onClick={deleteSellOrder}>Annuler la vente</Button>
+                        </CardBody>
+                    </Card>
                 </Fragment>
             )}
         </div>

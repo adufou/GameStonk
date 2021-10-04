@@ -84,6 +84,15 @@ class TradeViewSet(viewsets.ModelViewSet):
         return TradeGetSerializer
 
     @action(methods=['GET'], detail=False)
+    def get_realized_trades(self, request, pk=None):
+        user = request.user
+
+        unrealized_trades = Trade.objects.filter(user=user.id, sellTransaction__isnull=False)
+
+        serializer = self.get_serializer(unrealized_trades, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False)
     def get_unrealized_trades(self, request, pk=None):
         user = request.user
         

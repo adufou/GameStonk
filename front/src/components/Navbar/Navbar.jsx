@@ -1,8 +1,13 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, WindmillContext } from '@windmill/react-ui'
+import { BsMoonFill, BsSunFill } from 'react-icons/bs'
+import ConfigIcon from "../Icon/ConfigIcon";
 
 const Navbar = () => {
     const [isAuth, setIsAuth] = useState(false);
+
+    const { mode, toggleMode } = useContext(WindmillContext)
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -11,33 +16,48 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav>
-            <h1>Stonkofus</h1>
-            <ul>
+        <nav className="flex items-center justify-between px-6 py-2 bg-gray-50 dark:bg-gray-800 shadow-lg">
+            <a className="text-gray-700 dark:text-gray-400" href="/dashboard">Stonkofus</a>
+            <ul className="flex space-x-4">
                 {isAuth === true ? (
                     <Fragment>
                         {' '}
                         <li>
-                            <Link to='/companion'>Companion</Link>
+                            <Button layout="link" tag='a' href='/companion'>Companion</Button>
                         </li>
                         <li>
-                            <Link to='/dashboard'>Dashboard</Link>
+                            <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li>
                         <li>
-                            <Link to='/logout'>Logout</Link>
+                            <Button layout="link" tag='a' href='/logout'>Logout</Button>
                         </li>
                     </Fragment>
                 ) : (
                     <Fragment>
                         {' '}
                         <li>
-                            <Link to='/login'>Login</Link>
+                            <Button layout="link" tag='a' href='/login'>Login</Button>
                         </li>
                         <li>
-                            <Link to='/signup'>Signup</Link>
+                            <Button layout="link" tag='a' href='/signup'>Signup</Button>
                         </li>
                     </Fragment>
                 )}
+                <li>
+                    <Button onClick={toggleMode}>
+                        {mode === 'dark' ? (
+                            // <p>Dark</p>
+                            <ConfigIcon>
+                                <BsMoonFill/>
+                            </ConfigIcon>
+                        ) : (
+                            // <p>Light</p>
+                            <ConfigIcon>
+                                <BsSunFill/>
+                            </ConfigIcon>
+                        )}
+                    </Button>
+                </li>
             </ul>
         </nav>
     );

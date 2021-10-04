@@ -3,5 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import './index.css'
+import {Windmill} from "@windmill/react-ui";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <Windmill usePreferences>
+        <App />
+    </Windmill>,
+    document.getElementById("root")
+);

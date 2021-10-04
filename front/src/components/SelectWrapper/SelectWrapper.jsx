@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Select = ({ values, callback, selected }) => {
+import { Select } from '@windmill/react-ui'
+
+const SelectWrapper = ({ values, callback, selected }) => {
     return (
-        <select
+        <Select className="mt-1"
             // defaultValue={selected}
             value={selected}
             onChange={({ target: { value } }) => callback(value)}
@@ -12,8 +14,8 @@ const Select = ({ values, callback, selected }) => {
                     {value.text}
                 </option>
             ))}
-        </select>
+        </Select>
     );
 }
 
-export default Select;
+export default SelectWrapper;
