@@ -20,6 +20,7 @@ const Dashboard = () => {
             <Fragment>
               <Card className="m-2">
                 <CardBody>
+                  <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Vos trades</p>
                   <TradesTable/>
                 </CardBody>
               </Card>
