@@ -28,6 +28,14 @@ class ItemBankViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
+    @action(methods=['GET'], detail=True)
+    def get_reports(self, request, pk=None):
+        user = request.user
+
+        reports = Report.objects.filter(user=user.id, itemPrice__item__itemBank__id=pk)
+
+        serializer = ReportSerializer(reports, many=True)
+        return Response(serializer.data)
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
@@ -58,6 +66,7 @@ class ReportViewSet(viewsets.ModelViewSet):
     serializer_class = ReportSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+
 
 
 class TransactionViewSet(viewsets.ModelViewSet):

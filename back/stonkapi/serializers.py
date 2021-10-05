@@ -55,9 +55,10 @@ class ItemPricePostSerializer(serializers.ModelSerializer):
         
 
 class ReportSerializer(serializers.ModelSerializer):
+    itemPrice = ItemPriceGetSerializer(read_only=True)
     class Meta:
         model = Report
-        fields = ['id', 'user', 'itemPrice']
+        fields = ['id', 'user', 'itemPrice', 'volume']
 
 # Serializer for Transaction GET -> itemPrice Nested
 class TransactionGetSerializer(serializers.ModelSerializer):
@@ -75,6 +76,12 @@ class TransactionPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = ['id', 'user', 'itemPrice', 'volume']
+
+    def create(self, validated_data):
+        print(validated_data)
+        transaction = Transaction.objects.create(**validated_data)
+        Report.objects.create(**validated_data)
+        return transaction
 
 
 # Serializer for Trade GET -> buyTransaction and sellTransaction Nested

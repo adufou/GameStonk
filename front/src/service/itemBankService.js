@@ -19,4 +19,14 @@ const postItemBank = (body) => {
     });
 };
 
-export {getItemBank, postItemBank}
+const getItemBankReports = (id) => {
+    return fetch('http://127.0.0.1:8000/item_bank/' + id + '/get_reports/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        },
+    });
+};
+
+export {getItemBank, postItemBank, getItemBankReports}

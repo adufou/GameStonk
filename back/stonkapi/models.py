@@ -18,6 +18,7 @@ class ItemPrice(models.Model):
 class Report(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     itemPrice = models.ForeignKey(ItemPrice, on_delete=models.CASCADE)
+    volume = models.SmallIntegerField(default=1)
 
 class Transaction(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

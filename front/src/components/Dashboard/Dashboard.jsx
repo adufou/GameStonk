@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
 import TradesTable from '../Table/TradesTable'
+import ItemBankChart from "../ItemBankChart/ItemBankChart";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -22,6 +23,13 @@ const Dashboard = () => {
                 <CardBody>
                   <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Vos trades</p>
                   <TradesTable/>
+                </CardBody>
+              </Card>
+
+              <Card className="m-2">
+                <CardBody>
+                  <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Stocks</p>
+                  <ItemBankChart/>
                 </CardBody>
               </Card>
             </Fragment>
