@@ -28,8 +28,8 @@ const TradesTable = () => {
             getRealizedTrades()
                 .then(res => res.json())
                 .then(data => {
-                    generateRealizedSellsFromTrades(data)
-                    console.log(realizedTrades)
+                        generateRealizedSellsFromTrades(data)
+                        console.log(realizedTrades)
                 })
         }
     }, [])
