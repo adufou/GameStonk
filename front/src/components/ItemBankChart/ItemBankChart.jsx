@@ -71,7 +71,7 @@ const ItemBankChart = (props) => {
                 xScale={{
                     type: "time",
                     format: "%Y-%m-%d %H:%M:%S",
-                    precision: "minute"
+                    precision: "second"
                 }}
                 xFormat="time:%Y-%m-%d %H:%M:%S"
                 yScale={{
