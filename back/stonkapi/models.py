@@ -4,8 +4,12 @@ from django.db import models
 
 # Create your models here.
 
+class HdvBank(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+
 class ItemBank(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    hdv = models.ForeignKey(HdvBank, on_delete=models.CASCADE)
 
 class Item(models.Model):
     itemBank = models.ForeignKey(ItemBank, on_delete=models.CASCADE)

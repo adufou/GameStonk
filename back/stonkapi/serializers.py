@@ -1,7 +1,7 @@
 from re import S
 from django.contrib.auth.models import User, Group
 from rest_framework.fields import IntegerField
-from stonkapi.models import Item, ItemBank, ItemPrice, Report, Transaction, Trade
+from stonkapi.models import HdvBank, Item, ItemBank, ItemPrice, Report, Transaction, Trade
 from rest_framework import serializers
 
 from users.models import CustomUser
@@ -12,10 +12,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ['url', 'username', 'email']
 
 
+class HdvBankSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HdvBank
+        fields = ['id', 'name']
+
+
 class ItemBankSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemBank
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'hdv']
 
 
 # Serializer for Item GET -> itemBank Nested 

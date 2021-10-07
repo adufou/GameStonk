@@ -1,6 +1,6 @@
-from stonkapi.serializers import (ItemPriceGetSerializer, ItemPricePostSerializer, ItemBankSerializer, ItemGetSerializer, ItemPostSerializer,
+from stonkapi.serializers import (HdvBankSerializer, ItemPriceGetSerializer, ItemPricePostSerializer, ItemBankSerializer, ItemGetSerializer, ItemPostSerializer,
                                     ReportSerializer, TransactionGetSerializer, TransactionPostSerializer, CustomUserSerializer, TradeGetSerializer, TradePostSerializer)
-from stonkapi.models import ItemBank, Item, ItemPrice, Report, Transaction, Trade
+from stonkapi.models import HdvBank, ItemBank, Item, ItemPrice, Report, Transaction, Trade
 from rest_framework import serializers, viewsets
 from rest_framework import permissions, authentication
 from django.shortcuts import render
@@ -19,6 +19,13 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all().order_by('-date_joined')
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+
+
+class HdvBankViewSet(viewsets.ModelViewSet):
+    queryset = HdvBank.objects.all()
+    serializer_class = HdvBankSerializer
+    permissions_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
 

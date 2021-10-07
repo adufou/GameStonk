@@ -8,19 +8,23 @@ import {postItem} from "../../service/itemService";
 import {postItemPrice} from "../../service/itemPriceService";
 import {postTransaction} from "../../service/transactionService";
 import {getUnrealizedTrades, updateTrade, postTrade, getHoldingAssets} from "../../service/tradeService";
+import {getHdvBank, postHdvBank} from "../../service/hdvBankService"
 
 const Companion = () => {
     const [loading, setLoading] = useState(true);
 
     const [userId, setUserId] = useState(0);
+    const [hdvBank, setHdvBank] = useState([]);
     const [itemBank, setItemBank] = useState([]);
     const [userHoldingAssets, setUserHoldingAssets] = useState([]);
     const [userUnrealizedSells, setUserUnrealizedSells] = useState([]);
 
+    const [newHdvBankName, setNewHdvBankName] = useState('');
     const [newItemBankName, setNewItemBankName] = useState('');
     const [selectedVolume, setSelectedVolume] = useState(1);
     const [buyPrice, setBuyPrice] = useState(1);
     const [sellPrice, setSellPrice] = useState(1);
+    const [selectedHdvBank, setSelectedHdvBank] = useState(0);
     const [selectedItemBank, setSelectedItemBank] = useState(0);
     const [selectedUserHoldingAsset, setSelectedUserHoldingAsset] = useState(0)
     const [selectedUserUnrealizedSell, setSelectedUserUnrealizedSell] = useState(0)
@@ -41,6 +45,22 @@ const Companion = () => {
                 .then(data => {
                     setUserId(data.pk)
                 });
+
+            // On set hdvBank et selectedHdvBank
+            getHdvBank()
+                .then(res => res.json())
+                .then(data => {
+                    let bank = []
+                    data.map(item => {
+                        bank.push({
+                            'value': item.id,
+                            'text': item.name
+                        });
+                    })
+                    setHdvBank(bank);
+                    if (bank.length > 0)
+                        setSelectedHdvBank(bank[0].value)
+                })
 
             // On set itemBank et selectedItemBank
             getItemBank()
@@ -115,12 +135,35 @@ const Companion = () => {
         setSelectedItemBank(Number(e))
     }
 
+    function addHdv() {
+        if (newHdvBankName === '')
+            return
+
+        const body = JSON.stringify({
+            "name": newHdvBankName
+        });
+
+        postHdvBank(body)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const newHdv = {
+                    "value": data.id,
+                    "text": data.name
+                };
+                setHdvBank([...hdvBank, newHdv])
+                setNewHdvBankName('')
+                setSelectedHdvBank(Number(data.id))
+            })
+    }
+
     function addItem() {
         if (newItemBankName === '')
             return
 
         const body = JSON.stringify({
-            "name": newItemBankName
+            "name": newItemBankName,
+            "hdv": selectedHdvBank
         });
 
         postItemBank(body)
@@ -205,19 +248,6 @@ const Companion = () => {
         else
             setSelectedUserUnrealizedSell(unrealizedSells[0].value)
     }
-
-    // function addAssetFromTrade(id) {
-    //     const itemName = itemBank.find(item => item.value === selectedItemBank).text
-    //
-    //     const assetTitle = '[' + selectedVolume + '] ' + itemName + ' | ' + buyPrice + 'k';
-    //
-    //     const asset = {
-    //         'value': id,
-    //         'text': assetTitle
-    //     }
-    //     setUserAssets([...userAssets, asset])
-    //     setSelectedUserAsset(Number(id))
-    // }
 
     function newTradeBuy() {
         if (selectedItemBank === 0)
@@ -366,11 +396,29 @@ const Companion = () => {
                 <Fragment>
                     <Card className="m-2">
                         <CardBody>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque d'HDV</p>
+
+                            <Label>
+                                <span>Nom de l'HDV à ajouter</span>
+                                <Input className="mt-1" value={newHdvBankName} onChange={e => setNewHdvBankName(e.target.value)}/>
+                            </Label>
+
+                            <Button className="mt-2" onClick={addHdv}>Ajouter</Button>
+                        </CardBody>
+                    </Card>
+
+                    <Card className="m-2">
+                        <CardBody>
                             <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque d'item</p>
 
                             <Label>
-                                <span>Ajouter un item à la banque des items</span>
+                                <span>Nom de l'item à ajouter</span>
                                 <Input className="mt-1" value={newItemBankName} onChange={e => setNewItemBankName(e.target.value)}/>
+                            </Label>
+
+                            <Label>
+                                <span>Hôtel de vente correspondant</span>
+                                <SelectWrapper values={hdvBank} selected={selectedHdvBank} callback={setSelectedHdvBank}/>
                             </Label>
 
                             <Button className="mt-2" onClick={addItem}>Ajouter</Button>
