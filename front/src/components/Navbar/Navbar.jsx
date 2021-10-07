@@ -17,7 +17,7 @@ const Navbar = () => {
 
     return (
         <nav className="flex items-center justify-between px-6 py-2 bg-gray-50 dark:bg-gray-800 shadow-lg">
-            <a className="text-gray-700 dark:text-gray-400" href="/dashboard">Stonkofus</a>
+            <Button layout='a' className="text-gray-700 dark:text-gray-400" href='/companion'>Stonkofus</Button>
             <ul className="flex space-x-4">
                 {isAuth === true ? (
                     <Fragment>

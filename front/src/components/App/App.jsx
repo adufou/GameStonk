@@ -1,5 +1,5 @@
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import Dashboard from "../Dashboard/Dashboard";
 import Navbar from "../Navbar/Navbar";
@@ -10,7 +10,11 @@ import Companion from "../Companion/Companion";
 import Holdings from "../Holdings/Holdings";
 
 function App() {
-  return (
+    useEffect(() => {
+        document.title = "Stonkofus"
+    }, [])
+
+    return (
       <div>
           <link
               rel="stylesheet"
@@ -30,7 +34,7 @@ function App() {
               </Switch>
           </Router>
       </div>
-  );
+    );
 }
 
 export default App;
