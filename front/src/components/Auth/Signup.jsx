@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -48,39 +50,77 @@ const Signup = () => {
     };
 
     return (
-        <div>
-            {loading === false && <h1>Signup</h1>}
-            {errors === true && <h2>Cannot signup with provided credentials</h2>}
-            <form onSubmit={onSubmit}>
-                <label htmlFor='email'>Email address:</label> <br />
-                <input
-                    name='email'
-                    type='email'
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    required
-                />{' '}
-                <br />
-                <label htmlFor='password1'>Password:</label> <br />
-                <input
-                    name='password1'
-                    type='password'
-                    value={password1}
-                    onChange={e => setPassword1(e.target.value)}
-                    required
-                />{' '}
-                <br />
-                <label htmlFor='password2'>Confirm password:</label> <br />
-                <input
-                    name='password2'
-                    type='password'
-                    value={password2}
-                    onChange={e => setPassword2(e.target.value)}
-                    required
-                />{' '}
-                <br />
-                <input type='submit' value='Signup' />
-            </form>
+        <div className="container mx-auto w-96">
+            <Card className="mt-32">
+                <CardBody>
+                    {loading === false && <Label>
+                        <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Sign Up</p>
+                    </Label>}
+                    {errors === true && <h2>Cannot signup with provided credentials</h2>}
+                    <form onSubmit={onSubmit}>
+                        <Label className="mb-4">
+                            <p className="mb-2">Adresse email</p>
+                            <Input
+                                name='email'
+                                type='email'
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                required/>
+                        </Label>
+
+                        {/*<label htmlFor='email'>Email address:</label> <br />*/}
+                        {/*<input*/}
+                        {/*    name='email'*/}
+                        {/*    type='email'*/}
+                        {/*    value={email}*/}
+                        {/*    onChange={e => setEmail(e.target.value)}*/}
+                        {/*    required*/}
+                        {/*/>{' '}*/}
+                        {/*<br />*/}
+
+                        <Label className="mb-4">
+                            <p className="mb-2">Mot de passe</p>
+                            <Input
+                                name='password1'
+                                type='password'
+                                value={password1}
+                                onChange={e => setPassword1(e.target.value)}
+                                required/>
+                        </Label>
+                        {/*<label htmlFor='password1'>Password:</label> <br />*/}
+                        {/*<input*/}
+                        {/*    name='password1'*/}
+                        {/*    type='password'*/}
+                        {/*    value={password1}*/}
+                        {/*    onChange={e => setPassword1(e.target.value)}*/}
+                        {/*    required*/}
+                        {/*/>{' '}*/}
+                        {/*<br />*/}
+
+                        <Label className="mb-4">
+                            <p className="mb-2">Confirmer le mot de passe</p>
+                            <Input
+                                name='password2'
+                                type='password'
+                                value={password2}
+                                onChange={e => setPassword2(e.target.value)}
+                                required/>
+                        </Label>
+
+                        {/*<label htmlFor='password2'>Confirm password:</label> <br />*/}
+                        {/*<input*/}
+                        {/*    name='password2'*/}
+                        {/*    type='password'*/}
+                        {/*    value={password2}*/}
+                        {/*    onChange={e => setPassword2(e.target.value)}*/}
+                        {/*    required*/}
+                        {/*/>{' '}*/}
+                        {/*<br />*/}
+
+                        <Button type='submit'>Sign Up</Button>
+                    </form>
+                </CardBody>
+            </Card>
         </div>
     );
 };

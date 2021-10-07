@@ -1,4 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+
 
 const Logout = () => {
     const [loading, setLoading] = useState(true);
@@ -30,13 +32,21 @@ const Logout = () => {
     };
 
     return (
-        <div>
-            {loading === false && (
-                <Fragment>
-                    <h1>Are you sure you want to logout?</h1>
-                    <input type='button' value='Logout' onClick={handleLogout} />
-                </Fragment>
-            )}
+        <div className="container mx-auto w-96">
+            <Card className="mt-32">
+                <CardBody>
+                    {loading === false && (
+                        <Fragment>
+                            <Label>
+                                <p className="mb-2">Are you sure you want to logout?</p>
+                                <Button value='Logout' onClick={handleLogout}>
+                                    Logout
+                                </Button>
+                            </Label>
+                        </Fragment>
+                    )}
+                </CardBody>
+            </Card>
         </div>
     );
 };
