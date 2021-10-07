@@ -396,10 +396,15 @@ const Companion = () => {
                 <Fragment>
                     <Card className="m-2">
                         <CardBody>
-                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque d'HDV</p>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque des HdV</p>
+                            <Label className="mb-4">
+                                <p>Vous pouvez ici ajouter un Hôtel de Vente à la banque des hôtels de vente</p>
+                                <p>Vous pourrez ensuite lier un item (ex: du Fer) à cet HdV (ex: Mineur)</p>
+                                <p>Cette banque ne permet pas de différencier les différentes instances d'un HdV (Bonta/Brakmar/Astrub)</p>
+                            </Label>
 
                             <Label>
-                                <span>Nom de l'HDV à ajouter</span>
+                                <span>Nom de l'HdV à ajouter</span>
                                 <Input className="mt-1" value={newHdvBankName} onChange={e => setNewHdvBankName(e.target.value)}/>
                             </Label>
 
@@ -410,6 +415,13 @@ const Companion = () => {
                     <Card className="m-2">
                         <CardBody>
                             <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Banque d'item</p>
+
+                            <Label className="mb-4">
+                                <p>Vous pouvez ici ajouter un item à la banque des items</p>
+                                <p>[ item ] désigne un 'type' d'item, comme du Fer</p>
+                                <p>Chaque item doit être lié à un Hôtel de Vente</p>
+                                <p>Si l'HdV correspondant n'est pas dans la liste, l'ajouter dans la banque des HdV</p>
+                            </Label>
 
                             <Label>
                                 <span>Nom de l'item à ajouter</span>
@@ -428,6 +440,14 @@ const Companion = () => {
                     <Card className="m-2">
                         <CardBody>
                             <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Nouvel achat</p>
+
+                            <Label className="mb-4">
+                                <p>Vous pouvez ici entrer un achat que vous venez d'effectuer en jeu</p>
+                                <p>Veuillez spécifier l'item acheté, le volume, ainsi que le prix total</p>
+                                <p>Ex: x10 Fer pour 400k -> Fer | x10 | 400</p>
+                                <p>En cas d'achat de plusieurs stack, confirmer l'achat stack par stack, le prix total reste le prix d'UN stack</p>
+                                <p>Dans Stonkofus, un stack correspond à un stack de 1, de 10 ou de 100 d'un item. Un asset (voir plus bas) correspond/est lié à un stack</p>
+                            </Label>
 
                             <Label>
                                 <span>Item</span>
@@ -450,10 +470,21 @@ const Companion = () => {
 
                     <Card className="m-2">
                         <CardBody>
-                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Mettre en vente</p>
+                            <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Placer un ordre de vente</p>
+
+                            <Label className="mb-4">
+                                <p>Vous pouvez ici entrer un ordre de vente que vous venez d'effectuer en jeu</p>
+                                <p>Un ordre de vente est le fait de déposer un objet ou stack d'objets en hdv pour le vendre</p>
+                                <p>
+                                    Vous devez choisir parmis vos assets, c'est à dire les objets que vous avez precedemment acheté et
+                                    entré dans Stonkofus, un stack d'objet correspondant (item et volume) à celui que vous mettez en vente.
+                                </p>
+                                <p>Vous ne pouvez bien entendu pas passer d'ordre de vente plus d'une fois pour un asset</p>
+                                <p>Comme pour l'achat, le prix total de mise en vente correspond au prix d'UN stack</p>
+                            </Label>
 
                             <Label>
-                                <span>Asset à vendre (Holdings)</span>
+                                <span>Asset à vendre</span>
                                 <SelectWrapper values={userHoldingAssets} selected={selectedUserHoldingAsset} callback={setSelectedUserHoldingAsset}/>
                             </Label>
 
@@ -470,13 +501,21 @@ const Companion = () => {
                         <CardBody>
                             <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Gestion des ventes</p>
 
-                        <Label>
-                            <span>Vente à confirmer ou annuler (Unrealized)</span>
-                            <SelectWrapper values={userUnrealizedSells} selected={selectedUserUnrealizedSell} callback={setSelectedUserUnrealizedSell}/>
-                        </Label>
+                            <Label className="mb-4">
+                                <p>Vous pouvez ici gérer vos ordres de vente</p>
+                                <p>Sélectionnez un ordre de vente précédemment placé, et confirmez ou annulez la vente</p>
+                                <p>Si vous avez VENDU (reçu des K) -> Confirmez</p>
+                                <p>Si vous avez RETIRE (pas reçu des K) -> Annulez</p>
+                                <p>Suite à une annulation, l'asset sera de nouveau disponible pour placer un ordre de vente (et baisser le prix de 1000 à 999 pti batar)</p>
+                            </Label>
 
-                        <Button className="mt-2" onClick={newTradeSell}>Confirmer la vente</Button>
-                        <Button className="mt-2 ml-2" onClick={deleteSellOrder}>Annuler la vente</Button>
+                            <Label>
+                                <span>Vente à confirmer ou annuler (Unrealized)</span>
+                                <SelectWrapper values={userUnrealizedSells} selected={selectedUserUnrealizedSell} callback={setSelectedUserUnrealizedSell}/>
+                            </Label>
+
+                            <Button className="mt-2" onClick={newTradeSell}>Confirmer la vente</Button>
+                            <Button className="mt-2 ml-2" onClick={deleteSellOrder}>Annuler la vente</Button>
                         </CardBody>
                     </Card>
                 </Fragment>

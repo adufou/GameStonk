@@ -26,7 +26,7 @@ const Navbar = () => {
                             <Button layout="link" tag='a' href='/companion'>Companion</Button>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/holdings'>Holdings</Button>
+                            <Button layout="link" tag='a' href='/holdings'>Report</Button>
                         </li>
                         <li>
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>

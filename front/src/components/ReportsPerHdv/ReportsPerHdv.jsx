@@ -78,12 +78,25 @@ const ReportsPerHdv = () => {
         <Fragment>
             <Card className="m-2">
                 <CardBody>
+                    <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Report des prix sur vos assets</p>
+
+                    <Label className="mb-4">
+                        <p>Vous pouvez ici reporter les prix de vos assets pour mettre à jour les données de Stonkofus</p>
+                        <p>Ces données sont pour le moment personnelles, vous etes responsables de mauvaises entrées (editables plus tard ?)</p>
+                        <p>Chaque carte correspond à un HdV, et vous y trouverez tous vos assets qui correspondent à cet HdV</p>
+                        <p>Permet de savoir dans le jeu ou aller pour tout entrer en très peu de temps; il suffit de suivre HdV par HdV et ligne par ligne</p>
+                        <p>IMPORTANT : Mettre 0 au prix quand la quantité n'est pas disponible a l'achat. Cela ne reportera aucune donnée pour ce volume</p>
+                        <p>Vous ne pouvez report qu'une fois par chargement de la page, pour eviter tout double report et pouvoir suivre votre avancement lors du processus d'entrée</p>
+                    </Label>
+                </CardBody>
+            </Card>
+
+            <Card className="m-2">
+                <CardBody>
                     {holdingsPerHdv.map(hdv => (
                         <div>
                             <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">{hdv.name}</p>
-                            <Label>
-                                <span>Mettre 0 au prix quand la quantité n'est pas disponible a l'achat</span>
-                            </Label>
+
                             <Table>
                                 <TableHeader>
                                     <TableRow>
