@@ -67,7 +67,7 @@ const ItemBankChart = (props) => {
             <ResponsiveLine
                 data={chartReportsData}
 
-                margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                margin={{ top: 20, right: 80, bottom: 20, left: 20 }}
                 xScale={{
                     type: "time",
                     format: "%Y-%m-%d %H:%M:%S",
@@ -130,7 +130,7 @@ const ItemBankChart = (props) => {
                         anchor: 'bottom-right',
                         direction: 'column',
                         justify: false,
-                        translateX: 140,
+                        translateX: 110,
                         translateY: 0,
                         itemsSpacing: 2,
                         itemDirection: 'left-to-right',

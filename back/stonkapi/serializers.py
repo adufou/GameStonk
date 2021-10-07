@@ -18,7 +18,19 @@ class HdvBankSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class ItemBankSerializer(serializers.ModelSerializer):
+# Serializer for ItemBank GET -> hdv Nested
+class ItemBankGetSerializer(serializers.ModelSerializer):
+    hdv = HdvBankSerializer(read_only=True)
+
+    class Meta:
+        model = ItemBank
+        fields = ['id', 'name', 'hdv']
+
+
+# Serializer for ItemBank POST -> hdv is an int
+class ItemBankPostSerializer(serializers.ModelSerializer):
+    itemBank = serializers.PrimaryKeyRelatedField(queryset=HdvBank.objects.all())
+
     class Meta:
         model = ItemBank
         fields = ['id', 'name', 'hdv']
@@ -26,7 +38,7 @@ class ItemBankSerializer(serializers.ModelSerializer):
 
 # Serializer for Item GET -> itemBank Nested 
 class ItemGetSerializer(serializers.ModelSerializer):
-    itemBank = ItemBankSerializer(read_only=True)
+    itemBank = ItemBankGetSerializer(read_only=True)
 
     class Meta:
         model = Item
@@ -59,9 +71,19 @@ class ItemPricePostSerializer(serializers.ModelSerializer):
         model = ItemPrice
         fields = ['id', 'item', 'price', 'time']
         
-
-class ReportSerializer(serializers.ModelSerializer):
+# Serializer for Report GET -> itemPrice Nested
+class ReportGetSerializer(serializers.ModelSerializer):
     itemPrice = ItemPriceGetSerializer(read_only=True)
+
+    class Meta:
+        model = Report
+        fields = ['id', 'user', 'itemPrice', 'volume']
+
+
+# Serializer for ItemPrice POST -> itemPrice is an int
+class ReportPostSerializer(serializers.ModelSerializer):
+    itemPrice = serializers.PrimaryKeyRelatedField(queryset=ItemPrice.objects.all())
+
     class Meta:
         model = Report
         fields = ['id', 'user', 'itemPrice', 'volume']

@@ -1,5 +1,5 @@
-from stonkapi.serializers import (HdvBankSerializer, ItemPriceGetSerializer, ItemPricePostSerializer, ItemBankSerializer, ItemGetSerializer, ItemPostSerializer,
-                                    ReportSerializer, TransactionGetSerializer, TransactionPostSerializer, CustomUserSerializer, TradeGetSerializer, TradePostSerializer)
+from stonkapi.serializers import (HdvBankSerializer, ItemPriceGetSerializer, ItemPricePostSerializer, ItemBankGetSerializer, ItemBankPostSerializer, ItemGetSerializer, ItemPostSerializer,
+                                    ReportGetSerializer, ReportPostSerializer, TransactionGetSerializer, TransactionPostSerializer, CustomUserSerializer, TradeGetSerializer, TradePostSerializer)
 from stonkapi.models import HdvBank, ItemBank, Item, ItemPrice, Report, Transaction, Trade
 from rest_framework import serializers, viewsets
 from rest_framework import permissions, authentication
@@ -31,9 +31,14 @@ class HdvBankViewSet(viewsets.ModelViewSet):
 
 class ItemBankViewSet(viewsets.ModelViewSet):
     queryset = ItemBank.objects.all()
-    serializer_class = ItemBankSerializer
+    serializer_class = ItemBankGetSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ItemBankPostSerializer
+        return ItemBankGetSerializer
 
     @action(methods=['GET'], detail=True)
     def get_reports(self, request, pk=None):
@@ -41,7 +46,7 @@ class ItemBankViewSet(viewsets.ModelViewSet):
 
         reports = Report.objects.filter(user=user.id, itemPrice__item__itemBank__id=pk)
 
-        serializer = ReportSerializer(reports, many=True)
+        serializer = ReportGetSerializer(reports, many=True)
         return Response(serializer.data)
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -70,10 +75,14 @@ class ItemPriceViewSet(viewsets.ModelViewSet):
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
-    serializer_class = ReportSerializer
+    serializer_class = ReportGetSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ReportPostSerializer
+        return ReportGetSerializer
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
