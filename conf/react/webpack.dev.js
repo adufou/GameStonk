@@ -7,7 +7,7 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
-    allowedHosts: "all",
+    allowedHosts: ['all', 'ns399800.ip-5-196-67.eu'],
     port: 4000,
     host: '0.0.0.0',
     publicPath: '/',
