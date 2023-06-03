@@ -163,7 +163,8 @@ const Companion = () => {
 
         const body = JSON.stringify({
             "name": newItemBankName,
-            "hdv": selectedHdvBank
+            "hdv": selectedHdvBank,
+            "itemBank": itemBank,
         });
 
         postItemBank(body)
