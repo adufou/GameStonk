@@ -175,6 +175,8 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
   'http://127.0.0.1:4000',
   'http://localhost:4000',
+  'http://ns399800.ip-5-196-67.eu:4000',
+  'http://ns399800.ip-5-196-67.eu:8000',
 )
 
 AUTH_USER_MODEL = 'users.CustomUser'
