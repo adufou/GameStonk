@@ -1,9 +1,11 @@
+import url from "../tools/url";
+
 const postTransaction = (user, itemPrice, volume) => {
     const body = {
         user, itemPrice, volume
     }
 
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/transaction/', {
+    return fetch(url('transaction/', 8000), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -1,5 +1,7 @@
+import url from "../tools/url";
+
 const getItemBank = () => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/item_bank/', {
+    return fetch(url('item_bank/', 8000), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ const getItemBank = () => {
 }
 
 const postItemBank = (body) => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/item_bank/', {
+    return fetch(url('item_bank/', 8000), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +22,7 @@ const postItemBank = (body) => {
 };
 
 const getItemBankReports = (id) => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/item_bank/' + id + '/get_reports/', {
+    return fetch(url('item_bank/'+ id + '/get_reports/', 8000) , {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

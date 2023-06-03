@@ -3,13 +3,14 @@ import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
 import TradesTable from '../Table/TradesTable'
 import ItemBankChart from "../ItemBankChart/ItemBankChart";
 import ItemBankChartGrid from "../ItemBankChartGrid/ItemBankChartGrid";
+import redirect from '../../tools/redirect';
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (localStorage.getItem('token') === null) {
-      window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+      redirect('login');
     } else {
       // End loading
       setLoading(false);

@@ -12,6 +12,7 @@ import {
 } from '@windmill/react-ui'
 import {getUser} from "../../service/userService";
 import {getRealizedTrades} from "../../service/tradeService";
+import redirect from '../../tools/redirect';
 
 const TradesTable = () => {
     const [userId, setUserId] = useState(0);
@@ -23,7 +24,7 @@ const TradesTable = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+            redirect('login');
         } else {
             getRealizedTrades()
                 .then(res => res.json())

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {postLoginUser} from "../../service/userService";
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import redirect from '../../tools/redirect';
 
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
-            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/dashboard');
+            redirect('dashboard');
         } else {
             setLoading(false);
         }
@@ -31,7 +32,7 @@ const Login = () => {
                 if (data.key) {
                     localStorage.clear();
                     localStorage.setItem('token', data.key);
-                    window.location.replace('http://ns399800.ip-5-196-67.eu:4000/dashboard');
+                    redirect('dashboard');
                 } else {
                     setEmail('');
                     setPassword('');

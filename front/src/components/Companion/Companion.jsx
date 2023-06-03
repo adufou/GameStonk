@@ -9,6 +9,7 @@ import {postItemPrice} from "../../service/itemPriceService";
 import {postTransaction} from "../../service/transactionService";
 import {getUnrealizedTrades, updateTrade, postTrade, getHoldingAssets} from "../../service/tradeService";
 import {getHdvBank, postHdvBank} from "../../service/hdvBankService"
+import redirect from '../../tools/redirect';
 
 const Companion = () => {
     const [loading, setLoading] = useState(true);
@@ -37,7 +38,7 @@ const Companion = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+            redirect('login');
         } else {
             // On set userId et userEmail
             getUser()
@@ -161,10 +162,12 @@ const Companion = () => {
         if (newItemBankName === '')
             return
 
+        console.log(selectedItemBank)
+
         const body = JSON.stringify({
             "name": newItemBankName,
             "hdv": selectedHdvBank,
-            "itemBank": itemBank,
+            "itemBank": selectedItemBank,
         });
 
         postItemBank(body)

@@ -1,9 +1,11 @@
+import url from "../tools/url";
+
 const postItem = (itemBank) => {
     const body = {
         itemBank
     };
 
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/item/', {
+    return fetch(url('item/', 8000), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

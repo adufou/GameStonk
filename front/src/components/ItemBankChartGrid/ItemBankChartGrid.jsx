@@ -2,13 +2,14 @@ import React, {useState, useEffect, Fragment} from 'react';
 import {getItemBank} from "../../service/itemBankService";
 import ItemBankChart from "../ItemBankChart/ItemBankChart";
 import {Card, CardBody} from "@windmill/react-ui";
+import redirect from '../../tools/redirect';
 
 const ItemBankChartGrid = () => {
     const [itemBankList, setItemBankList] = useState([])
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+            redirect('login');
         } else {
             const list = []
 

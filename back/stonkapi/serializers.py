@@ -29,11 +29,11 @@ class ItemBankGetSerializer(serializers.ModelSerializer):
 
 # Serializer for ItemBank POST -> hdv is an int
 class ItemBankPostSerializer(serializers.ModelSerializer):
-    itemBank = serializers.PrimaryKeyRelatedField(queryset=HdvBank.objects.all())
+    # itemBank = serializers.PrimaryKeyRelatedField(queryset=HdvBank.objects.all())
 
     class Meta:
         model = ItemBank
-        fields = ['id', 'name', 'hdv', 'itemBank']
+        fields = ['id', 'name', 'hdv']
 
 
 # Serializer for Item GET -> itemBank Nested 

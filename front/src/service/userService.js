@@ -1,5 +1,7 @@
+import url from "../tools/url"
+
 const getUser = () => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/user/', {
+    return fetch(url('users/auth/user/', 8000), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ const getUser = () => {
 }
 
 const postLoginUser = (user) => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/login/', {
+    return fetch(url('users/auth/login/', 8000), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -1,5 +1,7 @@
+import url from "../tools/url";
+
 const getHdvBank = () => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/hdv_bank/', {
+    return fetch(url('hdv_bank/', 8000), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ const getHdvBank = () => {
 }
 
 const postHdvBank = (body) => {
-    return fetch('http://ns399800.ip-5-196-67.eu:8000/hdv_bank/', {
+    return fetch(url('hdv_bank/', 8000), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

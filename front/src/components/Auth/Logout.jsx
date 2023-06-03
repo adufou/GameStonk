@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import redirect from '../../tools/redirect';
+import url from '../../tools/url';
 
 
 const Logout = () => {
@@ -7,7 +9,7 @@ const Logout = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
-            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+            redirect('login');
         } else {
             setLoading(false);
         }
@@ -16,7 +18,7 @@ const Logout = () => {
     const handleLogout = e => {
         e.preventDefault();
 
-        fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/logout/', {
+        fetch(url('users/auth/logout'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +29,7 @@ const Logout = () => {
             .then(data => {
                 console.log(data);
                 localStorage.clear();
-                window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
+                redirect('login');
             });
     };
 
