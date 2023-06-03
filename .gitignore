@@ -27,7 +27,6 @@ pip-log.txt
 
 # Unit test / coverage reports
 .coverage
-.env*
 venv
 *.tfvars
 .tox/*
