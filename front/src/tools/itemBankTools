@@ -1,0 +1,26 @@
+export function getItemBankPerBankFromItemBankList(itemBanks) {
+    const itemBankIdsAdded = []
+    const itemBanksPerBank = []
+
+    itemBanks.map(itemBank => {
+        const itemBankId = itemBank.id
+        const itemBankHdvId = itemBank.hdv.id
+
+        const itemBankHdvName = itemBank.hdv.name
+
+        if (!itemBankIdsAdded.includes(id => id === itemBankId)) {
+            itemBankIdsAdded.push(itemBankId);
+
+            if (itemBanksPerBank[itemBankHdvId] === undefined) {
+                itemBanksPerBank[itemBankHdvId] = {
+                    name: itemBankHdvName,
+                    itemBanks: []
+                };
+            }
+
+            itemBanksPerBank[itemBankHdvId].itemBanks.push(itemBank)
+        }
+    })
+
+    return itemBanksPerBank;
+}

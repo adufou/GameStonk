@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import {Card, CardBody, Input, Label, Button, TableRow, Table, TableCell, TableBody, TableHeader} from '@windmill/react-ui'
-import {getHoldingAssets} from "../../service/tradeService";
+import {Card, CardBody, Label, TableRow, Table, TableCell, TableBody, TableHeader} from '@windmill/react-ui'
+import {getItemBank} from "../../service/itemBankService";
 import TableCellItemBankReport from "./TableCellItemBankReport";
 import {getUser} from "../../service/userService";
+import { getItemBankPerBankFromItemBankList } from '../../tools/itemBankTools';
 
 const ReportsPerHdv = () => {
     const [holdingsPerHdv, setHoldingPerHdv] = useState([])
@@ -16,43 +17,14 @@ const ReportsPerHdv = () => {
                 setUserId(data.pk)
             });
 
-        getHoldingAssets()
+        getItemBank()
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                generateHoldindsPerHdv(data);
+                const itemBanksPerBank = getItemBankPerBankFromItemBankList(data);
+                setHoldingPerHdv(itemBanksPerBank);
             })
     }, [])
-
-    function generateHoldindsPerHdv(holdings) {
-        const itemBankIdsAdded = []
-        const holdingsPerHdvTemp = []
-
-        holdings.map(holding => {
-            const itemBank = holding.buyTransaction.itemPrice.item.itemBank
-
-            const itemBankId = itemBank.id
-            const itemBankHdvId = itemBank.hdv.id
-
-            const itemBankHdvName = itemBank.hdv.name
-
-            if (!itemBankIdsAdded.includes(id => id === itemBankId)) {
-                itemBankIdsAdded.push(itemBankId);
-
-                if (holdingsPerHdvTemp[itemBankHdvId] === undefined) {
-                    holdingsPerHdvTemp[itemBankHdvId] = {
-                        name: itemBankHdvName,
-                        itemBanks: []
-                    };
-                }
-
-                holdingsPerHdvTemp[itemBankHdvId].itemBanks.push(itemBank)
-            }
-        })
-
-        console.log(holdingsPerHdvTemp)
-        setHoldingPerHdv(holdingsPerHdvTemp)
-    }
 
     // function removeItemBank(itemBankId) {
     //     const newHoldings = holdingsPerHdv;

@@ -28,7 +28,7 @@ const Signup = () => {
             password2: password2
         };
 
-        fetch(url('users/auth/register'), {
+        fetch(url('users/auth/register/', 8000), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
