@@ -1,5 +1,5 @@
 const getUser = () => {
-    return fetch('http://127.0.0.1:8000/users/auth/user/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/user/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +9,7 @@ const getUser = () => {
 }
 
 const postLoginUser = (user) => {
-    return fetch('http://127.0.0.1:8000/users/auth/login/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/login/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

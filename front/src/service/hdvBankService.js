@@ -1,5 +1,5 @@
 const getHdvBank = () => {
-    return fetch('http://127.0.0.1:8000/hdv_bank/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/hdv_bank/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +9,7 @@ const getHdvBank = () => {
 }
 
 const postHdvBank = (body) => {
-    return fetch('http://127.0.0.1:8000/hdv_bank/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/hdv_bank/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ const postItem = (itemBank) => {
         itemBank
     };
 
-    return fetch('http://127.0.0.1:8000/item/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/item/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

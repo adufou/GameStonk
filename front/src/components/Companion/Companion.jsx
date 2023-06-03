@@ -37,7 +37,7 @@ const Companion = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.replace('http://localhost:4000/login');
+            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
         } else {
             // On set userId et userEmail
             getUser()

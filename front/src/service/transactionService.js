@@ -3,7 +3,7 @@ const postTransaction = (user, itemPrice, volume) => {
         user, itemPrice, volume
     }
 
-    return fetch('http://127.0.0.1:8000/transaction/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/transaction/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

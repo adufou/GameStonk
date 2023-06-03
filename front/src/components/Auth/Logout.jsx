@@ -7,7 +7,7 @@ const Logout = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
-            window.location.replace('http://localhost:4000/login');
+            window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
         } else {
             setLoading(false);
         }
@@ -16,7 +16,7 @@ const Logout = () => {
     const handleLogout = e => {
         e.preventDefault();
 
-        fetch('http://127.0.0.1:8000/users/auth/logout/', {
+        fetch('http://ns399800.ip-5-196-67.eu:8000/users/auth/logout/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const Logout = () => {
             .then(data => {
                 console.log(data);
                 localStorage.clear();
-                window.location.replace('http://localhost:4000/login');
+                window.location.replace('http://ns399800.ip-5-196-67.eu:4000/login');
             });
     };
 

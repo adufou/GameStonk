@@ -3,7 +3,7 @@ const postTrade = (user, buyTransaction, sellTransaction) => {
         user, buyTransaction, sellTransaction
     }
 
-    return fetch('http://127.0.0.1:8000/trade/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/trade/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const updateTrade = (user, buyTransaction, sellTransaction, sellOrderPrice, id) 
         user, buyTransaction, sellTransaction, sellOrderPrice
     }
 
-    return fetch('http://127.0.0.1:8000/trade/' + id + '/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/trade/' + id + '/', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const updateTrade = (user, buyTransaction, sellTransaction, sellOrderPrice, id) 
 };
 
 const getRealizedTrades = () => {
-    return fetch('http://127.0.0.1:8000/trade/get_realized_trades/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/trade/get_realized_trades/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const getRealizedTrades = () => {
 }
 
 const getUnrealizedTrades = () => {
-    return fetch('http://127.0.0.1:8000/trade/get_unrealized_trades/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/trade/get_unrealized_trades/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const getUnrealizedTrades = () => {
 }
 
 const getHoldingAssets = () => {
-    return fetch('http://127.0.0.1:8000/trade/get_holding_assets/', {
+    return fetch('http://ns399800.ip-5-196-67.eu:8000/trade/get_holding_assets/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
