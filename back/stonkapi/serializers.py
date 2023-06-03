@@ -33,7 +33,7 @@ class ItemBankPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ItemBank
-        fields = ['id', 'name', 'hdv']
+        fields = ['id', 'name', 'hdv', 'itemBank']
 
 
 # Serializer for Item GET -> itemBank Nested 
