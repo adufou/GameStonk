@@ -1,5 +1,16 @@
 ### Stonkofus
 
+## Je veux y accéder
+
+URL: http://ns399800.ip-5-196-67.eu:4000/
+
+## Je veux participer au dev
+
+# Ressources
+
+Trello: https://trello.com/b/F5yH0slC/stonkofus
+Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
+
 # PREREQUIS
 
 Installer Docker
