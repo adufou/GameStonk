@@ -177,6 +177,8 @@ CORS_ORIGIN_WHITELIST = (
   'http://localhost:4000',
   'http://ns399800.ip-5-196-67.eu:4000',
   'http://ns399800.ip-5-196-67.eu:8000',
+  'http://stonkofus.fr',
+  'https://stonkofus.fr',
 )
 
 AUTH_USER_MODEL = 'users.CustomUser'
