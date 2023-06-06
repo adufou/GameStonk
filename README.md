@@ -2,6 +2,7 @@
 
 ## Je veux y accéder
 
+URL: stonkofus.fr
 URL: http://ns399800.ip-5-196-67.eu:4000/
 
 ## Je veux participer au dev
