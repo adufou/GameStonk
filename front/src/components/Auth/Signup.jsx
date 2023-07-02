@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
 import redirect from '../../tools/redirect';
-import url from '../../tools/url';
+import url from '../../tools/apiCall';
 
 
 const Signup = () => {

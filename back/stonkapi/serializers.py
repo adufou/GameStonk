@@ -39,7 +39,7 @@ class UserTeamSerializer(serializers.ModelSerializer):
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = ['server', 'user']
+        fields = ['marketplace', 'user']
 
 class MarketplaceSerializer(serializers.ModelSerializer):
     class Meta:

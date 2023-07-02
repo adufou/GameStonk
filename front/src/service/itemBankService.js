@@ -1,4 +1,4 @@
-import url from "../tools/url";
+import url from "../tools/apiCall";
 
 const getItemBank = () => {
     return fetch(url('item_bank/', 8000), {

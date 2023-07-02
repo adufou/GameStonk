@@ -22,13 +22,13 @@ class UserTeam(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
-class Wallet(models.Model):
-    server = models.ForeignKey(Server, on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
 class Marketplace(models.Model):
     name = models.CharField(max_length=64, unique=True)
     server = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+class Wallet(models.Model):
+    marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
 class GoodBlueprint(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

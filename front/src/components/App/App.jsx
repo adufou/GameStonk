@@ -1,13 +1,12 @@
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
-import Dashboard from "../Dashboard/Dashboard";
 import Navbar from "../Navbar/Navbar";
 import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
 import Logout from "../Auth/Logout";
-import Companion from "../Companion/Companion";
-import Holdings from "../Holdings/Holdings";
+import MyWallets from "../Wallet/MyWallets"
+import Games from "../Game/Games"
 
 function App() {
     useEffect(() => {
@@ -25,12 +24,14 @@ function App() {
           <Router>
               <Navbar/>
               <Switch>
-                  <Route exact path="/dashboard" component={Dashboard} />
-                  <Route exact path="/companion" component={Companion} />
-                  <Route exact path="/holdings" component={Holdings} />
+                  {/* <Route exact path="/dashboard" component={Dashboard} /> */}
+                  {/* <Route exact path="/companion" component={Companion} /> */}
+                  {/* <Route exact path="/holdings" component={Holdings} /> */}
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/logout" component={Logout} />
                   <Route exact path="/signup" component={Signup} />
+                  <Route exact path="/wallets" component={MyWallets} />
+                  <Route exact path="/games" component={Games} />
               </Switch>
           </Router>
       </div>
