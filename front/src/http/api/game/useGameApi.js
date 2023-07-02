@@ -5,5 +5,8 @@ export function useGameApi() {
         getGames: (callback) => {
             apiCall('game/', 'GET', callback);
         },
+        addGame: (name, callback) => {
+            apiCall('game/', 'POST', callback, { name });
+        },
     })
 }
