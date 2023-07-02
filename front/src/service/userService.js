@@ -1,4 +1,4 @@
-import url from "../tools/url"
+import url from "../tools/apiCall"
 
 const getUser = () => {
     return fetch(url('users/auth/user/', 8000), {

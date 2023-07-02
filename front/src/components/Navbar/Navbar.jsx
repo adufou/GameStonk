@@ -22,7 +22,7 @@ const Navbar = () => {
                 {isAuth === true ? (
                     <Fragment>
                         {' '}
-                        <li>
+                        {/* <li>
                             <Button layout="link" tag='a' href='/companion'>Companion</Button>
                         </li>
                         <li>
@@ -30,6 +30,15 @@ const Navbar = () => {
                         </li>
                         <li>
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
+                        </li> */}
+                        <li>
+                            <Button layout="link" tag='a' href='/admin'>Admin</Button>
+                        </li>
+                        <li>
+                            <Button layout="link" tag='a' href='/games'>Games</Button>
+                        </li>
+                        <li>
+                            <Button layout="link" tag='a' href='/wallets'>My Wallets</Button>
                         </li>
                         <li>
                             <Button layout="link" tag='a' href='/logout'>Logout</Button>

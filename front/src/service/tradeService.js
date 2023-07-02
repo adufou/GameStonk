@@ -1,4 +1,4 @@
-import url from "../tools/url";
+import url from "../tools/apiCall";
 
 const postTrade = (user, buyTransaction, sellTransaction) => {
     const body = {
