@@ -10,7 +10,6 @@ const Admin = () => {
 
     const gameStore = useGameStore();
     const gameApi = useGameApi();
-    const gameFetch = useGameFetch();
 
     const handleAddGame = async () => {
         if (newGameName !== '') {
@@ -21,10 +20,6 @@ const Admin = () => {
             })
         }
     }
-
-    useEffect(() => {
-        gameFetch.fetchAllGames();
-    }, [])
 
     return (
         <div>

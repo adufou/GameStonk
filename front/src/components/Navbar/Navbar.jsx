@@ -32,16 +32,32 @@ const Navbar = () => {
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li> */}
                         <li>
-                            <Button layout="link" tag='a' href='/admin'>Admin</Button>
+                        <Button layout='link'>
+                                <Link to='admin'>
+                                    Admin
+                                </Link>
+                            </Button>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/games'>Games</Button>
+                            <Button layout='link'>
+                                <Link to='games'>
+                                    Games
+                                </Link>
+                            </Button>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/wallets'>My Wallets</Button>
+                        <Button layout='link'>
+                                <Link to='wallets'>
+                                    My Wallets
+                                </Link>
+                            </Button>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/logout'>Logout</Button>
+                        <Button layout='link'>
+                                <Link to='logout'>
+                                    Logout
+                                </Link>
+                            </Button>
                         </li>
                     </Fragment>
                 ) : (
