@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 import stonkapi
-from stonkapi import views
+from stonkapi.views import *
 from django.contrib import admin
 from django.urls import path
 
@@ -27,14 +27,16 @@ router = routers.DefaultRouter()
 # router.register(r'user', views.UserViewSet)
 # router.register(r'group', views.GroupViewSet)
 
-router.register(r'users', views.CustomUserViewSet)
-router.register(r'hdv_bank', views.HdvBankViewSet)
-router.register(r'item_bank', views.ItemBankViewSet)
-router.register(r'item', views.ItemViewSet)
-router.register(r'item_price', views.ItemPriceViewSet)
-router.register(r'report', views.ReportViewSet)
-router.register(r'transaction', views.TransactionViewSet)
-router.register(r'trade', views.TradeViewSet)
+router.register(r'game', GameViewSet)
+router.register(r'server', ServerViewSet)
+router.register(r'team', TeamViewSet)
+router.register(r'wallet', WalletViewSet)
+router.register(r'marketplace', MarketplaceViewSet)
+router.register(r'good_blueprint', GoodBlueprintViewSet)
+router.register(r'good', GoodViewSet)
+router.register(r'good_value_time', GoodValueTimeViewSet)
+router.register(r'good_movement', GoodMovementsViewSet)
+router.register(r'sell_order', SellOrderViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
