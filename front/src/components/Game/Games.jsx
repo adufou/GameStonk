@@ -15,11 +15,13 @@ const Games = () => {
              <h1>
                 Games
              </h1>
-             {gameStore.state.games?.map(game => (
-                <div>
-                    <p>{game.name}</p>
-                </div>
-             ))}
+             {gameStore.state.games?.map((game) => {
+                return (
+                    <div key={game.name}>
+                        <p>{game.name}</p>
+                    </div>
+                 )
+            })}
         </div>
     );
 };

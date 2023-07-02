@@ -7,6 +7,7 @@ import Signup from "../Auth/Signup";
 import Logout from "../Auth/Logout";
 import MyWallets from "../Wallet/MyWallets"
 import Games from "../Game/Games"
+import Admin from "../Admin/Admin";
 
 function App() {
     useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
                   <Route exact path="/signup" component={Signup} />
                   <Route exact path="/wallets" component={MyWallets} />
                   <Route exact path="/games" component={Games} />
+                  <Route exact path="/admin" component={Admin} />
               </Switch>
           </Router>
       </div>

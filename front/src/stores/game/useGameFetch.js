@@ -1,4 +1,5 @@
 import { useGameApi } from "../../http/api/game/useGameApi";
+import { fetchGames } from "./gameActions";
 import { useGameStore } from "./useGameStore";
 
 export function useGameFetch() {
@@ -8,7 +9,7 @@ export function useGameFetch() {
     return ({
         fetchAllGames: () => {
             gameApi.getGames((data) => {
-                gameStore.state.games = data;
+                gameStore.dispatch(fetchGames(data))
             })
         }
     })

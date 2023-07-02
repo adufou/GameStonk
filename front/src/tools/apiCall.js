@@ -7,7 +7,7 @@ const constructUrl = (uri, port = 8000) => {
 const apiCall = (uri, method, callback, data = null, port = 8000) => {
     // TODO pourquoi le port sur fetch et dans l'url ??
     const url = constructUrl(uri, port);
-    const requestData = {
+    let requestData = {
         method,
         headers: {
             'Content-Type': 'application/json',
