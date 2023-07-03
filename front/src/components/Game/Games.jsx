@@ -59,7 +59,7 @@ const Games = () => {
                 </Table>
             </TableContainer>
 
-            <GameAddModal isAddGameModalOpen={isAddGameModalOpen} closeAddGameModal={closeAddGameModal} />
+            <GameAddModal isOpen={isAddGameModalOpen} closeModal={closeAddGameModal} />
         </div>
     );
 };
