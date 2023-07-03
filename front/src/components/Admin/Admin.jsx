@@ -29,14 +29,7 @@ const Admin = () => {
 
     return (
         <div>
-             <Label>
-                <span>Add a Game</span>
-                <Input className="mt-1" value={newGameName} onChange={e => setNewGameName(e.target.value)}/>
-            </Label>
 
-            <Button className="mt-2" onClick={handleAddGame}>Ajouter</Button>
-        
-            <Games />
         </div>
     );
 };
