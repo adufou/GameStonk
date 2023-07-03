@@ -18,7 +18,6 @@ const GameEditModal = ({isOpen, closeModal, game}) => {
 
         gameApi.updateGame(updatedGame, (response) => {
             if (response.status === 200) {
-                console.log('dispatch')
                 store.dispatch(updateGame(response.body))
             }
             
