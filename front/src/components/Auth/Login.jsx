@@ -29,16 +29,18 @@ const Login = () => {
             password: password
         };
 
-        authApi.loginUser(user, (data) => {
-            if (data.key) {
-                localStorage.clear();
-                localStorage.setItem('token', data.key);
-                redirect('dashboard');
-            } else {
-                setEmail('');
-                setPassword('');
-                localStorage.clear();
-                setErrors(true);
+        authApi.loginUser(user, (response) => {
+            if (response.status === 200) {
+                if (response.body?.key) {
+                    localStorage.clear();
+                    localStorage.setItem('token', response.body.key);
+                    redirect('dashboard');
+                } else {
+                    setEmail('');
+                    setPassword('');
+                    localStorage.clear();
+                    setErrors(true);
+                }
             }
         })
     };
