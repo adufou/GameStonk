@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Input, Label, Button } from '@windmill/react-ui'
+import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody } from '@windmill/react-ui'
 import { GameProvider, useGameStore } from '../../stores/game/useGameStore';
 import { useGameFetch } from '../../stores/game/useGameFetch';
 import Game from './Game';
@@ -14,16 +14,29 @@ const Games = () => {
 
     return (
         <div>
-            <h1>
-                Games
-            </h1>
-            {gameStore.state.games?.map((game) => {
-                return (
-                    <div key={game.name}>
-                        <Game game={game} />
-                    </div>
-                 )
-            })}
+            <TableContainer>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableCell>GAMES</TableCell>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    {gameStore.state.games?.map((game) => {
+                        return (
+                            <TableRow key={game.name}>
+                                {/* <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell> */}
+                                <TableCell>
+                                <Game game={game} />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 };
