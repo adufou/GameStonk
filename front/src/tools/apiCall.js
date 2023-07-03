@@ -23,11 +23,14 @@ export const apiCall = (uri, method, callback, data = null, port = 8000) => {
     }
 
     fetch(url, requestData)
-    // TODO Chelou ça
-    .then(res => res.json())
-    .then(data => {
-        callback(data);
-    });
+    .then(async res => {
+        const resJson = await res.json();
+    
+        callback({
+            status: res.status,
+            body: resJson,
+        })
+    })
 
 }
 
@@ -49,10 +52,13 @@ export const publicApiCall = (uri, method, callback, data = null, port = 8000) =
     }
 
     fetch(url, requestData)
-    // TODO Chelou ça
-    .then(res => res.json())
-    .then(data => {
-        callback(data);
-    });
+    .then(async res => {
+        const resJson = await res.json();
+    
+        callback({
+            status: res.status,
+            body: resJson,
+        })
+    })
 
 }
