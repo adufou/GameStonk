@@ -6,8 +6,10 @@ export function useGameFetch() {
     const gameApi = useGameApi();
     const gameStore = useGameStore();
 
-    const updateGamesInStore = (data) => {
-        gameStore.dispatch(fetchGames(data))
+    const updateGamesInStore = (response) => {
+        if (response.status === 200) {
+            gameStore.dispatch(fetchGames(response.body))
+        }
     }
 
     return ({

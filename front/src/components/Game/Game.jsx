@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Server from './Server';
 import { Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody } from '@windmill/react-ui'
 import { GrAdd, GrSubtract } from 'react-icons/gr'
 import ConfigIcon from "../Icon/ConfigIcon";
 import GameCard from './GameCard';
+import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
+import { useGameApi } from '../../http/api/game/useGameApi';
+import { useGameStore } from '../../stores/game/useGameStore';
 
 const Game = ({ game }) => {
+    const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
+
+    const gameApi = useGameApi()
+    const gameStore = useGameStore()
+
+    function deleteGame() {
+        gameApi.deleteGame(game, (data) => {
+            console.log(data)
+        })
+    }
+
     return (
         <div>
             <GameCard game={game} />
@@ -45,6 +59,8 @@ const Game = ({ game }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={deleteGame} />
         </div>
     );
 };

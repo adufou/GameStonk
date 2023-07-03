@@ -11,8 +11,12 @@ const GameAddModal = ({isAddGameModalOpen, closeAddGameModal}) => {
     const gameStore = useGameStore()
 
     function addNewGame() {
-        gameApi.addGame(newGameName, (game) => {
-            gameStore.dispatch(addGame(game.name))
+        gameApi.addGame(newGameName, (response) => {
+            console.log(response)
+            if (response.status === 201) {
+                gameStore.dispatch(addGame(response.body.name))
+            }
+            
             closeAddGameModal()
         })
     }
