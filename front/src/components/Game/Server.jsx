@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const Server = () => {
+const Server = ({ server }) => {
     return (
         <div>
-             
+            <p>{server.name}</p>
         </div>
     );
 };

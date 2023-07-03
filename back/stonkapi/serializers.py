@@ -9,67 +9,69 @@ from users.models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['url', 'username', 'email']
-
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Game
-        fields = ['name']
+        fields = ['id', 'url', 'username', 'email']
 
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
-        fields = ['name', 'game']
+        fields = ['id', 'name', 'game']
+
+class GameSerializer(serializers.ModelSerializer):
+    servers = ServerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Game
+        fields = ['id', 'name', 'servers']
 
 class UserServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserServer
-        fields = ['user', 'server']
+        fields = ['id', 'user', 'server']
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ['name']
+        fields = ['id', 'name']
 
 class UserTeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTeam
-        fields = ['user', 'team']
+        fields = ['id', 'user', 'team']
 
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = ['marketplace', 'user']
+        fields = ['id', 'marketplace', 'user']
 
 class MarketplaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marketplace
-        fields = ['name', 'server']
+        fields = ['id', 'name', 'server']
 
 class GoodBlueprintSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodBlueprint
-        fields = ['game', 'name']
+        fields = ['id', 'game', 'name']
 
 class GoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Good
-        fields = ['blueprint', 'marketplace']
+        fields = ['id', 'blueprint', 'marketplace']
 
 class GoodValueTimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodValueTime
-        fields = ['good', 'value', 'time']
+        fields = ['id', 'good', 'value', 'time']
 
 class GoodMovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodMovement
-        fields = ['good', 'wallet', 'quantity', 'value']
+        fields = ['id', 'good', 'wallet', 'quantity', 'value']
 
 class SellOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = SellOrder
-        fields = ['marketplace', 'value']
+        fields = ['id', 'marketplace', 'value']
 
 # class HdvBankSerializer(serializers.ModelSerializer):
 #     class Meta:

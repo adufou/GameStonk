@@ -2,25 +2,6 @@ const initialState = {
     games: []
 };
 
-// function counterReducer(state, action) {
-//     switch (action.type) {
-//         case 'increment':
-//             return {count: state.count + action.value};
-//         case 'decrement':
-//             return {count: state.count - action.value};
-//         default:
-//             throw new Error();
-//     }
-// }
-
-// const increment = (state, { value }) => ({
-//     count: state.count + value
-// });
-
-// const decrement = (state, { value }) => ({
-//     count: state.count - value
-// });
-
 const addGame = (state, { value }) => ({
     games: [
         ...state.games,

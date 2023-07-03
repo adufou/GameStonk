@@ -1,12 +1,15 @@
-import apiCall from "../../../tools/apiCall"
+import { apiCall } from "../../../tools/apiCall"
 
 export function useGameApi() {
     return ({
         getGames: (callback) => {
-            apiCall('game/', 'GET', callback);
+            apiCall('game', 'GET', callback);
+        },
+        getGame: (gameId, callback) => {
+            apiCall('game/' + gameId, 'GET', callback);
         },
         addGame: (name, callback) => {
-            apiCall('game/', 'POST', callback, { name });
+            apiCall('game', 'POST', callback, { name });
         },
     })
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {postLoginUser} from "../../service/userService";
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
 import redirect from '../../tools/redirect';
+import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
 const Login = () => {
@@ -9,6 +10,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const authApi = useAuthApi();
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -26,20 +29,18 @@ const Login = () => {
             password: password
         };
 
-        postLoginUser(user)
-            .then(res => res.json())
-            .then(data => {
-                if (data.key) {
-                    localStorage.clear();
-                    localStorage.setItem('token', data.key);
-                    redirect('dashboard');
-                } else {
-                    setEmail('');
-                    setPassword('');
-                    localStorage.clear();
-                    setErrors(true);
-                }
-            });
+        authApi.loginUser(user, (data) => {
+            if (data.key) {
+                localStorage.clear();
+                localStorage.setItem('token', data.key);
+                redirect('dashboard');
+            } else {
+                setEmail('');
+                setPassword('');
+                localStorage.clear();
+                setErrors(true);
+            }
+        })
     };
 
     return (
