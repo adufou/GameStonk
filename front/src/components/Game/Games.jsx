@@ -48,7 +48,7 @@ const Games = () => {
                     <TableBody>
                     {store.state.games?.map((game) => {
                         return (
-                            <TableRow key={game.name}>
+                            <TableRow key={game.id}>
                                 <TableCell>
                                     <Game game={game} />
                                 </TableCell>

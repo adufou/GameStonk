@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui'
 import { useServerApi } from '../../http/api/server/useServerApi';
-import { useServerStore } from '../../stores/server/useServerStore';
+import { useServerStore, useGlobalStore } from '../../stores/useGlobalStore';
 import { addServer } from '../../stores/server/serverStoreActions';
 
-const ServerAddModal = ({isAddServerModalOpen, closeAddServerModal}) => {
+const ServerAddModal = ({isOpen, closeModal, game}) => {
     const [newServerName, setServerName] = useState('');
 
     const serverApi = useServerApi()
-    const serverStore = useServerStore()
+    const store = useGlobalStore()
 
     function addNewServer() {
         const newServer = {
-            name: newServerName
+            game: game.id,
+            name: newServerName,
         }
 
         serverApi.addServer(newServer, (response) => {
             if (response.status === 201) {
-                serverStore.dispatch(addServer(response.body))
+                store.dispatch(addServer(response.body))
             }
             
-            closeAddServerModal()
+            closeModal()
         })
     }
 
     return (
-        <Modal isOpen={isAddServerModalOpen} onClose={closeAddServerModal}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
                 <ModalHeader>Add a server</ModalHeader>
                 <ModalBody>
                 <Label>
@@ -34,7 +35,7 @@ const ServerAddModal = ({isAddServerModalOpen, closeAddServerModal}) => {
                 </Label>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="w-full sm:w-auto" layout="outline" onClick={closeAddServerModal}>
+                    <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
                         Cancel
                     </Button>
                     <Button className="w-full sm:w-auto" onClick={addNewServer}>Accept</Button>

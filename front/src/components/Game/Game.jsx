@@ -4,10 +4,18 @@ import { Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableB
 import { GrAdd, GrSubtract } from 'react-icons/gr'
 import ConfigIcon from "../Icon/ConfigIcon";
 import GameCard from './GameCard';
-
+import ServerAddModal from '../Server/ServerAddModal';
 
 const Game = ({ game }) => {
-    
+    const [isAddServerModalOpen, setIsAddServerModalOpen] = useState(false)
+
+    function openAddServerModal() {
+      setIsAddServerModalOpen(true)
+    }
+
+    function closeAddServerModal() {
+      setIsAddServerModalOpen(false)
+    }
 
     return (
         <div>
@@ -21,16 +29,11 @@ const Game = ({ game }) => {
                                     SERVERS
                                 </span>
                                 <div>
-                                    <Button size="small" layout="link">
+                                    <Button size="small" layout="link" onClick={openAddServerModal}>
                                         <ConfigIcon>
                                             <GrAdd/>
                                         </ConfigIcon>
                                     </Button>
-                                    {/* <Button size="small" layout="link">
-                                        <ConfigIcon>
-                                            <GrSubtract />
-                                        </ConfigIcon>
-                                    </Button> */}
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -38,7 +41,7 @@ const Game = ({ game }) => {
                     <TableBody>
                     {game.servers?.map((server) => {
                         return (
-                            <TableRow key={server.name}>
+                            <TableRow key={server.id}>
                                 <TableCell>
                                     <Server server={server} />
                                 </TableCell>
@@ -48,6 +51,8 @@ const Game = ({ game }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <ServerAddModal isOpen={isAddServerModalOpen} closeModal={closeAddServerModal} game={game}/>
         </div>
     );
 };
