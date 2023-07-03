@@ -4,6 +4,7 @@ import { useGameStore } from '../../stores/game/useGameStore';
 import { addGame } from '../../stores/game/gameActions';
 import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGameFetch } from '../../stores/game/useGameFetch';
+import Games from '../Game/Games';
 
 const Admin = () => {
     const [newGameName, setNewGameName] = useState('');
@@ -35,15 +36,7 @@ const Admin = () => {
 
             <Button className="mt-2" onClick={handleAddGame}>Ajouter</Button>
         
-            {gameStore.state.games?.map((game) => {
-                if (game?.name) {
-                    return (
-                        <div key={game.name}>
-                            <p>{game.name}</p>
-                        </div>
-                     )
-                }
-            })}
+            <Games />
         </div>
     );
 };
