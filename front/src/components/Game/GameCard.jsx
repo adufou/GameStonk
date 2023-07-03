@@ -6,19 +6,19 @@ import ConfigIcon from "../Icon/ConfigIcon";
 import { GrSubtract } from 'react-icons/gr'
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
 import { useGameApi } from '../../http/api/game/useGameApi';
-import { useGameStore } from '../../stores/game/useGameStore';
+import { useGameStore, useGlobalStore } from '../../stores/useGlobalStore';
 import { deleteGame } from '../../stores/game/gameStoreActions';
 
 const GameCard = ({ game }) => {
     const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
 
     const gameApi = useGameApi()
-    const gameStore = useGameStore()
+    const store = useGlobalStore()
 
     function acceptGameDeletion() {
-        gameApi.deleteGame(game.id, (response) => {
+        gameApi.deleteGame(game, (response) => {
             if (response.status === 204) {
-                gameStore.dispatch(deleteGame(game.id))
+                store.dispatch(deleteGame(game))
             }
         })
     }
