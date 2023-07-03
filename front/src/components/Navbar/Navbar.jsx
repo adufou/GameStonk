@@ -32,11 +32,11 @@ const Navbar = () => {
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li> */}
                         <li>
-                        <Button layout='link'>
+                        {/* <Button layout='link'>
                                 <Link to='admin'>
                                     Admin
                                 </Link>
-                            </Button>
+                            </Button> */}
                         </li>
                         <li>
                             <Button layout='link'>
