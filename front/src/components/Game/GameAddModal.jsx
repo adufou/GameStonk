@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui'
 import { useGameApi } from '../../http/api/game/useGameApi';
-import { useGameStore } from '../../stores/game/useGameStore';
+import { useGameStore, useGlobalStore } from '../../stores/useGlobalStore';
 import { addGame } from '../../stores/game/gameStoreActions';
 
 const GameAddModal = ({isAddGameModalOpen, closeAddGameModal}) => {
     const [newGameName, setGameName] = useState('');
 
     const gameApi = useGameApi()
-    const gameStore = useGameStore()
+    const store = useGlobalStore()
 
     function addNewGame() {
-        gameApi.addGame(newGameName, (response) => {
-            console.log(response)
+        const newGame = {
+            name: newGameName
+        }
+
+        gameApi.addGame(newGame, (response) => {
             if (response.status === 201) {
-                gameStore.dispatch(addGame(response.body.name))
+                store.dispatch(addGame(response.body))
             }
             
             closeAddGameModal()

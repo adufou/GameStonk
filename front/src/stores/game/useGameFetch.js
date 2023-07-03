@@ -1,14 +1,16 @@
 import { useGameApi } from "../../http/api/game/useGameApi";
 import { fetchGames } from "./gameStoreActions";
-import { useGameStore } from "./useGameStore";
+import { useGlobalStore } from "../useGlobalStore";
 
 export function useGameFetch() {
+    // TODO Should not be a composable
+    
     const gameApi = useGameApi();
-    const gameStore = useGameStore();
+    const store = useGlobalStore();
 
     const updateGamesInStore = (response) => {
         if (response.status === 200) {
-            gameStore.dispatch(fetchGames(response.body))
+            store.dispatch(fetchGames(response.body))
         }
     }
 

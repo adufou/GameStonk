@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Server from './Server';
+import Server from '../Server/Server';
 import { Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody } from '@windmill/react-ui'
 import { GrAdd, GrSubtract } from 'react-icons/gr'
 import ConfigIcon from "../Icon/ConfigIcon";
@@ -7,6 +7,8 @@ import GameCard from './GameCard';
 
 
 const Game = ({ game }) => {
+    
+
     return (
         <div>
             <GameCard game={game} />
@@ -24,11 +26,11 @@ const Game = ({ game }) => {
                                             <GrAdd/>
                                         </ConfigIcon>
                                     </Button>
-                                    <Button size="small" layout="link">
+                                    {/* <Button size="small" layout="link">
                                         <ConfigIcon>
                                             <GrSubtract />
                                         </ConfigIcon>
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             </TableCell>
                         </TableRow>

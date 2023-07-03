@@ -5,14 +5,17 @@ export function useGameApi() {
         getGames: (callback) => {
             apiCall('game', 'GET', callback);
         },
-        getGame: (gameId, callback) => {
-            apiCall('game/' + gameId, 'GET', callback);
+        getGame: (game, callback) => {
+            apiCall('game/' + game.id, 'GET', callback);
         },
-        addGame: (name, callback) => {
-            apiCall('game', 'POST', callback, { name });
+        addGame: (game, callback) => {
+            apiCall('game', 'POST', callback, game);
         },
-        deleteGame: (gameId, callback) => {
-            apiCall('game/' + gameId, 'DELETE', callback, { gameId });
-        }
+        deleteGame: (game, callback) => {
+            apiCall('game/' + game.id, 'DELETE', callback);
+        },
+        updateGame: (game, callback) => {
+            apiCall('game/' + game.id, 'PUT', callback, game);
+        },
     })
 }
