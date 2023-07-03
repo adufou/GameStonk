@@ -1,5 +1,5 @@
 import { addGame, fetchGames, deleteGame, updateGame } from "./game/gameStoreImpl";
-import { addServer } from "./server/serverStoreImpl";
+import { addServer, deleteServer, updateServer } from "./server/serverStoreImpl";
 
 // Reducer and ReducerHandler
 
@@ -21,6 +21,8 @@ const globalStoreReducerHandler = {
 
     // Server
     addServer,
+    deleteServer,
+    updateServer,
 }
 
 

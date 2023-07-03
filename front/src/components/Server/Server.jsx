@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import ServerCard from './ServerCard';
 
 const Server = ({ server }) => {
     return (
         <div>
-            <p>{server.name}</p>
+            <ServerCard server={server}/>
         </div>
     );
 };
