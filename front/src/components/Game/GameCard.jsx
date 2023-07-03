@@ -7,6 +7,7 @@ import { GrSubtract } from 'react-icons/gr'
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
 import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGameStore } from '../../stores/game/useGameStore';
+import { deleteGame } from '../../stores/game/gameStoreActions';
 
 const GameCard = ({ game }) => {
     const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
@@ -14,9 +15,11 @@ const GameCard = ({ game }) => {
     const gameApi = useGameApi()
     const gameStore = useGameStore()
 
-    function deleteGame() {
-        gameApi.deleteGame(game, (data) => {
-            console.log(data)
+    function acceptGameDeletion() {
+        gameApi.deleteGame(game.id, (response) => {
+            if (response.status === 204) {
+                gameStore.dispatch(deleteGame(game.id))
+            }
         })
     }
 
@@ -49,7 +52,7 @@ const GameCard = ({ game }) => {
                 </div>
             </CardBody>
 
-            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={deleteGame} onClose={closeModalDeleteGame}/>
+            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={acceptGameDeletion} onClose={closeModalDeleteGame}/>
         </Card>
     );
 };

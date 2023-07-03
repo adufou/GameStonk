@@ -12,7 +12,7 @@ export function useGameApi() {
             apiCall('game', 'POST', callback, { name });
         },
         deleteGame: (gameId, callback) => {
-            apiCall('game', 'DELETE', callback, { gameId });
+            apiCall('game/' + gameId, 'DELETE', callback, { gameId });
         }
     })
 }
