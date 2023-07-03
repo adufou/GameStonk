@@ -1,4 +1,4 @@
-import { addGame, fetchGames, deleteGame } from "./game/gameStoreImpl";
+import { addGame, fetchGames, deleteGame, updateGame } from "./game/gameStoreImpl";
 
 // Reducer and ReducerHandler
 
@@ -16,6 +16,7 @@ const globalStoreReducerHandler = {
     addGame,
     fetchGames,
     deleteGame,
+    updateGame,
 }
 
 
