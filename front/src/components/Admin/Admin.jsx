@@ -8,6 +8,7 @@ import { useGameFetch } from '../../stores/game/useGameFetch';
 const Admin = () => {
     const [newGameName, setNewGameName] = useState('');
 
+    const gameFetch = useGameFetch();
     const gameStore = useGameStore();
     const gameApi = useGameApi();
 
@@ -20,6 +21,10 @@ const Admin = () => {
             })
         }
     }
+
+    useEffect(() => {
+        gameFetch.fetchGames();
+    }, [])
 
     return (
         <div>

@@ -6,11 +6,13 @@ export function useGameFetch() {
     const gameApi = useGameApi();
     const gameStore = useGameStore();
 
+    const updateGamesInStore = (data) => {
+        gameStore.dispatch(fetchGames(data))
+    }
+
     return ({
-        fetchAllGames: () => {
-            gameApi.getGames((data) => {
-                gameStore.dispatch(fetchGames(data))
-            })
+        fetchGames: () => {
+            gameApi.getGames(updateGamesInStore)
         }
     })
 }

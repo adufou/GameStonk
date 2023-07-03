@@ -9,7 +9,7 @@ class Game(models.Model):
 
 class Server(models.Model):
     name = models.CharField(max_length=64, unique=False)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='servers')
 
 class UserServer(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
