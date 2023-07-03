@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Label, Button } from '@windmill/react-ui'
 import { useGameStore } from '../../stores/game/useGameStore';
-import { addGame } from '../../stores/game/gameActions';
+import { addGame } from '../../stores/game/gameStoreActions';
 import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGameFetch } from '../../stores/game/useGameFetch';
 import Games from '../Game/Games';

@@ -15,7 +15,7 @@ const fetchGames = (state, { value }) => ({
     games: value
 })
 
-const createReducer = (handlers) => (state, action) => {
+const createStoreReducer = (handlers) => (state, action) => {
     if (!handlers.hasOwnProperty(action.type)) {
         console.log('ici')
         return state;
@@ -23,11 +23,11 @@ const createReducer = (handlers) => (state, action) => {
     return handlers[action.type](state, action);
 };
 
-const gameReducerHandler = {
+const gameStoreReducerHandler = {
     addGame,
     fetchGames,
 }
 
-const gameReducer = [createReducer(gameReducerHandler), initialState];
+const gameStoreReducer = [createStoreReducer(gameStoreReducerHandler), initialState];
 
-export default gameReducer;
+export default gameStoreReducer;

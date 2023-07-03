@@ -1,10 +1,10 @@
 import React, {createContext, useContext, useReducer} from "react";
-import gameReducer from "./gameReducer";
+import gameStoreReducer from "./gameStoreReducer";
 
 export const GameContext = createContext();
 
 export const GameProvider = props => {
-    const [state, dispatch] = useReducer(...gameReducer);
+    const [state, dispatch] = useReducer(...gameStoreReducer);
     return <GameContext.Provider value={[state, dispatch]} {...props} />;
 };
 

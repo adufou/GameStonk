@@ -1,5 +1,5 @@
 import { useGameApi } from "../../http/api/game/useGameApi";
-import { fetchGames } from "./gameActions";
+import { fetchGames } from "./gameStoreActions";
 import { useGameStore } from "./useGameStore";
 
 export function useGameFetch() {

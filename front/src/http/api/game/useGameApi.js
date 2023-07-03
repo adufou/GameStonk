@@ -11,5 +11,8 @@ export function useGameApi() {
         addGame: (name, callback) => {
             apiCall('game', 'POST', callback, { name });
         },
+        deleteGame: (gameId, callback) => {
+            apiCall('game', 'DELETE', callback, { gameId });
+        }
     })
 }
