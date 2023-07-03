@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardBody } from '@windmill/react-ui'
 import { Button } from '@windmill/react-ui'
 import { MdEdit } from 'react-icons/md'
 import ConfigIcon from "../Icon/ConfigIcon";
 import { GrSubtract } from 'react-icons/gr'
+import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
+import { useGameApi } from '../../http/api/game/useGameApi';
+import { useGameStore } from '../../stores/game/useGameStore';
 
 const GameCard = ({ game }) => {
+    const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
+
+    const gameApi = useGameApi()
+    const gameStore = useGameStore()
+
+    function deleteGame() {
+        gameApi.deleteGame(game, (data) => {
+            console.log(data)
+        })
+    }
+
+    function openModalDeleteGame() {
+        setIsDeleteGameModalOpen(true)
+    }
+
+    function closeModalDeleteGame() {
+        setIsDeleteGameModalOpen(false)
+    }
+
     return (
         <Card>
             <CardBody className='flex place-content-between'>
@@ -19,13 +41,15 @@ const GameCard = ({ game }) => {
                             <MdEdit/>
                         </ConfigIcon>
                     </Button>
-                    <Button size="small" layout="link">
+                    <Button size="small" layout="link" onClick={openModalDeleteGame}>
                         <ConfigIcon>
-                            <GrSubtract/>
+                            <GrSubtract />
                         </ConfigIcon>
                     </Button>                    
                 </div>
             </CardBody>
+
+            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={deleteGame} onClose={closeModalDeleteGame}/>
         </Card>
     );
 };

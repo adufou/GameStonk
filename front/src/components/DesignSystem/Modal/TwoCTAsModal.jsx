@@ -1,21 +1,17 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from '@windmill/react-ui'
 
-const TwoCTAsModal = ({isOpen, onAccept}) => {
+const TwoCTAsModal = ({isOpen, onAccept, onClose}) => {
     function accept() {
         onAccept()
-        closeModal()
-    }
-
-    function closeModal() {
-        isModalOpen = false
+        onClose()
     }
     
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalHeader>Are you sure ?</ModalHeader>
                 <ModalBody className='flex place-content-center'>
-                    <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
+                    <Button className="w-full sm:w-auto" layout="outline" onClick={onClose}>
                         Cancel
                     </Button>
                     <Button className="w-full sm:w-auto" onClick={accept}>

@@ -4,22 +4,9 @@ import { Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableB
 import { GrAdd, GrSubtract } from 'react-icons/gr'
 import ConfigIcon from "../Icon/ConfigIcon";
 import GameCard from './GameCard';
-import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
-import { useGameApi } from '../../http/api/game/useGameApi';
-import { useGameStore } from '../../stores/game/useGameStore';
+
 
 const Game = ({ game }) => {
-    const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
-
-    const gameApi = useGameApi()
-    const gameStore = useGameStore()
-
-    function deleteGame() {
-        gameApi.deleteGame(game, (data) => {
-            console.log(data)
-        })
-    }
-
     return (
         <div>
             <GameCard game={game} />
@@ -39,7 +26,7 @@ const Game = ({ game }) => {
                                     </Button>
                                     <Button size="small" layout="link">
                                         <ConfigIcon>
-                                            <GrSubtract/>
+                                            <GrSubtract />
                                         </ConfigIcon>
                                     </Button>
                                 </div>
@@ -59,8 +46,6 @@ const Game = ({ game }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={deleteGame} />
         </div>
     );
 };

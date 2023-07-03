@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui'
 import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGameStore } from '../../stores/game/useGameStore';
-import { addGame } from '../../stores/game/gameActions';
+import { addGame } from '../../stores/game/gameStoreActions';
 
 const GameAddModal = ({isAddGameModalOpen, closeAddGameModal}) => {
     const [newGameName, setGameName] = useState('');
