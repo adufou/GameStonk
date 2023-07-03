@@ -31,12 +31,6 @@ class ServerViewSet(viewsets.ModelViewSet):
     permissions_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
 
-# class UserServerViewSet(viewsets.ModelViewSet):
-#     queryset = UserServer
-#     serializer_class = 
-#     permissions_classes = [permissions.IsAuthenticated]
-#     authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
-
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer

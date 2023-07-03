@@ -24,12 +24,20 @@ export const apiCall = (uri, method, callback, data = null, port = 8000) => {
 
     fetch(url, requestData)
     .then(async res => {
-        const resJson = await res.json();
+        try {
+            const resJson = await res.json();
     
-        callback({
-            status: res.status,
-            body: resJson,
-        })
+            callback({
+                status: res.status,
+                body: resJson,
+            })
+        } catch (e) {
+            callback({
+                status: res.status,
+                body: {},
+            })
+        }
+        
     })
 
 }
@@ -53,12 +61,19 @@ export const publicApiCall = (uri, method, callback, data = null, port = 8000) =
 
     fetch(url, requestData)
     .then(async res => {
-        const resJson = await res.json();
+        try {
+            const resJson = await res.json();
     
-        callback({
-            status: res.status,
-            body: resJson,
-        })
+            callback({
+                status: res.status,
+                body: resJson,
+            })
+        } catch (e) {
+            callback({
+                status: res.status,
+                body: {},
+            })
+        }
     })
 
 }
