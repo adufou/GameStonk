@@ -1,5 +1,6 @@
 export const addGame = (state, { game }) => {
     return ({
+        ...state,
         games: [
             ...state.games,
             {
@@ -10,6 +11,7 @@ export const addGame = (state, { game }) => {
 }
 
 export const fetchGames = (state, { games }) => ({
+    ...state,
     games: games
 })
 
@@ -23,6 +25,7 @@ export const deleteGame = (state, { game }) => {
     }
 
     return {
+        ...state,
         games: games
     }
 }
@@ -37,6 +40,7 @@ export const updateGame = (state, { game }) => {
     }
 
     return {
+        ...state,
         games: games,
     }
 }
