@@ -2,10 +2,13 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
 import redirect from '../../tools/redirect';
 import url from '../../tools/apiCall';
+import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
 const Logout = () => {
     const [loading, setLoading] = useState(true);
+
+    const authApi = useAuthApi()
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
@@ -18,19 +21,13 @@ const Logout = () => {
     const handleLogout = e => {
         e.preventDefault();
 
-        fetch(url('users/auth/logout/', 8000), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Token ${localStorage.getItem('token')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                localStorage.clear();
+        authApi.logoutUser(null, (response) => {
+            if (response.status === 200) {
                 redirect('login');
-            });
+            }
+
+            localStorage.clear();
+        })
     };
 
     return (
