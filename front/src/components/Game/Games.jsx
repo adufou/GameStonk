@@ -1,12 +1,25 @@
-import React, { useEffect } from 'react';
-import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody } from '@windmill/react-ui'
+import React, { useEffect, useState } from 'react';
+import { Input, Label, Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui'
 import { GameProvider, useGameStore } from '../../stores/game/useGameStore';
 import { useGameFetch } from '../../stores/game/useGameFetch';
 import Game from './Game';
+import { GrAdd } from 'react-icons/gr'
+import ConfigIcon from "../Icon/ConfigIcon";
+import GameAddModal from './GameAddModal';
 
 const Games = () => {
     const gameFetch = useGameFetch();
     const gameStore = useGameStore();
+
+    const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false)
+
+    function openAddGameModal() {
+      setIsAddGameModalOpen(true)
+    }
+
+    function closeAddGameModal() {
+      setIsAddGameModalOpen(false)
+    }
 
     useEffect(() => {
         gameFetch.fetchGames();
@@ -18,18 +31,26 @@ const Games = () => {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableCell>GAMES</TableCell>
+                            <TableCell className='flex place-content-between'>
+                                <span>
+                                    GAMES
+                                </span>
+                                <div>
+                                    <Button size="small" layout="link" onClick={openAddGameModal}>
+                                        <ConfigIcon>
+                                            <GrAdd />
+                                        </ConfigIcon>
+                                    </Button>
+                                </div>
+                            </TableCell>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                     {gameStore.state.games?.map((game) => {
                         return (
                             <TableRow key={game.name}>
-                                {/* <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell> */}
                                 <TableCell>
-                                <Game game={game} />
+                                    <Game game={game} />
                                 </TableCell>
                             </TableRow>
                         )
@@ -37,6 +58,8 @@ const Games = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <GameAddModal isAddGameModalOpen={isAddGameModalOpen} closeAddGameModal={closeAddGameModal} />
         </div>
     );
 };
