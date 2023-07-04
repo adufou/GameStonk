@@ -10,74 +10,120 @@ from users.models import CustomUser
 
 # ViewSets
 
+
 class CustomUserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = CustomUser.objects.all().order_by('-date_joined')
+
+    queryset = CustomUser.objects.all().order_by("-date_joined")
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class ServerViewSet(viewsets.ModelViewSet):
     queryset = Server.objects.all()
     serializer_class = ServerSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class WalletViewSet(viewsets.ModelViewSet):
     queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class MarketplaceViewSet(viewsets.ModelViewSet):
     queryset = Marketplace.objects.all()
     serializer_class = MarketplaceSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class GoodBlueprintViewSet(viewsets.ModelViewSet):
     queryset = GoodBlueprint.objects.all()
     serializer_class = GoodBlueprintSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class GoodViewSet(viewsets.ModelViewSet):
     queryset = Good.objects.all()
     serializer_class = GoodSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class GoodValueTimeViewSet(viewsets.ModelViewSet):
     queryset = GoodValueTime.objects.all()
     serializer_class = GoodValueTimeSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class GoodMovementsViewSet(viewsets.ModelViewSet):
     queryset = GoodMovement.objects.all()
     serializer_class = GoodMovementSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 class SellOrderViewSet(viewsets.ModelViewSet):
     queryset = SellOrder.objects.all()
     serializer_class = SellOrderSerializer
     permissions_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.SessionAuthentication, authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
+
 
 # class HdvBankViewSet(viewsets.ModelViewSet):
 #     queryset = HdvBank.objects.all()
@@ -177,7 +223,7 @@ class SellOrderViewSet(viewsets.ModelViewSet):
 #     @action(methods=['GET'], detail=False)
 #     def get_unrealized_trades(self, request, pk=None):
 #         user = request.user
-        
+
 #         unrealized_trades = Trade.objects.filter(user=user.id, sellTransaction__isnull=True, sellOrderPrice__isnull=False)
 
 #         serializer = self.get_serializer(unrealized_trades, many=True)

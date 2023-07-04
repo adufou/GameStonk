@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useReducer} from "react";
-import globalStoreReducer from "./globalStoreReducer";
+import React, {createContext, useContext, useReducer} from 'react';
+import globalStoreReducer from './globalStoreReducer';
 
 export const GlobalContext = createContext();
 

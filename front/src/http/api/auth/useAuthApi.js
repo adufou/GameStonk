@@ -1,4 +1,4 @@
-import { apiCall, publicApiCall } from "../../../tools/apiCall"
+import { apiCall, publicApiCall } from '../../../tools/apiCall';
 
 export function useAuthApi() {
     return ({
@@ -14,5 +14,5 @@ export function useAuthApi() {
         registerUser: (data, callback) => {
             publicApiCall('users/auth/register', 'POST', callback, data, 8000);
         }
-    })
+    });
 }

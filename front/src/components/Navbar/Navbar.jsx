@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, WindmillContext } from '@windmill/react-ui'
-import { BsMoonFill, BsSunFill } from 'react-icons/bs'
-import ConfigIcon from "../Icon/ConfigIcon";
+import { Button, WindmillContext } from '@windmill/react-ui';
+import { BsMoonFill, BsSunFill } from 'react-icons/bs';
+import ConfigIcon from '../Icon/ConfigIcon';
 
 const Navbar = () => {
     const [isAuth, setIsAuth] = useState(false);
 
-    const { mode, toggleMode } = useContext(WindmillContext)
+    const { mode, toggleMode } = useContext(WindmillContext);
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -32,11 +32,11 @@ const Navbar = () => {
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li> */}
                         <li>
-                        <Button layout='link'>
-                            <Link to='admin'>
-                                Admin
-                            </Link>
-                        </Button>
+                            <Button layout='link'>
+                                <Link to='admin'>
+                                    Admin
+                                </Link>
+                            </Button>
                         </li>
                         <li>
                             <Button layout='link'>
@@ -46,14 +46,14 @@ const Navbar = () => {
                             </Button>
                         </li>
                         <li>
-                        <Button layout='link'>
+                            <Button layout='link'>
                                 <Link to='wallets'>
                                     My Wallets
                                 </Link>
                             </Button>
                         </li>
                         <li>
-                        <Button layout='link'>
+                            <Button layout='link'>
                                 <Link to='logout'>
                                     Logout
                                 </Link>
@@ -76,12 +76,12 @@ const Navbar = () => {
                         {mode === 'dark' ? (
                             // <p>Dark</p>
                             <ConfigIcon>
-                                <BsMoonFill/>
+                                <BsMoonFill />
                             </ConfigIcon>
                         ) : (
                             // <p>Light</p>
                             <ConfigIcon>
-                                <BsSunFill/>
+                                <BsSunFill />
                             </ConfigIcon>
                         )}
                     </Button>

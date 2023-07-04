@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {postLoginUser} from "../../service/userService";
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
 import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
@@ -26,7 +25,7 @@ const Login = () => {
 
         const user = {
             email: email,
-            password: password
+            password: password,
         };
 
         authApi.loginUser(user, (response) => {
@@ -42,7 +41,7 @@ const Login = () => {
                     setErrors(true);
                 }
             }
-        })
+        });
     };
 
     return (
@@ -62,7 +61,8 @@ const Login = () => {
                                     type='email'
                                     value={email}
                                     required
-                                    onChange={e => setEmail(e.target.value)}/>
+                                    onChange={e => setEmail(e.target.value)}
+                                />
                             </Label>
 
                             <Label className="mb-4">
@@ -72,7 +72,8 @@ const Login = () => {
                                     type='password'
                                     value={password}
                                     required
-                                    onChange={e => setPassword(e.target.value)}/>
+                                    onChange={e => setPassword(e.target.value)}
+                                />
                             </Label>
 
                             <Button type='submit'>Login</Button>

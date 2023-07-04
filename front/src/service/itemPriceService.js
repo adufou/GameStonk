@@ -1,4 +1,4 @@
-import url from "../tools/url";
+import url from '../tools/url';
 
 const postItemPrice = (item, price, time) => {
     const body = {
@@ -15,4 +15,4 @@ const postItemPrice = (item, price, time) => {
     });
 };
 
-export {postItemPrice}
+export {postItemPrice};

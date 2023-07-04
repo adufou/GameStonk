@@ -6,72 +6,86 @@ from rest_framework import serializers
 
 from users.models import CustomUser
 
+
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'url', 'username', 'email']
+        fields = ["id", "url", "username", "email"]
+
 
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
-        fields = ['id', 'name', 'game']
+        fields = ["id", "name", "game"]
+
 
 class GameSerializer(serializers.ModelSerializer):
     servers = ServerSerializer(many=True, read_only=True)
 
     class Meta:
         model = Game
-        fields = ['id', 'name', 'servers']
+        fields = ["id", "name", "servers"]
+
 
 class UserServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserServer
-        fields = ['id', 'user', 'server']
+        fields = ["id", "user", "server"]
+
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ['id', 'name']
+        fields = ["id", "name"]
+
 
 class UserTeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTeam
-        fields = ['id', 'user', 'team']
+        fields = ["id", "user", "team"]
+
 
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wallet
-        fields = ['id', 'marketplace', 'user']
+        fields = ["id", "marketplace", "user"]
+
 
 class MarketplaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marketplace
-        fields = ['id', 'name', 'server']
+        fields = ["id", "name", "server"]
+
 
 class GoodBlueprintSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodBlueprint
-        fields = ['id', 'game', 'name']
+        fields = ["id", "game", "name"]
+
 
 class GoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Good
-        fields = ['id', 'blueprint', 'marketplace']
+        fields = ["id", "blueprint", "marketplace"]
+
 
 class GoodValueTimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodValueTime
-        fields = ['id', 'good', 'value', 'time']
+        fields = ["id", "good", "value", "time"]
+
 
 class GoodMovementSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoodMovement
-        fields = ['id', 'good', 'wallet', 'quantity', 'value']
+        fields = ["id", "good", "wallet", "quantity", "value"]
+
 
 class SellOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = SellOrder
-        fields = ['id', 'marketplace', 'value']
+        fields = ["id", "marketplace", "value"]
+
 
 # class HdvBankSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -97,7 +111,7 @@ class SellOrderSerializer(serializers.ModelSerializer):
 #         fields = ['id', 'name', 'hdv']
 
 
-# # Serializer for Item GET -> itemBank Nested 
+# # Serializer for Item GET -> itemBank Nested
 # class ItemGetSerializer(serializers.ModelSerializer):
 #     itemBank = ItemBankGetSerializer(read_only=True)
 
@@ -106,7 +120,7 @@ class SellOrderSerializer(serializers.ModelSerializer):
 #         fields = ['id', 'itemBank']
 
 
-# # Serializer for Item POST -> itemBank is an int 
+# # Serializer for Item POST -> itemBank is an int
 # class ItemPostSerializer(serializers.ModelSerializer):
 #     itemBank = serializers.PrimaryKeyRelatedField(queryset=ItemBank.objects.all())
 
@@ -124,14 +138,14 @@ class SellOrderSerializer(serializers.ModelSerializer):
 #         fields = ['id', 'item', 'price', 'time']
 
 
-# # Serializer for ItemPrice POST -> item is an int 
+# # Serializer for ItemPrice POST -> item is an int
 # class ItemPricePostSerializer(serializers.ModelSerializer):
 #     item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
 
 #     class Meta:
 #         model = ItemPrice
 #         fields = ['id', 'item', 'price', 'time']
-        
+
 # # Serializer for Report GET -> itemPrice Nested
 # class ReportGetSerializer(serializers.ModelSerializer):
 #     itemPrice = ItemPriceGetSerializer(read_only=True)
@@ -158,7 +172,7 @@ class SellOrderSerializer(serializers.ModelSerializer):
 #         fields = ['id', 'user', 'itemPrice', 'volume']
 
 
-# # Serializer for Transaction POST -> itemPrice is an int 
+# # Serializer for Transaction POST -> itemPrice is an int
 # class TransactionPostSerializer(serializers.ModelSerializer):
 #     itemPrice = serializers.PrimaryKeyRelatedField(queryset=ItemPrice.objects.all())
 
@@ -183,7 +197,7 @@ class SellOrderSerializer(serializers.ModelSerializer):
 #         fields = ['id', 'user', 'buyTransaction', 'sellTransaction', 'sellOrderPrice']
 
 
-# # Serializer for Trade POST -> buyTransaction and sellTransaction are int 
+# # Serializer for Trade POST -> buyTransaction and sellTransaction are int
 # class TradePostSerializer(serializers.ModelSerializer):
 #     buyTransaction = serializers.PrimaryKeyRelatedField(queryset=Transaction.objects.all())
 #     sellTransaction = serializers.PrimaryKeyRelatedField(queryset=Transaction.objects.all(), required=False, allow_null=True)

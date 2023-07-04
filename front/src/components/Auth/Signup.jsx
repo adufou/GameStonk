@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
-import url from '../../tools/apiCall';
 import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
@@ -43,7 +42,7 @@ const Signup = () => {
                 localStorage.clear();
                 setErrors(true);
             }
-        })
+        });
     };
 
     return (
@@ -62,7 +61,7 @@ const Signup = () => {
                                 type='email'
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                required/>
+                                required />
                         </Label>
 
                         {/*<label htmlFor='email'>Email address:</label> <br />*/}
@@ -82,7 +81,7 @@ const Signup = () => {
                                 type='password'
                                 value={password1}
                                 onChange={e => setPassword1(e.target.value)}
-                                required/>
+                                required />
                         </Label>
                         {/*<label htmlFor='password1'>Password:</label> <br />*/}
                         {/*<input*/}
@@ -101,7 +100,7 @@ const Signup = () => {
                                 type='password'
                                 value={password2}
                                 onChange={e => setPassword2(e.target.value)}
-                                required/>
+                                required />
                         </Label>
 
                         {/*<label htmlFor='password2'>Confirm password:</label> <br />*/}

@@ -4,56 +4,71 @@ from django.db import models
 
 # Create your models here.
 
+
 class Game(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
+
 class Server(models.Model):
     name = models.CharField(max_length=64, unique=False)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='servers')
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="servers")
+
 
 class UserServer(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     server = models.ForeignKey(Server, on_delete=models.CASCADE)
 
+
 class Team(models.Model):
     name = models.CharField(max_length=64, unique=False)
+
 
 class UserTeam(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
+
 class Marketplace(models.Model):
     name = models.CharField(max_length=64, unique=True)
     server = models.ForeignKey(Game, on_delete=models.CASCADE)
+
 
 class Wallet(models.Model):
     marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
+
 class GoodBlueprint(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     name = models.CharField(max_length=64, unique=True)
-    # TODO ADD ALL POSSIBLE FIELDS FOR A GOOD IN MANY GAMES 
+    # TODO ADD ALL POSSIBLE FIELDS FOR A GOOD IN MANY GAMES
+
 
 class Good(models.Model):
     blueprint = models.ForeignKey(GoodBlueprint, on_delete=models.CASCADE)
     marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE)
-    # TODO ADD ALL POSSIBLE FIELDS FOR A GOOD IN MANY GAMES 
+    # TODO ADD ALL POSSIBLE FIELDS FOR A GOOD IN MANY GAMES
+
 
 class GoodValueTime(models.Model):
     good = models.ForeignKey(Good, on_delete=models.CASCADE)
     value = models.IntegerField()
     time = models.DateTimeField()
 
+
 class GoodMovement(models.Model):
     good = models.ForeignKey(Good, on_delete=models.CASCADE)
     wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    value = models.ForeignKey(GoodValueTime, on_delete=models.CASCADE, blank=True, null=True)
+    value = models.ForeignKey(
+        GoodValueTime, on_delete=models.CASCADE, blank=True, null=True
+    )
+
 
 class SellOrder(models.Model):
     marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE)
     value = models.ForeignKey(GoodValueTime, on_delete=models.CASCADE)
+
 
 # class HdvBank(models.Model):
 #     name = models.CharField(max_length=64, unique=True)
