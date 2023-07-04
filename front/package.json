@@ -43,6 +43,7 @@
   "devDependencies": {
     "autoprefixer": "10",
     "axios": "^1",
+    "eslint-config-prettier": "^8.8.0",
     "mini-css-extract-plugin": "^2",
     "postcss": "^8.0.0",
     "postcss-cli": "^10",
@@ -50,7 +51,8 @@
     "postcss-loader": "^7",
     "postcss-preset-env": "^9",
     "postcss-url": "^10",
-    "prettier": "^2.0.5",
+    "prettier": "^2.8.8",
+    "prettier-eslint": "^15.0.1",
     "style-loader": "^3",
     "tailwindcss": "^3"
   },
