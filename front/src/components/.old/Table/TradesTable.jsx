@@ -10,9 +10,9 @@ import {
     Pagination,
     Badge
 } from '@windmill/react-ui'
-import {getUser} from "../../service/userService";
-import {getRealizedTrades} from "../../service/tradeService";
-import redirect from '../../tools/redirect';
+import {getUser} from "../../../service/userService";
+import {getRealizedTrades} from "../../../service/tradeService";
+import redirect from '../../../tools/redirect';
 
 const TradesTable = () => {
     const [userId, setUserId] = useState(0);

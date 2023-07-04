@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {postLoginUser} from "../../service/userService";
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
+import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
 const Login = () => {
@@ -9,6 +9,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const authApi = useAuthApi();
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -23,15 +25,14 @@ const Login = () => {
 
         const user = {
             email: email,
-            password: password
+            password: password,
         };
 
-        postLoginUser(user)
-            .then(res => res.json())
-            .then(data => {
-                if (data.key) {
+        authApi.loginUser(user, (response) => {
+            if (response.status === 200) {
+                if (response.body?.key) {
                     localStorage.clear();
-                    localStorage.setItem('token', data.key);
+                    localStorage.setItem('token', response.body.key);
                     redirect('dashboard');
                 } else {
                     setEmail('');
@@ -39,7 +40,8 @@ const Login = () => {
                     localStorage.clear();
                     setErrors(true);
                 }
-            });
+            }
+        });
     };
 
     return (
@@ -59,7 +61,8 @@ const Login = () => {
                                     type='email'
                                     value={email}
                                     required
-                                    onChange={e => setEmail(e.target.value)}/>
+                                    onChange={e => setEmail(e.target.value)}
+                                />
                             </Label>
 
                             <Label className="mb-4">
@@ -69,7 +72,8 @@ const Login = () => {
                                     type='password'
                                     value={password}
                                     required
-                                    onChange={e => setPassword(e.target.value)}/>
+                                    onChange={e => setPassword(e.target.value)}
+                                />
                             </Label>
 
                             <Button type='submit'>Login</Button>

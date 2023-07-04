@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
-import url from '../../tools/url';
+import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
 const Signup = () => {
@@ -10,6 +10,8 @@ const Signup = () => {
     const [password2, setPassword2] = useState('');
     const [errors, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const authApi = useAuthApi();
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -28,27 +30,19 @@ const Signup = () => {
             password2: password2
         };
 
-        fetch(url('users/auth/register/', 8000), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.key) {
-                    localStorage.clear();
-                    localStorage.setItem('token', data.key);
-                    redirect('dashboard');
-                } else {
-                    setEmail('');
-                    setPassword1('');
-                    setPassword2('');
-                    localStorage.clear();
-                    setErrors(true);
-                }
-            });
+        authApi.registerUser(user, (data) => {
+            if (data.key) {
+                localStorage.clear();
+                localStorage.setItem('token', data.key);
+                redirect('dashboard');
+            } else {
+                setEmail('');
+                setPassword1('');
+                setPassword2('');
+                localStorage.clear();
+                setErrors(true);
+            }
+        });
     };
 
     return (
@@ -67,7 +61,7 @@ const Signup = () => {
                                 type='email'
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                required/>
+                                required />
                         </Label>
 
                         {/*<label htmlFor='email'>Email address:</label> <br />*/}
@@ -87,7 +81,7 @@ const Signup = () => {
                                 type='password'
                                 value={password1}
                                 onChange={e => setPassword1(e.target.value)}
-                                required/>
+                                required />
                         </Label>
                         {/*<label htmlFor='password1'>Password:</label> <br />*/}
                         {/*<input*/}
@@ -106,7 +100,7 @@ const Signup = () => {
                                 type='password'
                                 value={password2}
                                 onChange={e => setPassword2(e.target.value)}
-                                required/>
+                                required />
                         </Label>
 
                         {/*<label htmlFor='password2'>Confirm password:</label> <br />*/}

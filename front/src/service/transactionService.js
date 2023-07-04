@@ -1,9 +1,9 @@
-import url from "../tools/url";
+import url from '../tools/url';
 
 const postTransaction = (user, itemPrice, volume) => {
     const body = {
         user, itemPrice, volume
-    }
+    };
 
     return fetch(url('transaction/', 8000), {
         method: 'POST',
@@ -15,4 +15,4 @@ const postTransaction = (user, itemPrice, volume) => {
     });
 };
 
-export {postTransaction}
+export {postTransaction};
