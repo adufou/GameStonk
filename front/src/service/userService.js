@@ -1,4 +1,4 @@
-import url from "../tools/url"
+import url from '../tools/apiCall';
 
 const getUser = () => {
     return fetch(url('users/auth/user/', 8000), {
@@ -7,8 +7,8 @@ const getUser = () => {
             'Content-Type': 'application/json',
             Authorization: `Token ${localStorage.getItem('token')}`
         }
-    })
-}
+    });
+};
 
 const postLoginUser = (user) => {
     return fetch(url('users/auth/login/', 8000), {
@@ -17,7 +17,7 @@ const postLoginUser = (user) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
-    })
-}
+    });
+};
 
-export {getUser, postLoginUser}
+export {getUser, postLoginUser};

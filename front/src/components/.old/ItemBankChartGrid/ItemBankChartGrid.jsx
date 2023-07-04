@@ -1,8 +1,8 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import {getItemBank} from "../../service/itemBankService";
+import {getItemBank} from "../../../service/itemBankService";
 import ItemBankChart from "../ItemBankChart/ItemBankChart";
 import {Card, CardBody} from "@windmill/react-ui";
-import redirect from '../../tools/redirect';
+import redirect from '../../../tools/redirect';
 
 const ItemBankChartGrid = () => {
     const [itemBankList, setItemBankList] = useState([])

@@ -1,4 +1,4 @@
-import url from "../tools/url";
+import url from '../tools/apiCall';
 
 const getItemBank = () => {
     return fetch(url('item_bank/', 8000), {
@@ -7,8 +7,8 @@ const getItemBank = () => {
             'Content-Type': 'application/json',
             Authorization: `Token ${localStorage.getItem('token')}`
         }
-    })
-}
+    });
+};
 
 const postItemBank = (body) => {
     return fetch(url('item_bank/', 8000), {
@@ -31,4 +31,4 @@ const getItemBankReports = (id) => {
     });
 };
 
-export {getItemBank, postItemBank, getItemBankReports}
+export {getItemBank, postItemBank, getItemBankReports};

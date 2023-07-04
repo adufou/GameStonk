@@ -7,11 +7,6 @@ URL: http://ns399800.ip-5-196-67.eu:4000/
 
 ## Je veux participer au dev
 
-# Ressources
-
-Trello: https://trello.com/b/F5yH0slC/stonkofus
-Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
-
 # PREREQUIS
 
 Installer Docker
@@ -39,3 +34,12 @@ Dans un terminal :
 - `.\venv\Scripts\activate`
 - `cd back/`
 - `python manage.py createsuperuser`
+
+# Ressources
+
+Trello: https://trello.com/b/F5yH0slC/stonkofus
+Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
+
+# Doc
+
+https://dzone.com/articles/a-new-way-to-implement-redux-like-global-store-wit

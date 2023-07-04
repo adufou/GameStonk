@@ -1,4 +1,4 @@
-import url from "../tools/url";
+import url from '../tools/url';
 
 const getHdvBank = () => {
     return fetch(url('hdv_bank/', 8000), {
@@ -7,8 +7,8 @@ const getHdvBank = () => {
             'Content-Type': 'application/json',
             Authorization: `Token ${localStorage.getItem('token')}`
         }
-    })
-}
+    });
+};
 
 const postHdvBank = (body) => {
     return fetch(url('hdv_bank/', 8000), {
@@ -21,4 +21,4 @@ const postHdvBank = (body) => {
     });
 };
 
-export {getHdvBank, postHdvBank}
+export {getHdvBank, postHdvBank};
