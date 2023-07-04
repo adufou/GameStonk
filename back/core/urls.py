@@ -27,22 +27,22 @@ router = routers.DefaultRouter()
 # router.register(r'user', views.UserViewSet)
 # router.register(r'group', views.GroupViewSet)
 
-router.register(r'game', GameViewSet)
-router.register(r'server', ServerViewSet)
-router.register(r'team', TeamViewSet)
-router.register(r'wallet', WalletViewSet)
-router.register(r'marketplace', MarketplaceViewSet)
-router.register(r'good_blueprint', GoodBlueprintViewSet)
-router.register(r'good', GoodViewSet)
-router.register(r'good_value_time', GoodValueTimeViewSet)
-router.register(r'good_movement', GoodMovementsViewSet)
-router.register(r'sell_order', SellOrderViewSet)
+router.register(r"game", GameViewSet)
+router.register(r"server", ServerViewSet)
+router.register(r"team", TeamViewSet)
+router.register(r"wallet", WalletViewSet)
+router.register(r"marketplace", MarketplaceViewSet)
+router.register(r"good_blueprint", GoodBlueprintViewSet)
+router.register(r"good", GoodViewSet)
+router.register(r"good_value_time", GoodValueTimeViewSet)
+router.register(r"good_movement", GoodMovementsViewSet)
+router.register(r"sell_order", SellOrderViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('users/', include('users.urls')),
-    path('admin/', admin.site.urls),
+    path("", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("users/", include("users.urls")),
+    path("admin/", admin.site.urls),
 ]
 
 # urlpatterns = [

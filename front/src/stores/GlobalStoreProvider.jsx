@@ -1,10 +1,10 @@
 import React from 'react';
 import { GlobalProvider } from './useGlobalStore';
 
-const GlobalStoreProvider = ({children}) => {
+const GlobalStoreProvider = ({ children }) => {
     return (
         <GlobalProvider>
-             {children}
+            {children}
         </GlobalProvider>
     );
 };

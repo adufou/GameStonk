@@ -1,4 +1,4 @@
-import { apiCall } from "../../../tools/apiCall"
+import { apiCall } from '../../../tools/apiCall';
 
 export function useGameApi() {
     return ({
@@ -17,5 +17,5 @@ export function useGameApi() {
         updateGame: (game, callback) => {
             apiCall('game/' + game.id, 'PUT', callback, game);
         },
-    })
+    });
 }

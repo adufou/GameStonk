@@ -1,14 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui'
+import { Card, CardBody, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
-import url from '../../tools/apiCall';
 import { useAuthApi } from '../../http/api/auth/useAuthApi';
 
 
 const Logout = () => {
     const [loading, setLoading] = useState(true);
 
-    const authApi = useAuthApi()
+    const authApi = useAuthApi();
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
@@ -27,7 +26,7 @@ const Logout = () => {
             }
 
             localStorage.clear();
-        })
+        });
     };
 
     return (

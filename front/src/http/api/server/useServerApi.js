@@ -1,4 +1,4 @@
-import {apiCall} from "../../../tools/apiCall"
+import {apiCall} from '../../../tools/apiCall';
 
 export function useServerApi() {
     return ({
@@ -11,5 +11,5 @@ export function useServerApi() {
         updateServer: (server, callback) => {
             apiCall('server/' + server.id, 'PUT', callback, server );
         },
-    })
+    });
 }
