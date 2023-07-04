@@ -5,7 +5,7 @@ export default function ConfigIcon({ children }) {
 
     return (
         <>
-            <IconContext.Provider value={{ size: '1.2rem' }}>
+            <IconContext.Provider value={{}}>
                 {children}
             </IconContext.Provider>
         </>
