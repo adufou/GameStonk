@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "baseUrl": "./front",
+        "checkJs": true,
         "module": "ESNext",
         "moduleResolution": "Node",
         "target": "ES2020",

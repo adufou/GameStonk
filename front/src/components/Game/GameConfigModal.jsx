@@ -4,13 +4,13 @@ import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGlobalStore } from '../../stores/useGlobalStore';
 import { updateGame } from '../../stores/game/gameStoreActions';
 
-const GameEditModal = ({ isOpen, closeModal, game }) => {
+const GameConfigModal = ({ isOpen, closeModal, game }) => {
     const [newGameName, setGameName] = useState(game.name);
 
     const gameApi = useGameApi();
     const store = useGlobalStore();
 
-    function editGame() {
+    function configGame() {
         const updatedGame = {
             ...game,
             name: newGameName
@@ -38,10 +38,10 @@ const GameEditModal = ({ isOpen, closeModal, game }) => {
                 <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
                     Cancel
                 </Button>
-                <Button className="w-full sm:w-auto" onClick={editGame}>Accept</Button>
+                <Button className="w-full sm:w-auto" onClick={configGame}>Accept</Button>
             </ModalFooter>
         </Modal>
     );
 };
 
-export default GameEditModal;
+export default GameConfigModal;
