@@ -1,42 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Server from '../Server/Server';
 import { Button, TableContainer, Table, TableHeader, TableRow, TableCell, TableBody } from '@windmill/react-ui';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { useGameFetch } from '../../stores/game/useGameFetch';
-import GameCell from './GameCell';
 import { GrAdd } from 'react-icons/gr';
 import ConfigIcon from '../Icon/ConfigIcon';
-import GameAddModal from './GameAddModal';
+import GameCard from './GameCard';
+import ServerAddModal from '../Server/ServerAddModal';
 
-const Games = () => {
-    const gameFetch = useGameFetch();
-    const store = useGlobalStore();
+const GameCell = ({ game }) => {
+    const [isAddServerModalOpen, setIsAddServerModalOpen] = useState(false);
 
-    const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);
-
-    function openAddGameModal() {
-        setIsAddGameModalOpen(true);
+    function openAddServerModal() {
+        setIsAddServerModalOpen(true);
     }
 
-    function closeAddGameModal() {
-        setIsAddGameModalOpen(false);
+    function closeAddServerModal() {
+        setIsAddServerModalOpen(false);
     }
-
-    useEffect(() => {
-        gameFetch.fetchGames();
-    }, []);
 
     return (
         <div>
+            <GameCard game={game} />
             <TableContainer>
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableCell className='flex place-content-between'>
                                 <span>
-                                    GAMES
+                                    SERVERS
                                 </span>
                                 <div>
-                                    <Button size="small" layout="link" onClick={openAddGameModal}>
+                                    <Button size="small" layout="link" onClick={openAddServerModal}>
                                         <ConfigIcon>
                                             <GrAdd />
                                         </ConfigIcon>
@@ -46,11 +39,11 @@ const Games = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {store.state.games?.map((game) => {
+                        {game.servers?.map((server) => {
                             return (
-                                <TableRow key={game.id}>
+                                <TableRow key={server.id}>
                                     <TableCell>
-                                        <GameCell game={game} />
+                                        <Server server={server} />
                                     </TableCell>
                                 </TableRow>
                             );
@@ -59,9 +52,9 @@ const Games = () => {
                 </Table>
             </TableContainer>
 
-            <GameAddModal isOpen={isAddGameModalOpen} closeModal={closeAddGameModal} />
+            <ServerAddModal isOpen={isAddServerModalOpen} closeModal={closeAddServerModal} game={game} />
         </div>
     );
 };
 
-export default Games;
+export default GameCell;

@@ -14,7 +14,7 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.IgnorePlugin({resourceRegExp: /\.\/native/, contextRegExp: /\/pg\// }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(
       {
@@ -30,6 +30,8 @@ module.exports = {
       filename: '[name].bundle.css',
       chunkFilename: '[id].css'
     }),
+    // require('tailwindcss'),
+    // require('./tailwind.config.js'),
   ],
   context: path.join(__dirname),
   module: {
@@ -68,63 +70,66 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              data: '/static/css/style.css',
-              sourceMap: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.sass$/,
-        use: [
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              indentedSyntax: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.css$/i,
-        include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
-          {
-            loader: MiniCssExtractPlugin.loader,
-            // options: {
-            //   hmr: argv.mode === 'development'
-            // }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          'postcss-loader'
-        ]
-      },
+    //   {
+    //     test: /\.scss$/,
+    //     use: [
+    //       {
+    //         loader: 'style-loader',
+    //         options: {
+    //           sourceMap: true,
+    //         },
+    //       },
+    //       {
+    //         loader: 'css-loader',
+    //         options: {
+    //           sourceMap: true,
+    //         },
+    //       },
+    //       {
+    //         loader: 'sass-loader',
+    //         options: {
+    //           data: '/static/css/style.css',
+    //           sourceMap: true,
+    //         },
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     test: /\.sass$/,
+    //     use: [
+    //       'css-loader',
+    //       {
+    //         loader: 'sass-loader',
+    //         options: {
+    //           indentedSyntax: true,
+    //         },
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     test: /\.css$/i,
+    //     include: path.resolve(__dirname, 'src'),
+    //     exclude: /node_modules/,
+    //     use: [
+    //       'style-loader',
+    //       {
+    //         loader: MiniCssExtractPlugin.loader,
+    //         // options: {
+    //         //   hmr: argv.mode === 'development'
+    //         // }
+    //       },
+    //       {
+    //         loader: 'css-loader',
+    //         options: {
+    //           importLoaders: 1
+    //         }
+    //       },
+    //       'postcss-loader',
+    //       {
+    //         loader: 'postcss-loader'
+    //       }
+    //     ]
+    //   },
       // {
       //   test: /\.css$/,
       //   use: [

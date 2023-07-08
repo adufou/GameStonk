@@ -1,5 +1,5 @@
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
@@ -10,13 +10,13 @@ module.exports = merge(common, {
     allowedHosts: ['all', 'ns399800.ip-5-196-67.eu'],
     port: 4000,
     host: '0.0.0.0',
-    publicPath: '/',
+    // publicPath: '/',
     hot: true,
-    inline: true,
+    // inline: true,
     compress: true,
-    contentBase: path.resolve(__dirname, './build'),
+    // contentBase: path.resolve(__dirname, './build'),
     historyApiFallback: true,
-    watchContentBase: true,
+    // watchContentBase: true,
     proxy: {
       '/api/**': {
         target: 'http://django:8000',
@@ -29,13 +29,13 @@ module.exports = merge(common, {
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': '*',
     },
-    watchOptions: {
-      poll: true,
-    },
+    // watchOptions: {
+    //   poll: true,
+    // },
   },
-  watch: true,
-  watchOptions: {
-    poll: true,
-    ignored: /node_modules/,
-  },
+//   watch: true,
+//   watchOptions: {
+//     poll: true,
+//     ignored: /node_modules/,
+//   },
 });
