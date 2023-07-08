@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "baseUrl": "./front",
+        "checkJs": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "jsx": "react",
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./built"
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*",
+        "**/*.json",
+        "./built/**/*"
+    ]
+}
