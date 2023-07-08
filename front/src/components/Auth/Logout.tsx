@@ -1,7 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Card, CardBody, Label, Button } from '@windmill/react-ui';
 import redirect from '../../tools/redirect';
 import { useAuthApi } from '../../http/api/auth/useAuthApi';
+import Card from '../DesignSystem/Card/Card';
+import CardBody from '../DesignSystem/Card/CardBody';
+import Button from '../DesignSystem/Button/Button';
 
 
 const Logout = () => {
@@ -30,17 +32,14 @@ const Logout = () => {
     };
 
     return (
-        <div className="container mx-auto w-96">
-            <Card className="mt-32">
+        <div>
+            <Card>
                 <CardBody>
                     {loading === false && (
                         <Fragment>
-                            <Label>
-                                <p className="mb-2">Are you sure you want to logout?</p>
-                                <Button value='Logout' onClick={handleLogout}>
-                                    Logout
-                                </Button>
-                            </Label>
+                            <Button callback={handleLogout} label="Are you sure you want to logout?">
+                                Logout
+                            </Button>
                         </Fragment>
                     )}
                 </CardBody>

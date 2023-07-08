@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ children, type = undefined, href = '', callback = null }) => {
+const Button = ({ children, type = undefined, href = '', callback = null, label = '' }) => {
     return (
         <div>
             <button type={type}>
