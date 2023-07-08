@@ -4,6 +4,7 @@ import { Button } from '@windmill/react-ui';
 import { MdEdit } from 'react-icons/md';
 import ConfigIcon from '../Icon/ConfigIcon';
 import { GrSubtract } from 'react-icons/gr';
+import { MdInventory } from 'react-icons/md';
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
 import { useGameApi } from '../../http/api/game/useGameApi';
 import { useGlobalStore } from '../../stores/useGlobalStore';
@@ -49,6 +50,11 @@ const GameCard = ({ game }) => {
                 </span>
 
                 <div>
+                    <Button size="small" layout="link" onClick={openModalConfigGame}>
+                        <ConfigIcon>
+                            <MdInventory />
+                        </ConfigIcon>
+                    </Button>
                     <Button size="small" layout="link" onClick={openModalConfigGame}>
                         <ConfigIcon>
                             <MdEdit />
