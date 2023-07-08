@@ -1,16 +1,28 @@
-import App from 'src/components/App/App';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import './index.css';
-import { Windmill } from '@windmill/react-ui';
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
 import GlobalStoreProvider from './stores/GlobalStoreProvider';
+import App from './components/App/App';
 
-ReactDOM.render(
-    <Windmill usePreferences>
-        <GlobalStoreProvider>
-            <App />
-        </GlobalStoreProvider>
-    </Windmill>,
-    document.getElementById('root')
+// const router = createBrowserRouter([
+//     {
+//         path: '/',
+//         element: <App />,
+//     },
+// ]);
+
+// ReactDOM.render(
+//     <Wreactui usePreferences>
+//         <GlobalStoreProvider>
+//             {/* <RouterProvider router={router} /> */}
+//             {/* <App /> */}
+//         </GlobalStoreProvider>
+//     </Wreactui>,
+//     document.getElementById('root')
+// );
+
+createRoot(document.getElementById('root')).render(
+    <GlobalStoreProvider>
+        {/* <RouterProvider router={router} /> */}
+        <App />
+    </GlobalStoreProvider>
 );
