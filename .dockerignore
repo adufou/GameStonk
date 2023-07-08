@@ -4,11 +4,12 @@
 .gitignore
 docker-compose.yml
 
+./package.json
+./package-lock.json
+
 # dockerignore different than gitignore **/* is the full wildcard match
 **/*Dockerfile*
 **/*node_modules/*
 **/*.env*
 **/*google_creds.json*
 **/*local_settings.py*
-**/*.md*
-!README*.md
