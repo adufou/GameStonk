@@ -13,6 +13,8 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.22.5",
         "@fortawesome/react-fontawesome": "^0.2",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+        "@types/node": "^20.4.1",
         "@types/react-dom": "^18.2.6",
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.61.0",
@@ -35,9 +37,11 @@
         "react-cookie": "^4.0.1",
         "react-dom": "^18",
         "react-icons": "^4.10",
+        "react-refresh": "^0.14.0",
         "react-router-dom": "^6",
         "terser-webpack-plugin": "^5",
         "ts-loader": "^9.4.4",
+        "type-fest": "^3.12.0",
         "typescript": "^5.1.6",
         "webpack": "^5.88.1",
         "webpack-cli": "^5.1.4",
@@ -45,10 +49,9 @@
         "webpack-merge": "^5"
     },
     "scripts": {
-        "start:dev": "../node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config webpack.dev.js",
+        "start:dev": "tsc-watch --noClear -p tsconfig.json --onSuccess \"../node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config built/webpack.dev.js\"",
         "build:prod": "webpack -p --config webpack.prod.js",
         "lint": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' && echo Linting complete...",
         "lint-fix": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' --fix && echo Linting complete..."
-    },
-    "devDependencies": {}
+    }
 }

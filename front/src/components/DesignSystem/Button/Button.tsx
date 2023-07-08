@@ -1,10 +1,25 @@
 import React from 'react';
 
-const Button = ({ children, type = undefined, href = '', callback = null, label = '' }) => {
+interface ButtonProps {
+    text: string;
+    type?: 'button' | 'submit' | 'reset';
+    onClick?: () => void;
+    href?: string;
+    label?: string;
+}
+
+const Button = ({ text = '', type, onClick, href, label }: ButtonProps): JSX.Element => {
+    const test = () => {
+        console.log('test');
+    };
+
     return (
         <div>
-            <button type={type}>
-                {children}
+            if ({label}) {
+                <span >{label}</span>
+            }
+            <button type={type} onClick={test}>
+                {text}
             </button>
         </div>
     );

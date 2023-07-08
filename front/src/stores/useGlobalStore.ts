@@ -1,10 +1,12 @@
-import React, {createContext, useContext, useReducer} from 'react';
+import React, {createContext, createElement, useContext, useReducer} from 'react';
 import globalStoreReducer from './globalStoreReducer';
 
 export const GlobalContext = createContext();
 
-export const GlobalProvider = props => {
+export const GlobalProvider = ({ children }): JSX.Element => {
     const [state, dispatch] = useReducer(...globalStoreReducer);
+
+    const element = createElement('GlobalContext.Provider', { value: [state, dispatch], }, children)
     return <GlobalContext.Provider value={[state, dispatch]} {...props} />;
 };
 

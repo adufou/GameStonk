@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -34,6 +35,7 @@ const plugins = [
         filename: '[name].bundle.css',
         chunkFilename: '[id].css'
     }),
+    new ReactRefreshWebpackPlugin(),
 ];
 
 const context = join(__dirname);
@@ -66,10 +68,12 @@ const module = {
                             },
                             'icons',
                         ],
+                        'react-refresh/babel',
                     ],
                     presets: [
                         '@babel/preset-env',
                         '@babel/preset-react',
+                        '@babel/preset-typescript',
                     ],
                 },
             },

@@ -19,8 +19,8 @@ const Logout = () => {
         }
     }, []);
 
-    const handleLogout = e => {
-        e.preventDefault();
+    const handleLogout = () => {
+        console.log('logout');
 
         authApi.logoutUser(null, (response) => {
             if (response.status === 200) {
@@ -37,9 +37,7 @@ const Logout = () => {
                 <CardBody>
                     {loading === false && (
                         <Fragment>
-                            <Button callback={handleLogout} label="Are you sure you want to logout?">
-                                Logout
-                            </Button>
+                            <Button text="Logout" onClick={handleLogout} label="Are you sure you want to logout?" />
                         </Fragment>
                     )}
                 </CardBody>
