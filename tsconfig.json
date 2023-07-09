@@ -14,12 +14,11 @@
         "types": [],
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
-        "outDir": "./build"
+        "outDir": "./build",
     },
     "exclude": [
         "node_modules",
         "**/node_modules/*",
-        "**/*.json",
-        "./build/**/*"
+        "**/*.json"
     ]
 }
