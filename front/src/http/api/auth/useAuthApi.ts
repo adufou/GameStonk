@@ -1,18 +1,19 @@
+import User from 'src/models/User';
 import { apiCall, publicApiCall } from '../../../tools/apiCall';
 
 export function useAuthApi() {
     return ({
-        getUser: (callback) => {
-            apiCall('users/auth/user', 'GET', callback, null, 8000);
+        getUser: () => {
+            apiCall('users/auth/user', 'GET', null, 8000);
         },
-        loginUser: (data, callback) => {
-            publicApiCall('users/auth/login', 'POST', callback, data, 8000);
+        loginUser: (data: User) => {
+            publicApiCall('users/auth/login', 'POST', data, 8000);
         },
-        logoutUser: (data, callback) => {
-            apiCall('users/auth/logout', 'POST', callback, data, 8000);
+        logoutUser: (data: User) => {
+            apiCall('users/auth/logout', 'POST', data, 8000);
         },
-        registerUser: (data, callback) => {
-            publicApiCall('users/auth/register', 'POST', callback, data, 8000);
+        registerUser: (data: User) => {
+            publicApiCall('users/auth/register', 'POST', data, 8000);
         }
     });
 }

@@ -1,21 +1,22 @@
+import Game from 'src/models/Game';
 import { apiCall } from '../../../tools/apiCall';
 
 export function useGameApi() {
     return ({
-        getGames: (callback) => {
-            apiCall('game', 'GET', callback);
+        getGames: () => {
+            return apiCall('game', 'GET');
         },
-        getGame: (game, callback) => {
-            apiCall('game/' + game.id, 'GET', callback);
+        getGame: (game: Game) => {
+            return apiCall('game/' + game.id, 'GET');
         },
-        addGame: (game, callback) => {
-            apiCall('game', 'POST', callback, game);
+        addGame: (game: Game) => {
+            return apiCall('game', 'POST', game);
         },
-        deleteGame: (game, callback) => {
-            apiCall('game/' + game.id, 'DELETE', callback);
+        deleteGame: (game: Game) => {
+            return apiCall('game/' + game.id, 'DELETE');
         },
-        updateGame: (game, callback) => {
-            apiCall('game/' + game.id, 'PUT', callback, game);
+        updateGame: (game: Game) => {
+            return apiCall('game/' + game.id, 'PUT', game);
         },
     });
 }

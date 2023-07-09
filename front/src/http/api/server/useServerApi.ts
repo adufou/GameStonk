@@ -1,15 +1,16 @@
+import Server from 'src/models/Server';
 import {apiCall} from '../../../tools/apiCall';
 
 export function useServerApi() {
     return ({
-        addServer: (server, callback) => {
-            apiCall('server', 'POST', callback, server);
+        addServer: (server: Server) => {
+            apiCall('server', 'POST', server);
         },
-        deleteServer: (server, callback) => {
-            apiCall('server/' + server.id, 'DELETE', callback);
+        deleteServer: (server: Server) => {
+            apiCall('server/' + server.id, 'DELETE');
         },
-        updateServer: (server, callback) => {
-            apiCall('server/' + server.id, 'PUT', callback, server );
+        updateServer: (server: Server) => {
+            apiCall('server/' + server.id, 'PUT', server );
         },
     });
 }
