@@ -35,7 +35,8 @@ services:
     build:
       context: .
       dockerfile: ./conf/react/Dockerfile
-    command: yarn run start:dev
+    # command: yarn run start:dev
+    command: tail -F anything
     ports:
       - "4000:4000"
     volumes:

@@ -5,20 +5,21 @@
         "checkJs": false,
         "module": "ES2020",
         "moduleResolution": "node",
-        "target": "ES2020",
+        "target": "ES6",
         "jsx": "react",
         "skipLibCheck": true,
+        "sourceMap": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "types": [],
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
-        "outDir": "./built"
+        "outDir": "./build"
     },
     "exclude": [
         "node_modules",
         "**/node_modules/*",
         "**/*.json",
-        "./built/**/*"
+        "./build/**/*"
     ]
 }

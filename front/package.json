@@ -43,9 +43,9 @@
         "react-redux": "^8.1.1",
         "react-refresh": "^0.14.0",
         "react-router-dom": "^6",
-        "redux-toolkit": "^1.1.2",
         "terser-webpack-plugin": "^5",
         "ts-loader": "^9.4.4",
+        "ts-node": "^10.9.1",
         "typescript": "^5.1.6",
         "uuid": "^9.0.0",
         "webpack": "^5.88.1",
@@ -54,7 +54,7 @@
         "webpack-merge": "^5"
     },
     "scripts": {
-        "start:dev": "tsc-watch --noClear -p tsconfig.json --onSuccess \"../node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config built/webpack.dev.js\"",
+        "start:dev": "webpack build --config ./webpack.config.cjs && webpack serve",
         "build:prod": "webpack -p --config webpack.prod.js",
         "lint": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' && echo Linting complete...",
         "lint-fix": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' --fix && echo Linting complete..."
