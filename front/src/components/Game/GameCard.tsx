@@ -5,13 +5,13 @@ import { GrSubtract } from 'react-icons/gr';
 import { MdInventory } from 'react-icons/md';
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
 import GameConfigModal from './GameConfigModal';
-import Game from 'src/models/Game';
-import gameApi from 'src/http/api/game/gameApi';
-import store from 'src/stores/globalStore';
-import { deleteGame } from 'src/stores/game/gamesReducer';
 import Button from '../DesignSystem/Button/Button';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
+import gameApi from '../../http/api/game/gameApi';
+import { deleteGame } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
+import Game from '../../models/Game';
 
 interface GameCardProps {
     game: Game;

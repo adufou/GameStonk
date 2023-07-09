@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Game from 'src/models/Game';
+import gameApi from '../../http/api/game/gameApi';
+import { updateGame } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
-import gameApi from 'src/http/api/game/gameApi';
-import { updateGame } from 'src/stores/game/gamesReducer';
-import store from 'src/stores/globalStore';
+import Game from '../../models/Game';
 
 interface GameConfigModalProps {
     isOpen: boolean;

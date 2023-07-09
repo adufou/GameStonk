@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
 import ConfigIcon from '../Icon/ConfigIcon';
 import { GrSubtract } from 'react-icons/gr';
-import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
 import ServerEditModal from './ServerEditModal';
-import Server from 'src/models/Server';
-import store from 'src/stores/globalStore';
-import { deleteServer } from 'src/stores/game/gamesReducer';
-import serverApi from 'src/http/api/server/serverApi';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
+import serverApi from '../../http/api/server/serverApi';
+import { deleteServer } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
+import Server from '../../models/Server';
 
 interface ServerCardProps {
     server: Server;
@@ -63,8 +62,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
                     </Button>
                 </div>
             </CardBody>
-
-            <TwoCTAsModal isOpen={isDeleteServerModalOpen} onAccept={acceptServerDeletion} onClose={closeModalDeleteServer} />
+            {/* <TwoCTAsModal isOpen={isDeleteServerModalOpen} onAccept={acceptServerDeletion} onClose={closeModalDeleteServer} /> */}
             <ServerEditModal isOpen={isUpdateServerModalOpen} closeModal={closeModalUpdateServer} server={server} />
         </Card>
     );

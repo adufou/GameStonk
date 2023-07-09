@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import Game from 'src/models/Game';
+import Game from '../../models/Game';
 import IGameState from './IGameState';
-import Server from 'src/models/Server';
-import gameApi from 'src/http/api/game/gameApi';
+import Server from '../../models/Server';
+import gameApi from '../../http/api/game/gameApi';
 
 const initialState: IGameState = {
     games: []

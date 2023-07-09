@@ -1,7 +1,8 @@
-import Server from 'src/models/Server';
+
+import Server from '../../../models/Server';
 import {apiCall} from '../../../tools/apiCall';
-import ApiStatusResponse from 'src/types/ApiStatusResponse';
-import ApiBodyResponse from 'src/types/ApiBodyResponse';
+import ApiBodyResponse from '../../../types/ApiBodyResponse';
+import ApiStatusResponse from '../../../types/ApiStatusResponse';
 
 
 const addServer = (server: Partial<Server>): Promise<ApiBodyResponse<Server>> => {

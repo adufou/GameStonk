@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, Fragment } from 'react';
 import redirect from '../../tools/redirect';
 import Button from '../DesignSystem/Button/Button';
-import authApi from 'src/http/api/auth/authApi';
+import authApi from '../../http/api/auth/authApi';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Input from '../DesignSystem/Input/Input';

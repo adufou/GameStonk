@@ -1,7 +1,8 @@
-import User from 'src/models/User';
+import User from '../../../models/User';
 import { apiCall, publicApiCall } from '../../../tools/apiCall';
-import ApiBodyResponse from 'src/types/ApiBodyResponse';
-import ApiStatusResponse from 'src/types/ApiStatusResponse';
+import ApiBodyResponse from '../../../types/ApiBodyResponse';
+import ApiStatusResponse from '../../../types/ApiStatusResponse';
+
 
 const getUser = (): Promise<ApiBodyResponse<User>> => {
     return apiCall('users/auth/user', 'GET', null, 8000);

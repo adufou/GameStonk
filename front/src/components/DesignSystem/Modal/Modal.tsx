@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
-import ReactChildren from 'src/types/ReactChildren';
 import uuid from 'uuid';
+import ReactChildren from '../../../types/ReactChildren';
 
 // export class Modal extends React.Component<ModalProps> {
 //     private container: HTMLDivElement;

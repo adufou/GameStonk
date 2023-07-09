@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import Server from 'src/models/Server';
-import { updateServer } from 'src/stores/game/gamesReducer';
+import Server from '../../models/Server';
+import serverApi from '../../http/api/server/serverApi';
+import { updateServer } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
-import store from 'src/stores/globalStore';
-import serverApi from 'src/http/api/server/serverApi';
+
 
 interface ServerEditModalProps {
     isOpen: boolean;

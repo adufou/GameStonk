@@ -10,11 +10,10 @@ ENV NODE_ENV=development
 RUN npm install --loglevel verbose
 RUN npm i -g typescript tsc-watch nodemon webpack webpack-cli --loglevel verbose
 
-
-RUN mv /tmp/node_modules /
-ENV NODE_PATH=/node_modules
-
 WORKDIR /app
+
+RUN mv /tmp/node_modules /app/node_modules
+ENV NODE_PATH=/app/node_modules
 
 # So docker is not being run as a root user
 RUN chown -R node:node /app
@@ -24,3 +23,10 @@ COPY /front/package.json /app/
 
 COPY /front/webpack.config.cjs /app/
 COPY /tsconfig.json /app/
+COPY /conf/react/compileAndWatch.sh /app/
+
+# CMD tsc-watch -p tsconfig.json --onSuccess "webpack build --config ./webpack.config.cjs"
+# CMD tsc-watch -p tsconfig.json && cd ./front && webpack serve --watch
+# CMD tsc --watch -p tsconfig.json & (webpack serve --watch)
+
+CMD ./compileAndWatch.sh

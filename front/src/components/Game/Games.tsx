@@ -3,14 +3,14 @@ import GameCell from './GameCell';
 import { GrAdd } from 'react-icons/gr';
 import ConfigIcon from '../Icon/ConfigIcon';
 import GameAddModal from './GameAddModal';
-import { fetchGames } from 'src/stores/game/gamesReducer';
 import Table from '../DesignSystem/Table/Table';
 import TableHeader from '../DesignSystem/Table/TableHeader';
 import TableCell from '../DesignSystem/Table/TableCell';
 import Button from '../DesignSystem/Button/Button';
 import TableRow from '../DesignSystem/Table/TableRow';
 import TableBody from '../DesignSystem/Table/TableBody';
-import store from 'src/stores/globalStore';
+import { fetchGames } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
 
 const Games = (): React.ReactElement => {
     const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);

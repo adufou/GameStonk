@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactChildren from 'src/types/ReactChildren';
+import ReactChildren from '../../../types/ReactChildren';
 
 interface ModalBodyProps {
     children: ReactChildren;

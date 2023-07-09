@@ -1,7 +1,8 @@
-import Game from 'src/models/Game';
+
+import Game from '../../../models/Game';
 import { apiCall } from '../../../tools/apiCall';
-import ApiBodyResponse from 'src/types/ApiBodyResponse';
-import ApiStatusResponse from 'src/types/ApiStatusResponse';
+import ApiBodyResponse from '../../../types/ApiBodyResponse';
+import ApiStatusResponse from '../../../types/ApiStatusResponse';
 
 const getGames = (): Promise<ApiBodyResponse<Game[]>> => {
     return apiCall('game', 'GET');

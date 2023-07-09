@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "allowJs": false,
-        "baseUrl": "./front",
+        // "baseUrl": "./front",
         "checkJs": false,
         "module": "ES2020",
         "moduleResolution": "node",

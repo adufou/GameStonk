@@ -4,13 +4,13 @@ import { GrAdd } from 'react-icons/gr';
 import ConfigIcon from '../Icon/ConfigIcon';
 import GameCard from './GameCard';
 import ServerAddModal from '../Server/ServerAddModal';
-import Game from 'src/models/Game';
 import Button from '../DesignSystem/Button/Button';
 import Table from '../DesignSystem/Table/Table';
 import TableBody from '../DesignSystem/Table/TableBody';
 import TableCell from '../DesignSystem/Table/TableCell';
 import TableHeader from '../DesignSystem/Table/TableHeader';
 import TableRow from '../DesignSystem/Table/TableRow';
+import Game from '../../models/Game';
 
 interface GameCellProps {
     game: Game;

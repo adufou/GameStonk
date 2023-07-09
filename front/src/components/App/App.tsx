@@ -4,7 +4,7 @@ import Login from '../Auth/Login';
 import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
 
-function App() {
+function App(): React.ReactElement {
     useEffect(() => {
         document.title = 'Stonkofus';
     }, []);
@@ -12,6 +12,7 @@ function App() {
     return (
         <div>
             <BrowserRouter>
+                <p>GGGGGGGGGGG</p>
                 <Navbar />
                 <Routes>
                     <Route path="/login" element={< Login />} />
