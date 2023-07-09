@@ -1,9 +1,14 @@
 import React from 'react';
+import GameModel from '../../models/Game';
 
-const Game = ({ game }) => {
+interface GameProps {
+    game: GameModel
+}
+
+const Game = ({ game }: GameProps): React.ReactElement => {
     return (
         <div>
-            {game}
+            {game.name}
         </div>
     );
 };

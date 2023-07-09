@@ -1,17 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, Input, Label, Button } from '@windmill/react-ui';
+import React, { useState, useEffect, ChangeEvent, Fragment } from 'react';
 import redirect from '../../tools/redirect';
-import { useAuthApi } from '../../http/api/auth/useAuthApi';
+import Button from '../DesignSystem/Button/Button';
+import Card from '../DesignSystem/Card/Card';
+import CardBody from '../DesignSystem/Card/CardBody';
+import authApi from 'src/http/api/auth/authApi';
+import Input from '../DesignSystem/Input/Input';
 
-
-const Signup = () => {
+const Signup = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [errors, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const authApi = useAuthApi();
+    const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        setEmail(event.target.value);
+    };
+
+    const handleChangePassword1 = (event: ChangeEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        setPassword1(event.target.value);
+    };
+
+    const handleChangePassword2 = (event: ChangeEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        setPassword2(event.target.value);
+    };
+
+    const onSubmit = async (): Promise<void> => {
+        const user = {
+            email: email,
+            password1: password1,
+            password2: password2
+        };
+
+        const response = await authApi.registerUser(user);
+        console.log('REMPLACER PAR UN CHECK DE STATUT');
+        if (response.body.key) {
+            localStorage.clear();
+            localStorage.setItem('token', response.body.key);
+            redirect('dashboard');
+        } else {
+            setEmail('');
+            setPassword1('');
+            setPassword2('');
+            localStorage.clear();
+            setErrors(true);
+        }
+    };
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -21,100 +58,52 @@ const Signup = () => {
         }
     }, []);
 
-    const onSubmit = e => {
-        e.preventDefault();
-
-        const user = {
-            email: email,
-            password1: password1,
-            password2: password2
-        };
-
-        authApi.registerUser(user, (data) => {
-            if (data.key) {
-                localStorage.clear();
-                localStorage.setItem('token', data.key);
-                redirect('dashboard');
-            } else {
-                setEmail('');
-                setPassword1('');
-                setPassword2('');
-                localStorage.clear();
-                setErrors(true);
-            }
-        });
-    };
-
     return (
-        <div className="container mx-auto w-96">
-            <Card className="mt-32">
+        <div>
+            <Card>
                 <CardBody>
-                    {loading === false && <Label>
-                        <p className="mb-4 font-semibold text-gray-600 dark:text-gray-300">Sign Up</p>
-                    </Label>}
-                    {errors === true && <h2>Cannot signup with provided credentials</h2>}
-                    <form onSubmit={onSubmit}>
-                        <Label className="mb-4">
-                            <p className="mb-2">Adresse email</p>
+                    <Fragment>
+                        if ({!loading}) {
+                            <p>Sign Up</p>
+                        }
+                        if ({errors}) {
+                            <h2>Cannot signup with provided credentials</h2>
+                        }
+                        <div>
                             <Input
+                                label='Adresse email'
                                 name='email'
                                 type='email'
                                 value={email}
-                                onChange={e => setEmail(e.target.value)}
-                                required />
-                        </Label>
+                                onChange={handleChangeEmail}
+                                isRequired />
 
-                        {/*<label htmlFor='email'>Email address:</label> <br />*/}
-                        {/*<input*/}
-                        {/*    name='email'*/}
-                        {/*    type='email'*/}
-                        {/*    value={email}*/}
-                        {/*    onChange={e => setEmail(e.target.value)}*/}
-                        {/*    required*/}
-                        {/*/>{' '}*/}
-                        {/*<br />*/}
-
-                        <Label className="mb-4">
-                            <p className="mb-2">Mot de passe</p>
                             <Input
+                                label='Mot de passe'
                                 name='password1'
                                 type='password'
                                 value={password1}
-                                onChange={e => setPassword1(e.target.value)}
-                                required />
-                        </Label>
-                        {/*<label htmlFor='password1'>Password:</label> <br />*/}
-                        {/*<input*/}
-                        {/*    name='password1'*/}
-                        {/*    type='password'*/}
-                        {/*    value={password1}*/}
-                        {/*    onChange={e => setPassword1(e.target.value)}*/}
-                        {/*    required*/}
-                        {/*/>{' '}*/}
-                        {/*<br />*/}
+                                onChange={handleChangePassword1}
+                                isRequired />
 
-                        <Label className="mb-4">
-                            <p className="mb-2">Confirmer le mot de passe</p>
                             <Input
+                                label='Confirmer le mot de passe'
                                 name='password2'
                                 type='password'
                                 value={password2}
-                                onChange={e => setPassword2(e.target.value)}
-                                required />
-                        </Label>
+                                onChange={handleChangePassword2}
+                                isRequired />
 
-                        {/*<label htmlFor='password2'>Confirm password:</label> <br />*/}
-                        {/*<input*/}
-                        {/*    name='password2'*/}
-                        {/*    type='password'*/}
-                        {/*    value={password2}*/}
-                        {/*    onChange={e => setPassword2(e.target.value)}*/}
-                        {/*    required*/}
-                        {/*/>{' '}*/}
-                        {/*<br />*/}
-
-                        <Button type='submit'>Sign Up</Button>
-                    </form>
+                            <Button type='submit' onClick={(): void => {
+                                onSubmit()
+                                    .catch(
+                                        e => console.error(e)
+                                    );
+                            }}>
+                                <p>Sign Up</p>
+                            </Button>
+                        </div>
+                    </Fragment>
                 </CardBody>
             </Card>
         </div>

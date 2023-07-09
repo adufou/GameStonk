@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
-import { Input, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui';
-import { useServerApi } from '../../http/api/server/useServerApi';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { addServer } from '../../stores/server/serverStoreActions';
+import serverApi from 'src/http/api/server/serverApi';
+import Game from 'src/models/Game';
+import { addServer } from 'src/stores/game/gamesReducer';
+import store from 'src/stores/globalStore';
+import Modal from '../DesignSystem/Modal/Modal';
 
-const ServerAddModal = ({ isOpen, closeModal, game }) => {
+interface ServerAddModalProps {
+    isOpen: boolean;
+    closeModal: () => void;
+    game: Game;
+}
+
+const ServerAddModal = ({ isOpen, closeModal, game }: ServerAddModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState('');
 
-    const serverApi = useServerApi();
-    const store = useGlobalStore();
-
-    function addNewServer() {
+    async function addNewServer(): Promise<void> {
         const newServer = {
             game: game.id,
             name: newServerName,
         };
 
-        serverApi.addServer(newServer, (response) => {
-            if (response.status === 201) {
-                store.dispatch(addServer(response.body));
-            }
+        const response = await serverApi.addServer(newServer);
+        if (response.status === 201) {
+            store.dispatch(addServer(response.body));
+        }
 
-            closeModal();
-        });
+        closeModal();
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
-            <ModalHeader>Add a server</ModalHeader>
+        // <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal >
+            {/* <ModalHeader>Add a server</ModalHeader>
             <ModalBody>
                 <Label>
                     <span>Name</span>
@@ -39,7 +43,7 @@ const ServerAddModal = ({ isOpen, closeModal, game }) => {
                     Cancel
                 </Button>
                 <Button className="w-full sm:w-auto" onClick={addNewServer}>Accept</Button>
-            </ModalFooter>
+            </ModalFooter> */}
         </Modal>
     );
 };

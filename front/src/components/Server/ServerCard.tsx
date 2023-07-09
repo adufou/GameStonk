@@ -1,60 +1,62 @@
 import React, { useState } from 'react';
-import { Card, CardBody } from '@windmill/react-ui';
-import { Button } from '@windmill/react-ui';
 import { MdEdit } from 'react-icons/md';
 import ConfigIcon from '../Icon/ConfigIcon';
 import { GrSubtract } from 'react-icons/gr';
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
-import { useServerApi } from '../../http/api/server/useServerApi';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { deleteServer } from '../../stores/server/serverStoreActions';
 import ServerEditModal from './ServerEditModal';
+import Server from 'src/models/Server';
+import store from 'src/stores/globalStore';
+import { deleteServer } from 'src/stores/game/gamesReducer';
+import serverApi from 'src/http/api/server/serverApi';
+import Card from '../DesignSystem/Card/Card';
+import CardBody from '../DesignSystem/Card/CardBody';
+import Button from '../DesignSystem/Button/Button';
 
-const ServerCard = ({ server }) => {
+interface ServerCardProps {
+    server: Server;
+}
+
+const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     const [isDeleteServerModalOpen, setIsDeleteServerModalOpen] = useState(false);
     const [isUpdateServerModalOpen, setIsUpdateServerModalOpen] = useState(false);
 
-    const serverApi = useServerApi();
-    const store = useGlobalStore();
-
-    function acceptServerDeletion() {
-        serverApi.deleteServer(server, (response) => {
-            if (response.status === 204) {
-                store.dispatch(deleteServer(server));
-            }
-        });
+    async function acceptServerDeletion(): Promise<void> {
+        const response = await serverApi.deleteServer(server);
+        if (response.status === 204) {
+            store.dispatch(deleteServer(server));
+        }
     }
 
-    function openModalDeleteServer() {
+    function openModalDeleteServer(): void {
         setIsDeleteServerModalOpen(true);
     }
 
-    function closeModalDeleteServer() {
+    function closeModalDeleteServer(): void {
         setIsDeleteServerModalOpen(false);
     }
 
-    function openModalUpdateServer() {
+    function openModalUpdateServer(): void {
         setIsUpdateServerModalOpen(true);
     }
 
-    function closeModalUpdateServer() {
+    function closeModalUpdateServer(): void {
         setIsUpdateServerModalOpen(false);
     }
 
     return (
         <Card>
-            <CardBody className='flex place-content-between'>
+            <CardBody>
                 <span>
                     {server.name}
                 </span>
 
                 <div>
-                    <Button size="small" layout="link" onClick={openModalUpdateServer}>
+                    <Button onClick={openModalUpdateServer}>
                         <ConfigIcon>
                             <MdEdit />
                         </ConfigIcon>
                     </Button>
-                    <Button size="small" layout="link" onClick={openModalDeleteServer}>
+                    <Button onClick={openModalDeleteServer}>
                         <ConfigIcon>
                             <GrSubtract />
                         </ConfigIcon>

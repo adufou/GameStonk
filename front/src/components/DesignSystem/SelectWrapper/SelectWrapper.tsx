@@ -1,21 +1,33 @@
 import React from 'react';
 
-import { Select } from '@windmill/react-ui'
+type SelectValueType = string | number | undefined
 
-const SelectWrapper = ({ values, callback, selected }) => {
+interface SelectValue {
+    value: SelectValueType;
+    text: string;
+}
+
+interface SelectWrapperProps {
+    values: SelectValue[];
+    callback: () => void;
+    selected: SelectValueType;
+}
+
+const SelectWrapper = ({ values, callback, selected }: SelectWrapperProps): React.ReactElement => {
+    // Ne va pas fonctionner, la callback ne prend plus la target, mais en meme temps on donne
+    // selected donc ça devrait le faire
     return (
-        <Select className="mt-1"
-            // defaultValue={selected}
+        <select
             value={selected}
-            onChange={({ target: { value } }) => callback(value)}
+            onChange={(): void => callback()}
         >
             {values.map(value => (
                 <option value={value.value} key={value.value}>
                     {value.text}
                 </option>
             ))}
-        </Select>
+        </select>
     );
-}
+};
 
 export default SelectWrapper;

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactChildren from 'src/types/ReactChildren';
 
-interface CardBodyProps {
+interface TableProps {
     children: ReactChildren;
 }
 
-const CardBody = ({ children }: CardBodyProps): React.ReactElement => {
+const Table = ({ children = [] }: TableProps): React.ReactElement => {
     return (
         <div>
             {children}
@@ -13,4 +13,4 @@ const CardBody = ({ children }: CardBodyProps): React.ReactElement => {
     );
 };
 
-export default CardBody;
+export default Table;

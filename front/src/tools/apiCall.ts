@@ -61,7 +61,7 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
     }
 };
 
-export const publicApiCall = async (uri: string, method: string, data = null, port = 8000): Promise<{
+export const publicApiCall = async (uri: string, method: string, data: any = null, port = 8000): Promise<{
     status: number,
     body: any,
 }> => {

@@ -2,31 +2,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Game from 'src/models/Game';
 import IGameState from './IGameState';
 import Server from 'src/models/Server';
-import { useGameApi } from 'src/http/api/game/useGameApi';
+import gameApi from 'src/http/api/game/gameApi';
 
 const initialState: IGameState = {
     games: []
 };
 
 export const fetchGames = createAsyncThunk('games/fetchGames', async () => {
-    // TODO Should not be a composable
-    
-    const gameApi = useGameApi();
-    // const store = useGlobalStore();
+    const response = await gameApi.getGames();
 
-    gameApi.getGames();
-
-    // const updateGamesInStore = (response) => {
-    //     if (response.status === 200) {
-    //         store.dispatch(fetchGames(response.body));
-    //     }
-    // };
-
-    // return ({
-    //     fetchGames: () => {
-    //         gameApi.getGames(updateGamesInStore);
-    //     }
-    // });
+    if (response.status === 200) {
+        setGames(response.body);
+    }
 });
 
 const gamesSlice = createSlice({
