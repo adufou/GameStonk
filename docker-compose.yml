@@ -30,13 +30,24 @@ services:
     env_file:
       - .env
 
-  react:
-    container_name: react
-    build:
-      context: .
-      dockerfile: ./conf/react/Dockerfile.dev
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./front/src:/app/src
-      - ./front/public:/app/public
+
+### ANTOINE ###
+#
+# On n'a pas besoin de react en dev, on va juste run :
+#
+#        weback serve
+#
+# dans /front
+#
+###
+
+#   react:
+#     container_name: react
+#     build:
+#       context: .
+#       dockerfile: ./conf/react/Dockerfile.dev
+#     ports:
+#       - "4000:4000"
+#     volumes:
+#       - ./front/src:/app/src
+#       - ./front/public:/app/public
