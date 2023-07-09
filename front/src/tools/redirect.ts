@@ -1,6 +1,6 @@
 import { URL_PREFIX } from './consts';
 
-const redirect = (uri, port = 4000) => {
+const redirect = (uri: string, port = 4000): void => {
     window.location.replace(`http://${URL_PREFIX}:${port}/${uri}`);
 };
 

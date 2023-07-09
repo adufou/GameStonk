@@ -1,15 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import redirect from '../../tools/redirect';
-import { useAuthApi } from '../../http/api/auth/useAuthApi';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
 
-
-const Logout = () => {
+const Logout = (): React.ReactElement => {
     const [loading, setLoading] = useState(true);
-
-    const authApi = useAuthApi();
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
@@ -19,29 +15,31 @@ const Logout = () => {
         }
     }, []);
 
-    const handleLogout = e => {
-        e.preventDefault();
+    // TODO Fix it, I don't know the contract, do after refacto
 
-        authApi.logoutUser(null, (response) => {
-            if (response.status === 200) {
-                redirect('login');
-            }
+    // const handleLogout = () => {
+    //     console.log('logout');
 
-            localStorage.clear();
-        });
-    };
+    //     authApi.logoutUser(null, (response) => {
+    //         if (response.status === 200) {
+    //             redirect('login');
+    //         }
+
+    //         localStorage.clear();
+    //     });
+    // };
 
     return (
         <div>
             <Card>
                 <CardBody>
-                    {loading === false && (
-                        <Fragment>
-                            <Button callback={handleLogout} label="Are you sure you want to logout?">
-                                Logout
+                    <Fragment>
+                        if ({!!loading}) {
+                            <Button label="Are you sure you want to logout?">
+                                <p>Logout</p>
                             </Button>
-                        </Fragment>
-                    )}
+                        }
+                    </Fragment>
                 </CardBody>
             </Card>
         </div>

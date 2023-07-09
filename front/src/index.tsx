@@ -1,28 +1,16 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-import GlobalStoreProvider from './stores/GlobalStoreProvider';
+import { Provider } from 'react-redux';
 import App from './components/App/App';
+import store from './stores/globalStore';
 
-// const router = createBrowserRouter([
-//     {
-//         path: '/',
-//         element: <App />,
-//     },
-// ]);
+const root = document.getElementById('root');
 
-// ReactDOM.render(
-//     <Wreactui usePreferences>
-//         <GlobalStoreProvider>
-//             {/* <RouterProvider router={router} /> */}
-//             {/* <App /> */}
-//         </GlobalStoreProvider>
-//     </Wreactui>,
-//     document.getElementById('root')
-// );
-
-createRoot(document.getElementById('root')).render(
-    <GlobalStoreProvider>
-        {/* <RouterProvider router={router} /> */}
-        <App />
-    </GlobalStoreProvider>
-);
+if (root) {
+    createRoot(root).render(
+        <Provider store={store}>
+            {/* <RouterProvider router={router} /> */}
+            <App />
+        </Provider>
+    );
+}

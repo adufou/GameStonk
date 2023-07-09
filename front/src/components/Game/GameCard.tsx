@@ -1,66 +1,69 @@
 import React, { useState } from 'react';
-import { Card, CardBody } from '@windmill/react-ui';
-import { Button } from '@windmill/react-ui';
 import { MdEdit } from 'react-icons/md';
 import ConfigIcon from '../Icon/ConfigIcon';
 import { GrSubtract } from 'react-icons/gr';
 import { MdInventory } from 'react-icons/md';
 import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
-import { useGameApi } from '../../http/api/game/useGameApi';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { deleteGame } from '../../stores/game/gameStoreActions';
 import GameConfigModal from './GameConfigModal';
+import Button from '../DesignSystem/Button/Button';
+import Card from '../DesignSystem/Card/Card';
+import CardBody from '../DesignSystem/Card/CardBody';
+import gameApi from '../../http/api/game/gameApi';
+import { deleteGame } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
+import Game from '../../models/Game';
 
-const GameCard = ({ game }) => {
+interface GameCardProps {
+    game: Game;
+}
+
+const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
     const [isConfigGameModalOpen, setIsConfigGameModalOpen] = useState(false);
 
-    const gameApi = useGameApi();
-    const store = useGlobalStore();
+    async function acceptGameDeletion(): Promise<void> {
+        const response = await gameApi.deleteGame(game);
 
-    function acceptGameDeletion() {
-        gameApi.deleteGame(game, (response) => {
-            if (response.status === 204) {
-                store.dispatch(deleteGame(game));
-            }
-        });
+        if (response.status === 204) {
+            store.dispatch(deleteGame(game));
+        }
     }
 
-    function openModalDeleteGame() {
+    function openModalDeleteGame(): void {
         setIsDeleteGameModalOpen(true);
     }
 
-    function closeModalDeleteGame() {
+    function closeModalDeleteGame(): void {
         setIsDeleteGameModalOpen(false);
     }
 
-    function openModalConfigGame() {
+    function openModalConfigGame(): void {
         setIsConfigGameModalOpen(true);
     }
 
-    function closeModalConfigGame() {
+    function closeModalConfigGame(): void {
         setIsConfigGameModalOpen(false);
     }
 
     return (
         <Card>
-            <CardBody className='flex place-content-between'>
+            <CardBody>
                 <span>
                     {game.name}
                 </span>
 
                 <div>
-                    <Button size="small" layout="link" onClick={openModalConfigGame}>
+                    <Button onClick={openModalConfigGame}>
                         <ConfigIcon>
                             <MdInventory />
                         </ConfigIcon>
                     </Button>
-                    <Button size="small" layout="link" onClick={openModalConfigGame}>
+                    <Button onClick={openModalConfigGame}>
                         <ConfigIcon>
                             <MdEdit />
                         </ConfigIcon>
                     </Button>
-                    <Button size="small" layout="link" onClick={openModalDeleteGame}>
+                    <Button onClick={openModalDeleteGame}>
                         <ConfigIcon>
                             <GrSubtract />
                         </ConfigIcon>

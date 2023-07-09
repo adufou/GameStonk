@@ -65,3 +65,4 @@ Dockerfile.web
 conf/django/Dockerfile.prod.OLD
 conf/react/Dockerfile.prod.OLD
 front/Dockerfile.web.react
+built

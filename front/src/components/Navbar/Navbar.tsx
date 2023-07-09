@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../DesignSystem/Button/Button';
 
-const Navbar = () => {
+const Navbar = (): React.ReactElement => {
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
@@ -13,7 +13,9 @@ const Navbar = () => {
 
     return (
         <nav>
-            <Button href='/companion'>Stonkofus</Button>
+            <Button href='/companion'>
+                <span>Stonkofus</span>
+            </Button>
             <ul>
                 {isAuth === true ? (
                     <Fragment>
@@ -60,10 +62,14 @@ const Navbar = () => {
                     <Fragment>
                         {' '}
                         <li>
-                            <Button href='/login'>Login</Button>
+                            <Button href='/login'>
+                                <span>Login</span>
+                            </Button>
                         </li>
                         <li>
-                            <Button href='/signup'>Signup</Button>
+                            <Button href='/signup'>
+                                <span>Signup</span>
+                            </Button>
                         </li>
                     </Fragment>
                 )}

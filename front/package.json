@@ -13,7 +13,12 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.22.5",
         "@fortawesome/react-fontawesome": "^0.2",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+        "@reduxjs/toolkit": "^1.9.5",
+        "@types/node": "^20.4.1",
+        "@types/react": "^18.2.14",
         "@types/react-dom": "^18.2.6",
+        "@types/uuid": "^9.0.2",
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.61.0",
         "axios": "^1",
@@ -35,20 +40,23 @@
         "react-cookie": "^4.0.1",
         "react-dom": "^18",
         "react-icons": "^4.10",
+        "react-redux": "^8.1.1",
+        "react-refresh": "^0.14.0",
         "react-router-dom": "^6",
         "terser-webpack-plugin": "^5",
         "ts-loader": "^9.4.4",
+        "ts-node": "^10.9.1",
         "typescript": "^5.1.6",
+        "uuid": "^9.0.0",
         "webpack": "^5.88.1",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^4.15.1",
         "webpack-merge": "^5"
     },
     "scripts": {
-        "start:dev": "../node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --config webpack.dev.js",
+        "start:dev": "webpack build --config ./webpack.config.cjs && webpack serve",
         "build:prod": "webpack -p --config webpack.prod.js",
         "lint": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' && echo Linting complete...",
         "lint-fix": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' --fix && echo Linting complete..."
-    },
-    "devDependencies": {}
+    }
 }

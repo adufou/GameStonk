@@ -1,45 +1,50 @@
 import React, { useState } from 'react';
-import { Input, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from '@windmill/react-ui';
-import { useServerApi } from '../../http/api/server/useServerApi';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { updateServer } from '../../stores/server/serverStoreActions';
+import Server from '../../models/Server';
+import serverApi from '../../http/api/server/serverApi';
+import { updateServer } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
+import Modal from '../DesignSystem/Modal/Modal';
 
-const ServerEditModal = ({ isOpen, closeModal, server }) => {
+
+interface ServerEditModalProps {
+    isOpen: boolean;
+    closeModal: () => void;
+    server: Server;
+}
+
+const ServerEditModal = ({ isOpen, closeModal, server }: ServerEditModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState(server.name);
 
-    const serverApi = useServerApi();
-    const store = useGlobalStore();
-
-    function editServer() {
+    async function editServer(): Promise<void> {
         const updatedServer = {
             ...server,
             name: newServerName
         };
 
-        serverApi.updateServer(updatedServer, (response) => {
-            if (response.status === 200) {
-                store.dispatch(updateServer(response.body));
-            }
+        const response = await serverApi.updateServer(updatedServer);
+        if (response.status === 200) {
+            store.dispatch(updateServer(response.body));
+        }
 
-            closeModal();
-        });
+        closeModal();
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
-            <ModalHeader>Update {server.name}</ModalHeader>
+        // <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal>
+            {/* <ModalHeader>Update {server.name}</ModalHeader>
             <ModalBody>
                 <Label>
                     <span>Name</span>
-                    <Input className="mt-1" value={newServerName} onChange={e => setServerName(e.target.value)} />
+                    <Input value={newServerName} onChange={e => setServerName(e.target.value)} />
                 </Label>
             </ModalBody>
             <ModalFooter>
-                <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
+                <Button layout="outline" onClick={closeModal}>
                     Cancel
                 </Button>
-                <Button className="w-full sm:w-auto" onClick={editServer}>Accept</Button>
-            </ModalFooter>
+                <Button onClick={editServer}>Accept</Button>
+            </ModalFooter> */}
         </Modal>
     );
 };

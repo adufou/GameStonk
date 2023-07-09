@@ -1,40 +1,34 @@
 import React, { useState } from 'react';
-import {
-    Input,
-    Label,
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-} from '@windmill/react-ui';
-import { useGameApi } from '../../http/api/game/useGameApi';
-import { useGlobalStore } from '../../stores/useGlobalStore';
-import { addGame } from '../../stores/game/gameStoreActions';
+import Modal from '../DesignSystem/Modal/Modal';
+import gameApi from '../../http/api/game/gameApi';
+import { addGame } from '../../stores/game/gamesReducer';
+import store from '../../stores/globalStore';
 
-const GameAddModal = ({ isOpen, closeModal }) => {
+interface GameAddModalProps {
+    isOpen: boolean;
+    closeModal: () => void;
+}
+
+const GameAddModal = ({ isOpen, closeModal }: GameAddModalProps): React.ReactElement => {
     const [newGameName, setGameName] = useState('');
 
-    const gameApi = useGameApi();
-    const store = useGlobalStore();
-
-    function addNewGame() {
+    async function addNewGame(): Promise<void> {
         const newGame = {
             name: newGameName,
         };
 
-        gameApi.addGame(newGame, (response) => {
-            if (response.status === 201) {
-                store.dispatch(addGame(response.body));
-            }
+        const response = await gameApi.addGame(newGame);
+        if (response.status === 201) {
+            store.dispatch(addGame(response.body));
+        }
 
-            closeModal();
-        });
+        closeModal();
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={closeModal}>
-            <ModalHeader>Add a game</ModalHeader>
+        // <Modal isOpen={isOpen} onClose={closeModal}>
+        <Modal>
+            {/* <ModalHeader>Add a game</ModalHeader>
             <ModalBody>
                 <Label>
                     <span>Name</span>
@@ -56,7 +50,7 @@ const GameAddModal = ({ isOpen, closeModal }) => {
                 <Button className="w-full sm:w-auto" onClick={addNewGame}>
                     Accept
                 </Button>
-            </ModalFooter>
+            </ModalFooter> */}
         </Modal>
     );
 };
