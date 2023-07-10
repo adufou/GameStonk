@@ -12,7 +12,11 @@ function App(): React.ReactElement {
     return (
         <div>
             <BrowserRouter>
-                <p>GGGGGGGGGGG</p>
+                {/* Le hot reload fonctionne sur Mac ! en faisant docker compose up. Donc le pb vient peut être de WSL
+                    @nake89 a de bonnes idées (mettre les fichiers sur WSL direct)
+                */}
+                {/* https://github.com/microsoft/WSL/issues/4739 */}
+                {/* <p>GGGGGGGGGGG</p> */}
                 <Navbar />
                 <Routes>
                     <Route path="/login" element={< Login />} />
