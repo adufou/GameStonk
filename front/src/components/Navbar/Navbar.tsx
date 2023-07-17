@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../DesignSystem/Button/Button';
+import './Navbar.scss';
 
 const Navbar = (): React.ReactElement => {
     const [isAuth, setIsAuth] = useState(false);
@@ -12,7 +13,7 @@ const Navbar = (): React.ReactElement => {
     }, []);
 
     return (
-        <nav>
+        <nav className='navbar'>
             <Button href='/companion'>
                 <span>Stonkofus</span>
             </Button>

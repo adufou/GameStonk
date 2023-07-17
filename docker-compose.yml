@@ -13,7 +13,7 @@ services:
       - POSTGRES_HOST=${DB_HOST}
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - ~/Documents/PROJETS PERSOS/Stonkofus/db/docker/template-postgres/data:/var/lib/postgresql/data:rw
+      - ${GAMESTONK_LOCATION}/db/docker/template-postgres/data:/var/lib/postgresql/data:rw
 
   django:
     container_name: django

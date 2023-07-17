@@ -12,8 +12,8 @@ interface ButtonProps {
 const Button = ({ children = [], type, onClick, href, label }: ButtonProps): React.ReactElement => {
     return (
         <div>
-            if ({label}) {
-                <span >{label}</span>
+            {(label !== undefined) &&
+                <span>{label}</span>
             }
             <button type={type} onClick={onClick}>
                 {children}
