@@ -16,12 +16,12 @@ RUN mv /tmp/node_modules /app/node_modules
 ENV NODE_PATH=/app/node_modules
 
 # So docker is not being run as a root user
-RUN chown -R node:node /app
+#RUN chown -R node:node /app
 
 COPY /front/package.json /app/
 # COPY /front/.eslintrc.json /app/
 
 COPY /front/webpack.config.cjs /app/
-COPY /tsconfig.json /app/
+COPY /front/tsconfig.json /app/
 
 CMD webpack serve 

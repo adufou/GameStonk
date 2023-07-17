@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from '../Auth/Login';
 import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
+import './App.scss'
 
 function App(): React.ReactElement {
     useEffect(() => {
@@ -10,9 +11,8 @@ function App(): React.ReactElement {
     }, []);
 
     return (
-        <div>
+        <div className='app'>
             <BrowserRouter>
-                <p>GGGGGGGGGGG</p>
                 <Navbar />
                 <Routes>
                     <Route path="/login" element={< Login />} />

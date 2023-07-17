@@ -14,7 +14,9 @@
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": ["./tsconfig.json"]
+        "project": [
+            "./front/tsconfig.json"
+        ]
     },
     "plugins": [
         "@typescript-eslint",
@@ -42,7 +44,11 @@
         "react/prop-types": "error",
         "react/jsx-filename-extension": [
             "warn",
-            {"extensions": [".tsx"]}
+            {
+                "extensions": [
+                    ".tsx"
+                ]
+            }
         ],
         "no-unused-vars": "warn",
         "unused-imports/no-unused-imports": "error",

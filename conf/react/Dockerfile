@@ -22,11 +22,11 @@ COPY /front/package.json /app/
 # COPY /front/.eslintrc.json /app/
 
 COPY /front/webpack.config.cjs /app/
-COPY /tsconfig.json /app/
+COPY /front/tsconfig.json /app/
 COPY /conf/react/compileAndWatch.sh /app/
 
-# CMD tsc-watch -p tsconfig.json --onSuccess "webpack build --config ./webpack.config.cjs"
-# CMD tsc-watch -p tsconfig.json && cd ./front && webpack serve --watch
-# CMD tsc --watch -p tsconfig.json & (webpack serve --watch)
+# CMD tsc-watch -p front/tsconfig.json --onSuccess "webpack build --config ./webpack.config.cjs"
+# CMD tsc-watch -p front/tsconfig.json && cd ./front && webpack serve --watch
+# CMD tsc --watch -p front/tsconfig.json & (webpack serve --watch)
 
 CMD ./compileAndWatch.sh
