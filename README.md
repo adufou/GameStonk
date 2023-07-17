@@ -1,3 +1,5 @@
+⚠️ J'ai refacto une grosse partie de l'app, je mettrai bientôt le README à jour ⚠️
+
 ### Stonkofus
 
 ## Je veux y accéder
