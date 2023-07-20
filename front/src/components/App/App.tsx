@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from '../Auth/Login';
 import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
+import Signup from '../Auth/Signup';
 
 function App(): React.ReactElement {
     useEffect(() => {
@@ -16,7 +17,7 @@ function App(): React.ReactElement {
                 <Routes>
                     <Route path="/login" element={< Login />} />
                     <Route path="/logout" element={< Logout />} />
-                    {/* <Route path="/signup" element={< Signup />} /> */}
+                    <Route path="/signup" element={< Signup />} />
                     {/* <Route path="/wallets" element={< MyWallets />} /> */}
                     {/* <Route path="/games" element={< Games />} /> */}
                     {/* <Route path="/games/:gameId" element={< Game game="gameId" />} /> */}

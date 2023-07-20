@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactChildren from '../../../types/ReactChildren';
 import './Button.scss'
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
     children: ReactChildren;
@@ -15,9 +16,20 @@ const Button = ({ children = [], onClick, href, label }: ButtonProps): React.Rea
             {(label !== undefined) &&
                 <span className='button__label'>{label}</span>
             }
-            <div className='button__button' onClick={onClick}>
-                {children}
-            </div>
+
+            {
+                (href === undefined) ? (
+                    <div className='button__button' onClick={onClick}>
+                        {children}
+                    </div>
+                ) : (
+                    <Link className='button__button' to={href} onClick={onClick}>
+                        {children}
+                    </Link>
+                )
+            }
+
+
         </div>
     );
 };
