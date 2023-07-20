@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactChildren from '../../../types/ReactChildren';
+import './Card.scss';
 
 interface CardProps {
     children: ReactChildren;
@@ -7,7 +8,7 @@ interface CardProps {
 
 const Card = ({ children }: CardProps): React.ReactElement => {
     return (
-        <div>
+        <div className='card'>
             {children}
         </div>
     );

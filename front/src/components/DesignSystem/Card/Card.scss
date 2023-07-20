@@ -1,0 +1,10 @@
+@use '../../../colors.scss' as *;
+
+.card {
+    background-color: $blue75;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

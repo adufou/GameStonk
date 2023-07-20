@@ -5,7 +5,7 @@ import authApi from '../../http/api/auth/authApi';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Input from '../DesignSystem/Input/Input';
-
+import './Login.scss'
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -53,18 +53,16 @@ const Login = (): React.ReactElement => {
     }, []);
 
     return (
-        <div>
+        <div className='login'>
             <Card>
                 <CardBody>
                     <Fragment>
-                        if ({!loading}) {
-                            <p>Login</p>
-                        }
-                        if ({errors}) {
+                        {errors &&
                             <h2>Cannot log in with provided credentials</h2>
                         }
-                        if ({!loading}) {
-                            <div >
+
+                        {!loading &&
+                            <div className='login__body'>
                                 <Input
                                     label='Adresse email'
                                     name='email'

@@ -12,7 +12,7 @@ interface InputProps {
 const Input = ({ label, name, type, value, onChange, isRequired = false }: InputProps): React.ReactElement => {
     return (
         <div>
-            if ({label}) {
+            {label &&
                 <p>{label}</p>
             }
             <input type={type} name={name} value={value} onChange={onChange} required={isRequired} />
