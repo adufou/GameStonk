@@ -1,3 +1,19 @@
 .navbar {
     background: dimgrey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__home-button {
+        margin: 8px;
+    }
+
+    &__navigation {
+        display: flex;
+        flex-direction: row;
+
+        &__button {
+            margin: 8px;
+        }
+    }
 }

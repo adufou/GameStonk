@@ -14,13 +14,14 @@ const Navbar = (): React.ReactElement => {
 
     return (
         <nav className='navbar'>
-            <Button href='/companion'>
-                <span>Stonkofus</span>
-            </Button>
-            <ul>
+            <div className='navbar__home-button'>
+                <Button href='/companion'>
+                    <span>Stonkofus</span>
+                </Button>
+            </div>
+            <div className='navbar__navigation'>
                 {isAuth === true ? (
                     <Fragment>
-                        {' '}
                         {/* <li>
                             <Button layout="link" tag='a' href='/companion'>Companion</Button>
                         </li>
@@ -30,66 +31,50 @@ const Navbar = (): React.ReactElement => {
                         <li>
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li> */}
-                        <li>
+                        <div className='navbar__navigation__button'>
                             <Button>
                                 <Link to='admin'>
                                     Admin
                                 </Link>
                             </Button>
-                        </li>
-                        <li>
+                        </div>
+                        <div className='navbar__navigation__button'>
                             <Button>
                                 <Link to='games'>
                                     Games
                                 </Link>
                             </Button>
-                        </li>
-                        <li>
+                        </div>
+                        <div className='navbar__navigation__button'>
                             <Button>
                                 <Link to='wallets'>
                                     My Wallets
                                 </Link>
                             </Button>
-                        </li>
-                        <li>
+                        </div>
+                        <div className='navbar__navigation__button'>
                             <Button>
                                 <Link to='logout'>
                                     Logout
                                 </Link>
                             </Button>
-                        </li>
+                        </div>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        {' '}
-                        <li>
+                        <div className='navbar__navigation__button'>
                             <Button href='/login'>
                                 <span>Login</span>
                             </Button>
-                        </li>
-                        <li>
+                        </div>
+                        <div className='navbar__navigation__button'>
                             <Button href='/signup'>
                                 <span>Signup</span>
                             </Button>
-                        </li>
+                        </div>
                     </Fragment>
                 )}
-                <li>
-                    {/* <Button onClick={toggleMode}>
-                        {mode === 'dark' ? (
-                            // <p>Dark</p>
-                            <ConfigIcon>
-                                <BsMoonFill />
-                            </ConfigIcon>
-                        ) : (
-                            // <p>Light</p>
-                            <ConfigIcon>
-                                <BsSunFill />
-                            </ConfigIcon>
-                        )}
-                    </Button> */}
-                </li>
-            </ul>
+            </div>
         </nav>
     );
 };
