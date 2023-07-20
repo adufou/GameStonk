@@ -94,7 +94,7 @@ const Signup = (): React.ReactElement => {
                                 onChange={handleChangePassword2}
                                 isRequired />
 
-                            <Button type='submit' onClick={(): void => {
+                            <Button onClick={(): void => {
                                 onSubmit()
                                     .catch(
                                         e => console.error(e)

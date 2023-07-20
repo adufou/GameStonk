@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactChildren from '../../../types/ReactChildren';
+import './Button.scss'
 
 interface ButtonProps {
     children: ReactChildren;
-    type?: 'button' | 'submit' | 'reset';
     onClick?: () => void;
     href?: string;
     label?: string;
 }
 
-const Button = ({ children = [], type, onClick, href, label }: ButtonProps): React.ReactElement => {
+const Button = ({ children = [], onClick, href, label }: ButtonProps): React.ReactElement => {
     return (
-        <div>
+        <div className='button'>
             {(label !== undefined) &&
-                <span>{label}</span>
+                <span className='button__label'>{label}</span>
             }
-            <button type={type} onClick={onClick}>
+            <div className='button__button' onClick={onClick}>
                 {children}
-            </button>
+            </div>
         </div>
     );
 };

@@ -83,7 +83,7 @@ const Login = (): React.ReactElement => {
                                     onChange={handleChangePassword}
                                 />
 
-                                <Button type='submit' onClick={(): void => {
+                                <Button onClick={(): void => {
                                     onSubmit()
                                         .catch(
                                             e => console.error(e)
