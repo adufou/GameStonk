@@ -1,0 +1,23 @@
+@use 'colors.scss' as *;
+
+.signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 0 auto;
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__input {
+            margin: 4px 0;
+        }
+
+        &__button {
+            margin-top: 4px;
+        }
+    }
+}

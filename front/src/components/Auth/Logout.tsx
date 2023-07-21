@@ -3,6 +3,7 @@ import redirect from '../../tools/redirect';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
+import './Logout.scss';
 
 const Logout = (): React.ReactElement => {
     const [loading, setLoading] = useState(true);
