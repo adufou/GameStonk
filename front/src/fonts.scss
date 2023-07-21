@@ -3,13 +3,13 @@
 @font-face {
     font-family: 'Titillium';
     src: local('Titillium'),
-         url('./fonts/TitilliumWeb-Light.ttf') format('ttf');
+         url('src/fonts/TitilliumWeb-Light.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'VictorMono';
     src: local('VictorMono'),
-         url('./fonts/VictorMono-VariableFont_wght.ttf') format('ttf');
+         url('src/fonts/VictorMono-VariableFont_wght.ttf') format('truetype');
 }
 
 /* Mixins */
