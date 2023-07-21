@@ -32,31 +32,23 @@ const Navbar = (): React.ReactElement => {
                             <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
                         </li> */}
                         <div className='navbar__navigation__button'>
-                            <Button>
-                                <Link to='admin'>
-                                    Admin
-                                </Link>
+                            <Button href='/admin'>
+                                <span>Admin</span>
                             </Button>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button>
-                                <Link to='games'>
-                                    Games
-                                </Link>
+                            <Button href='/games'>
+                                <span>Games</span>
                             </Button>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button>
-                                <Link to='wallets'>
-                                    My Wallets
-                                </Link>
+                            <Button href='/wallets'>
+                                <span>My Wallets</span>
                             </Button>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button>
-                                <Link to='logout'>
-                                    Logout
-                                </Link>
+                            <Button href='/logout'>
+                                <span>Logout</span>
                             </Button>
                         </div>
                     </Fragment>
