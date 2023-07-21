@@ -57,7 +57,7 @@ front/package-lock.json
 .idea/
 
 # Dev
-.env.dev
+.env
 
 
 #### ANTOINE RANDOM PEUT ETRE TEMP
