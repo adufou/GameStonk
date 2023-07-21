@@ -31,14 +31,16 @@ const Logout = (): React.ReactElement => {
     // };
 
     return (
-        <div>
+        <div className='logout'>
             <Card>
                 <CardBody>
                     <Fragment>
-                        if ({!!loading}) {
-                            <Button label="Are you sure you want to logout?">
-                                <p>Logout</p>
-                            </Button>
+                        {!loading &&
+                            <div className='logout__button'>
+                                <Button label="Are you sure you want to logout?">
+                                    <p>Logout</p>
+                                </Button>
+                            </div>
                         }
                     </Fragment>
                 </CardBody>
