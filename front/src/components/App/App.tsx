@@ -5,6 +5,9 @@ import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
 import Signup from '../Auth/Signup';
 import './App.scss'
+import Games from '../Game/Games';
+import MyWallets from '../Wallet/MyWallets';
+import Admin from '../Admin/Admin';
 
 function App(): React.ReactElement {
     useEffect(() => {
@@ -19,10 +22,10 @@ function App(): React.ReactElement {
                     <Route path="/login" element={< Login />} />
                     <Route path="/logout" element={< Logout />} />
                     <Route path="/signup" element={< Signup />} />
-                    {/* <Route path="/wallets" element={< MyWallets />} /> */}
-                    {/* <Route path="/games" element={< Games />} /> */}
+                    <Route path="/wallets" element={< MyWallets />} />
+                    <Route path="/games" element={< Games />} />
                     {/* <Route path="/games/:gameId" element={< Game game="gameId" />} /> */}
-                    {/* <Route path="/admin" element={< Admin />} /> */}
+                    <Route path="/admin" element={< Admin />} />
                 </Routes>
             </BrowserRouter>
         </div>
