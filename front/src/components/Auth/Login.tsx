@@ -63,32 +63,41 @@ const Login = (): React.ReactElement => {
 
                         {!loading &&
                             <div className='login__body'>
-                                <Input
-                                    label='Adresse email'
-                                    name='email'
-                                    type='email'
-                                    value={email}
-                                    isRequired
-                                    onChange={handleChangeEmail}
-                                />
+                                <div className='login__body__input'>
+                                    <Input
+                                        label='Adresse email'
+                                        name='email'
+                                        type='email'
+                                        value={email}
+                                        isRequired
+                                        onChange={handleChangeEmail}
+                                    />
+                                </div>
 
-                                <Input
-                                    label='Mot de passe'
-                                    name='password'
-                                    type='password'
-                                    value={password}
-                                    isRequired
-                                    onChange={handleChangePassword}
-                                />
+                                <div className='login__body__input'>
+                                    <Input
+                                        label='Mot de passe'
+                                        name='password'
+                                        type='password'
+                                        value={password}
+                                        isRequired
+                                        onChange={handleChangePassword}
+                                    />
+                                </div>
 
-                                <Button onClick={(): void => {
-                                    onSubmit()
-                                        .catch(
-                                            e => console.error(e)
-                                        );
-                                }}>
-                                    <p>Login</p>
-                                </Button>
+                                <div className='login__body__button'>
+                                    <Button
+                                        onClick={(): void => {
+                                            onSubmit()
+                                                .catch(
+                                                    e => console.error(e)
+                                                );
+                                        }}
+                                    >
+                                        <p>Login</p>
+                                    </Button>
+                                </div>
+
                             </div>
                         }
                     </Fragment>
