@@ -4,6 +4,7 @@ import Login from '../Auth/Login';
 import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
 import Signup from '../Auth/Signup';
+import './App.scss'
 
 function App(): React.ReactElement {
     useEffect(() => {
@@ -11,7 +12,7 @@ function App(): React.ReactElement {
     }, []);
 
     return (
-        <div className='app'>
+        <div className='App'>
             <BrowserRouter>
                 <Navbar />
                 <Routes>
