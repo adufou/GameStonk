@@ -6,12 +6,18 @@ import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Input from '../DesignSystem/Input/Input';
 import './Login.scss'
+import { setToken, setUser } from '../../stores/user/userReducer';
+import { useNavigate } from 'react-router-dom';
+import { setLocalToken } from '../../tools/localToken';
+import store from '../../stores/globalStore';
+import { fetchUser } from '../../stores/user/userStore.tools';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
-    const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         event.preventDefault();
@@ -30,27 +36,22 @@ const Login = (): React.ReactElement => {
         };
 
         const response = await authApi.loginUser(user);
+
         if (response.status === 200) {
             if (response.body.key) {
-                localStorage.clear();
-                localStorage.setItem('token', response.body.key);
-                redirect('dashboard');
+                store.dispatch(setToken(response.body.key));
+                setLocalToken(response.body.key);
+
+                fetchUser();
+
+                navigate('dashboard');
             } else {
                 setEmail('');
                 setPassword('');
-                localStorage.clear();
                 setErrors(true);
             }
         }
     };
-
-    useEffect(() => {
-        if (localStorage.getItem('token') !== null) {
-            redirect('dashboard');
-        } else {
-            setLoading(false);
-        }
-    }, []);
 
     return (
         <div className='login'>
@@ -61,45 +62,43 @@ const Login = (): React.ReactElement => {
                             <h2>Cannot log in with provided credentials</h2>
                         }
 
-                        {!loading &&
-                            <div className='login__body'>
-                                <div className='login__body__input'>
-                                    <Input
-                                        label='Adresse email'
-                                        name='email'
-                                        type='email'
-                                        value={email}
-                                        isRequired
-                                        onChange={handleChangeEmail}
-                                    />
-                                </div>
-
-                                <div className='login__body__input'>
-                                    <Input
-                                        label='Mot de passe'
-                                        name='password'
-                                        type='password'
-                                        value={password}
-                                        isRequired
-                                        onChange={handleChangePassword}
-                                    />
-                                </div>
-
-                                <div className='login__body__button'>
-                                    <Button
-                                        onClick={(): void => {
-                                            onSubmit()
-                                                .catch(
-                                                    e => console.error(e)
-                                                );
-                                        }}
-                                    >
-                                        <p>Login</p>
-                                    </Button>
-                                </div>
-
+                        <div className='login__body'>
+                            <div className='login__body__input'>
+                                <Input
+                                    label='Adresse email'
+                                    name='email'
+                                    type='email'
+                                    value={email}
+                                    isRequired
+                                    onChange={handleChangeEmail}
+                                />
                             </div>
-                        }
+
+                            <div className='login__body__input'>
+                                <Input
+                                    label='Mot de passe'
+                                    name='password'
+                                    type='password'
+                                    value={password}
+                                    isRequired
+                                    onChange={handleChangePassword}
+                                />
+                            </div>
+
+                            <div className='login__body__button'>
+                                <Button
+                                    onClick={(): void => {
+                                        onSubmit()
+                                            .catch(
+                                                e => console.error(e)
+                                            );
+                                    }}
+                                >
+                                    <p>Login</p>
+                                </Button>
+                            </div>
+
+                        </div>
                     </Fragment>
                 </CardBody>
             </Card>

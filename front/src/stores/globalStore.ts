@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import gamesReducer from './game/gamesReducer';
+import userReducer from './user/userReducer';
+import IGlobalState from './IGlobalState';
 
-const store = configureStore({
-    reducer: {
-        gamesStore: gamesReducer,
-    }
-});
+const reducer: IGlobalState = {
+    gamesStore: gamesReducer,
+    userStore: userReducer
+};
+
+const store = configureStore({ reducer });
 
 export default store;
 

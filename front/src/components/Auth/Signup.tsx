@@ -6,13 +6,19 @@ import CardBody from '../DesignSystem/Card/CardBody';
 import authApi from '../../http/api/auth/authApi';
 import Input from '../DesignSystem/Input/Input';
 import './Signup.scss';
+import { setToken } from '../../stores/user/userReducer';
+import { setLocalToken } from '../../tools/localToken';
+import store from '../../stores/globalStore';
+import { fetchUser } from '../../stores/user/userStore.tools';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
     const [errors, setErrors] = useState(false);
-    const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         event.preventDefault();
@@ -37,27 +43,23 @@ const Signup = (): React.ReactElement => {
         };
 
         const response = await authApi.registerUser(user);
-        console.log('REMPLACER PAR UN CHECK DE STATUT');
-        if (response.body.key) {
-            localStorage.clear();
-            localStorage.setItem('token', response.body.key);
-            redirect('dashboard');
-        } else {
-            setEmail('');
-            setPassword1('');
-            setPassword2('');
-            localStorage.clear();
-            setErrors(true);
+
+        if (response.status === 201) {
+            if (response.body.key) {
+                store.dispatch(setToken(response.body.key));
+                setLocalToken(response.body.key);
+
+                fetchUser();
+
+                navigate('dashboard');
+            } else {
+                setEmail('');
+                setPassword1('');
+                setPassword2('');
+                setErrors(true);
+            }
         }
     };
-
-    useEffect(() => {
-        if (localStorage.getItem('token') !== null) {
-            redirect('dashboard');
-        } else {
-            setLoading(false);
-        }
-    }, []);
 
     return (
         <div className='signup'>
