@@ -1,3 +1,9 @@
-type User = any;
+type User = {
+    pk: number,
+    email: string,
+    first_name: string,
+    last_name: string,
+    username: string,
+};
 
 export default User;

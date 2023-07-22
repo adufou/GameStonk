@@ -3,43 +3,44 @@ import redirect from '../../tools/redirect';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
+import './Logout.scss';
+import authApi from '../../http/api/auth/authApi';
+import store from '../../stores/globalStore';
+import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../stores/user/userReducer';
+import { clearLocalToken } from '../../tools/localToken';
 
 const Logout = (): React.ReactElement => {
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (localStorage.getItem('token') == null) {
-            redirect('login');
-        } else {
-            setLoading(false);
+    const handleLogout = async () => {
+        const user = store.getState().userStore.user;
+        if (user === null) {
+            return;
         }
-    }, []);
 
-    // TODO Fix it, I don't know the contract, do after refacto
+        const response = await authApi.logoutUser(user)
 
-    // const handleLogout = () => {
-    //     console.log('logout');
+        if (response.status === 200) {
+            store.dispatch(setToken(null));
+            clearLocalToken();
 
-    //     authApi.logoutUser(null, (response) => {
-    //         if (response.status === 200) {
-    //             redirect('login');
-    //         }
-
-    //         localStorage.clear();
-    //     });
-    // };
+            navigate('/login');
+        }
+    };
 
     return (
-        <div>
+        <div className='logout'>
             <Card>
                 <CardBody>
-                    <Fragment>
-                        if ({!!loading}) {
-                            <Button label="Are you sure you want to logout?">
-                                <p>Logout</p>
-                            </Button>
-                        }
-                    </Fragment>
+                    <div className='logout__button'>
+                        <Button
+                            label="Are you sure you want to logout?"
+                            onClick={handleLogout}
+                        >
+                            <p>Logout</p>
+                        </Button>
+                    </div>
                 </CardBody>
             </Card>
         </div>

@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import './Input.scss'
 
 interface InputProps {
     label?: string;
@@ -11,11 +12,11 @@ interface InputProps {
 
 const Input = ({ label, name, type, value, onChange, isRequired = false }: InputProps): React.ReactElement => {
     return (
-        <div>
-            if ({label}) {
-                <p>{label}</p>
+        <div className='input'>
+            {label &&
+                <span className='input__label'>{label}</span>
             }
-            <input type={type} name={name} value={value} onChange={onChange} required={isRequired} />
+            <input className='input__input' type={type} name={name} value={value} onChange={onChange} required={isRequired} />
         </div>
     );
 };

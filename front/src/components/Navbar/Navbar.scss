@@ -1,4 +1,4 @@
-@use '../../colors.scss' as *;
+@use 'colors.scss' as *;
 
 .navbar {
     background: $blue25;
@@ -8,6 +8,11 @@
 
     &__home-button {
         margin: 8px;
+    }
+
+    &__debug-button {
+        margin: 6px;
+        border: solid 2px $red;
     }
 
     &__navigation {

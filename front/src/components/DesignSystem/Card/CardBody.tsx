@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactChildren from '../../../types/ReactChildren';
+import './CardBody.scss';
 
 interface CardBodyProps {
     children: ReactChildren;
@@ -7,7 +8,7 @@ interface CardBodyProps {
 
 const CardBody = ({ children }: CardBodyProps): React.ReactElement => {
     return (
-        <div>
+        <div className='card-body'>
             {children}
         </div>
     );

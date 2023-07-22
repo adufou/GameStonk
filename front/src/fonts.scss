@@ -1,0 +1,23 @@
+/* Font Faces */
+
+@font-face {
+    font-family: 'Titillium';
+    src: local('Titillium'),
+         url('src/fonts/TitilliumWeb-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'VictorMono';
+    src: local('VictorMono'),
+         url('src/fonts/VictorMono-VariableFont_wght.ttf') format('truetype');
+}
+
+/* Mixins */
+
+@mixin titillium() {
+  font-family: 'Titillium', 'Helvetica', 'Arial', sans-serif;
+}
+
+@mixin mono() {
+  font-family: 'VictorMono', 'Helvetica', 'Arial', sans-serif;
+}
