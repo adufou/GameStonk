@@ -50,9 +50,6 @@ media/.DS_Store
 db/
 back/db.sqlite3
 
-# package locks
-front/package-lock.json
-
 #IDE
 .idea/
 
