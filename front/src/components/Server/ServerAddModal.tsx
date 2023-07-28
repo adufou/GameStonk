@@ -5,6 +5,11 @@ import Game from '../../models/Game';
 import serverApi from '../../http/api/server/serverApi';
 import { addServer } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
+import Button from '../DesignSystem/Button/Button';
+import Input from '../DesignSystem/Input/Input';
+import ModalBody from '../DesignSystem/Modal/ModalBody';
+import ModalFooter from '../DesignSystem/Modal/ModalFooter';
+import ModalHeader from '../DesignSystem/Modal/ModalHeader';
 
 interface ServerAddModalProps {
     isOpen: boolean;
@@ -30,21 +35,25 @@ const ServerAddModal = ({ isOpen, closeModal, game }: ServerAddModalProps): Reac
     }
 
     return (
-        // <Modal isOpen={isOpen} onClose={closeModal}>
-        <Modal >
-            {/* <ModalHeader>Add a server</ModalHeader>
+        <Modal isOpen={isOpen}>
+            <ModalHeader>
+                <span>Add a Server</span>
+            </ModalHeader>
             <ModalBody>
-                <Label>
-                    <span>Name</span>
-                    <Input className="mt-1" value={newServerName} onChange={e => setServerName(e.target.value)} />
-                </Label>
+                <Input
+                    label="name"
+                    value={newServerName}
+                    onChange={e => setServerName(e.target.value)}
+                />
             </ModalBody>
             <ModalFooter>
-                <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
-                    Cancel
+                <Button onClick={closeModal}>
+                    <span>Cancel</span>
                 </Button>
-                <Button className="w-full sm:w-auto" onClick={addNewServer}>Accept</Button>
-            </ModalFooter> */}
+                <Button onClick={addNewServer}>
+                    <span>Accept</span>
+                </Button>
+            </ModalFooter>
         </Modal>
     );
 };
