@@ -10,7 +10,7 @@ interface InputProps {
     isRequired?: boolean;
 }
 
-const Input = ({ label, name, type = "button", value, onChange, isRequired = false }: InputProps): React.ReactElement => {
+const Input = ({ label, name, type = "input", value, onChange, isRequired = false }: InputProps): React.ReactElement => {
     return (
         <div className='input'>
             {label &&

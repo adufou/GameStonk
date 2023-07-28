@@ -12,6 +12,7 @@ import { setToken } from '../../stores/user/userReducer';
 import store from '../../stores/globalStore';
 import { getLocalToken } from '../../tools/localToken';
 import { fetchUser } from '../../stores/user/userStore.tools';
+import { fetchGames } from '../../stores/game/gameStore.tools';
 
 function App(): React.ReactElement {
     useEffect(() => {
@@ -19,6 +20,7 @@ function App(): React.ReactElement {
 
         store.dispatch(setToken(getLocalToken()));
         fetchUser();
+        fetchGames();
     }, []);
 
     return (
