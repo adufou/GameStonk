@@ -3,14 +3,14 @@ import './Input.scss'
 
 interface InputProps {
     label?: string;
-    name: string
-    type: string;
+    name?: string
+    type?: string;
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => any;
-    isRequired: boolean;
+    isRequired?: boolean;
 }
 
-const Input = ({ label, name, type, value, onChange, isRequired = false }: InputProps): React.ReactElement => {
+const Input = ({ label, name, type = "input", value, onChange, isRequired = false }: InputProps): React.ReactElement => {
     return (
         <div className='input'>
             {label &&

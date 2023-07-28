@@ -9,7 +9,6 @@ import TableCell from '../DesignSystem/Table/TableCell';
 import Button from '../DesignSystem/Button/Button';
 import TableRow from '../DesignSystem/Table/TableRow';
 import TableBody from '../DesignSystem/Table/TableBody';
-import { fetchGames } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 
 const Games = (): React.ReactElement => {
@@ -22,10 +21,6 @@ const Games = (): React.ReactElement => {
     function closeAddGameModal(): void {
         setIsAddGameModalOpen(false);
     }
-
-    useEffect(() => {
-        fetchGames();
-    }, []);
 
     return (
         <div>

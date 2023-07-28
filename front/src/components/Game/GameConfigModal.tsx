@@ -4,6 +4,11 @@ import { updateGame } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
 import Game from '../../models/Game';
+import Button from '../DesignSystem/Button/Button';
+import Input from '../DesignSystem/Input/Input';
+import ModalBody from '../DesignSystem/Modal/ModalBody';
+import ModalFooter from '../DesignSystem/Modal/ModalFooter';
+import ModalHeader from '../DesignSystem/Modal/ModalHeader';
 
 interface GameConfigModalProps {
     isOpen: boolean;
@@ -29,21 +34,25 @@ const GameConfigModal = ({ isOpen, closeModal, game }: GameConfigModalProps): Re
     }
 
     return (
-        // <Modal isOpen={isOpen} onClose={closeModal}>
-        <Modal >
-            {/* <ModalHeader>Update {game.name}</ModalHeader>
+        <Modal isOpen={isOpen}>
+            <ModalHeader>
+                <span>Update {game.name}</span>
+            </ModalHeader>
             <ModalBody>
-                <Label>
-                    <span>Name</span>
-                    <Input className="mt-1" value={newGameName} onChange={e => setGameName(e.target.value)} />
-                </Label>
+                <Input
+                    label="Name"
+                    value={newGameName}
+                    onChange={e => setGameName(e.target.value)}
+                />
             </ModalBody>
             <ModalFooter>
-                <Button className="w-full sm:w-auto" layout="outline" onClick={closeModal}>
-                    Cancel
+                <Button onClick={closeModal}>
+                    <span>Cancel</span>
                 </Button>
-                <Button className="w-full sm:w-auto" onClick={configGame}>Accept</Button>
-            </ModalFooter> */}
+                <Button onClick={configGame}>
+                    <span>Accept</span>
+                </Button>
+            </ModalFooter>
         </Modal>
     );
 };

@@ -1,5 +1,8 @@
 import React from 'react';
 import Modal from './Modal';
+import Button from '../Button/Button';
+import ModalBody from './ModalBody';
+import ModalHeader from './ModalHeader';
 
 interface TwoCTAsModalProps {
     isOpen: boolean;
@@ -14,19 +17,20 @@ const TwoCTAsModal = ({ isOpen, onAccept, onClose }: TwoCTAsModalProps): React.R
     }
 
     return (
-        // <Modal isOpen={isOpen} onClose={onClose}>
-        <Modal >
-            {/* <ModalHeader>Are you sure ?</ModalHeader>
-            <ModalBody className='flex place-content-center'>
-                <Button className="w-full sm:w-auto" layout="outline" onClick={onClose}>
-                    Cancel
+        <Modal isOpen={isOpen}>
+            <ModalHeader>
+                <span>Are you sure ?</span>
+            </ModalHeader>
+            <ModalBody>
+                <Button onClick={onClose}>
+                    <span>Cancel</span>
                 </Button>
-                <Button className="w-full sm:w-auto" onClick={accept}>
-                    Accept
+                <Button onClick={accept}>
+                    <span>Accept</span>
                 </Button>
-            </ModalBody> */}
+            </ModalBody>
         </Modal>
-    );
+    )
 };
 
 export default TwoCTAsModal;

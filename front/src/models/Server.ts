@@ -2,7 +2,7 @@ import Game from './Game';
 
 interface Server {
     id: number;
-    gameId: Game['id'];
+    game: Game['id'];
     name: string;
 }
 

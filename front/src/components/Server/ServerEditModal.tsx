@@ -4,6 +4,11 @@ import serverApi from '../../http/api/server/serverApi';
 import { updateServer } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
+import Button from '../DesignSystem/Button/Button';
+import Input from '../DesignSystem/Input/Input';
+import ModalBody from '../DesignSystem/Modal/ModalBody';
+import ModalHeader from '../DesignSystem/Modal/ModalHeader';
+import ModalFooter from '../DesignSystem/Modal/ModalFooter';
 
 
 interface ServerEditModalProps {
@@ -30,21 +35,25 @@ const ServerEditModal = ({ isOpen, closeModal, server }: ServerEditModalProps): 
     }
 
     return (
-        // <Modal isOpen={isOpen} onClose={closeModal}>
-        <Modal>
-            {/* <ModalHeader>Update {server.name}</ModalHeader>
+        <Modal isOpen={isOpen}>
+            <ModalHeader>
+                <span>Update {server.name}</span>
+            </ModalHeader>
             <ModalBody>
-                <Label>
-                    <span>Name</span>
-                    <Input value={newServerName} onChange={e => setServerName(e.target.value)} />
-                </Label>
+                <Input
+                    label="Name"
+                    value={newServerName}
+                    onChange={e => setServerName(e.target.value)}
+                />
             </ModalBody>
             <ModalFooter>
-                <Button layout="outline" onClick={closeModal}>
-                    Cancel
+                <Button onClick={closeModal}>
+                    <span>Cancel</span>
                 </Button>
-                <Button onClick={editServer}>Accept</Button>
-            </ModalFooter> */}
+                <Button onClick={editServer}>
+                    <span>Accept</span>
+                </Button>
+            </ModalFooter>
         </Modal>
     );
 };
