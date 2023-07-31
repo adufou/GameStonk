@@ -19,7 +19,7 @@ ENV NODE_PATH=/app/node_modules
 RUN chown -R node:node /app
 
 COPY /front/package.json /app/
-# COPY /front/.eslintrc.json /app/
+# COPY /front/.eslintrc.cjs /app/
 
 COPY /front/webpack.config.cjs /app/
 COPY /front/tsconfig.json /app/
