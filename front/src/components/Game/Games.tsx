@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import GameCell from './GameCell';
 import { GrAdd } from 'react-icons/gr';
 import ConfigIcon from '../Icon/ConfigIcon';
@@ -10,6 +10,7 @@ import Button from '../DesignSystem/Button/Button';
 import TableRow from '../DesignSystem/Table/TableRow';
 import TableBody from '../DesignSystem/Table/TableBody';
 import store from '../../stores/globalStore';
+import mappedStateComponent from '../../tools/mappedStateComponent';
 
 const Games = (): React.ReactElement => {
     const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);
@@ -59,4 +60,4 @@ const Games = (): React.ReactElement => {
     );
 };
 
-export default Games;
+export default mappedStateComponent(Games);

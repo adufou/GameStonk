@@ -1,5 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import redirect from '../../tools/redirect';
+import React from 'react';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
@@ -13,19 +12,26 @@ import { clearLocalToken } from '../../tools/localToken';
 const Logout = (): React.ReactElement => {
     const navigate = useNavigate();
 
+    const clearTokenAndRedirectToLogin = () => {
+        store.dispatch(setToken(null));
+        clearLocalToken();
+
+        navigate('/login');
+    };
+    
     const handleLogout = async () => {
         const user = store.getState().userStore.user;
         if (user === null) {
+            console.warn('User was null, cleared token.');
+
+            clearTokenAndRedirectToLogin();
             return;
         }
 
-        const response = await authApi.logoutUser(user)
+        const response = await authApi.logoutUser(user);
 
         if (response.status === 200) {
-            store.dispatch(setToken(null));
-            clearLocalToken();
-
-            navigate('/login');
+            clearTokenAndRedirectToLogin();
         }
     };
 

@@ -30,7 +30,7 @@ const TwoCTAsModal = ({ isOpen, onAccept, onClose }: TwoCTAsModalProps): React.R
                 </Button>
             </ModalBody>
         </Modal>
-    )
+    );
 };
 
 export default TwoCTAsModal;

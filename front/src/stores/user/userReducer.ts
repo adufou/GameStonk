@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import IUserState from "./IUserState";
-import User from "../../models/User";
-import authApi from "../../http/api/auth/authApi";
+import { createSlice } from '@reduxjs/toolkit';
+import IUserState from './IUserState';
+import User from '../../models/User';
 
 const initialState: IUserState = {
     user: null,
@@ -23,7 +22,7 @@ const userSlice = createSlice({
             state.token = action.payload;
         },
     }
-})
+});
 
 export const { setUser, setToken } = userSlice.actions;
 

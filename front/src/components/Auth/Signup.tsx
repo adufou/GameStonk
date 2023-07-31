@@ -1,5 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, Fragment } from 'react';
-import redirect from '../../tools/redirect';
+import React, { useState, ChangeEvent, Fragment } from 'react';
 import Button from '../DesignSystem/Button/Button';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';

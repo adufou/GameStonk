@@ -1,12 +1,11 @@
-import React, { useState, useEffect, ChangeEvent, Fragment } from 'react';
-import redirect from '../../tools/redirect';
+import React, { useState, ChangeEvent, Fragment } from 'react';
 import Button from '../DesignSystem/Button/Button';
 import authApi from '../../http/api/auth/authApi';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Input from '../DesignSystem/Input/Input';
-import './Login.scss'
-import { setToken, setUser } from '../../stores/user/userReducer';
+import './Login.scss';
+import { setToken } from '../../stores/user/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { setLocalToken } from '../../tools/localToken';
 import store from '../../stores/globalStore';

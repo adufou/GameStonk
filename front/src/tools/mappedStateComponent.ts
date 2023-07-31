@@ -1,6 +1,6 @@
-import IGlobalState from "../stores/IGlobalState";
-import {bindActionCreators} from "@reduxjs/toolkit";
-import {connect} from "react-redux";
+import IGlobalState from '../stores/IGlobalState';
+import {connect} from 'react-redux';
+import React from 'react';
 
 /**
  * This function maps the state to a
@@ -15,26 +15,29 @@ const mapStateToProps = (state: IGlobalState) => ({
     state: state
 });
 
-/**
- * This function maps actions to props
- * and binds them, so they can be called
- * directly.
- *
- * In this case all actions are mapped
- * to the `actions` prop.
- */
-const mapDispatchToProps = (dispatch) => ({
-	actions: bindActionCreators(Actions, dispatch)
-})
+// ANTOINE : I don't think we need it right now
+// /**
+//  * This function maps actions to props
+//  * and binds them, so they can be called
+//  * directly.
+//  *
+//  * In this case all actions are mapped
+//  * to the `actions` prop.
+//  */
+// const mapDispatchToProps = (dispatch) => ({
+// 	actions: bindActionCreators(Actions, dispatch)
+// })
 
 
-/**
- * Finally the Redux store is connected
- * to the component with the `connect()`
- * function.
- */
-export default connect(
-    mapStateToProps
-)(Navbar);
+const mappedStateComponent = (component: () => React.ReactElement) => {
+    /**
+     * Finally the Redux store is connected
+     * to the component with the `connect()`
+     * function.
+     */
+    return connect(
+        mapStateToProps
+    )(component);
+};
 
-
+export default mappedStateComponent;
