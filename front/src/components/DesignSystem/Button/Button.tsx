@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactChildren from '../../../types/ReactChildren';
-import './Button.scss'
+import './Button.scss';
 import { Link } from 'react-router-dom';
 
 interface ButtonProps {

@@ -62,7 +62,11 @@
     "scripts": {
         "start:dev": "webpack build --config ./webpack.config.cjs && webpack serve",
         "build:prod": "webpack -p --config webpack.prod.js",
-        "lint": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' && echo Linting complete...",
-        "lint-fix": "../node_modules/.bin/eslint 'src/**/*.+(js|jsx|json|css|md|html)' --fix && echo Linting complete..."
+        "lint": "npx eslint .",
+        "lint-fix": "npx eslint . --fix",
+        "prepare": "cd .. && husky install front/.husky"
+    },
+    "devDependencies": {
+        "husky": "^8.0.0"
     }
 }

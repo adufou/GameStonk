@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import Game from '../../models/Game';
 import IGameState from './IGameState';
 import Server from '../../models/Server';
@@ -42,9 +42,9 @@ const gamesSlice = createSlice({
         addServer(state, action: {
             payload: Server
         }) {
-            console.log(action.payload)
+            console.log(action.payload);
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);
-            console.log(gameIndex)
+            console.log(gameIndex);
             state.games[gameIndex].servers.push(action.payload);
         },
         deleteServer(state, action: {

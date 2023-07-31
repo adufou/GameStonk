@@ -4,7 +4,7 @@ import Login from '../Auth/Login';
 import Navbar from '../Navbar/Navbar';
 import Logout from '../Auth/Logout';
 import Signup from '../Auth/Signup';
-import './App.scss'
+import './App.scss';
 import Games from '../Game/Games';
 import MyWallets from '../Wallet/MyWallets';
 import Admin from '../Admin/Admin';

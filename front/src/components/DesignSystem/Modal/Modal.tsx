@@ -6,10 +6,12 @@ interface ModalProps {
     isOpen: boolean;
     children: ReactChildren;
 }
-
 const Modal = ({ isOpen, children }: ModalProps): React.ReactElement => {
     return (
-        <ReactModal isOpen={isOpen}>
+        <ReactModal 
+            appElement={document.body}
+            isOpen={isOpen}
+        >
             {children}
         </ReactModal>
     );
