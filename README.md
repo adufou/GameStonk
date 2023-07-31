@@ -15,7 +15,6 @@ URL: http://ns399800.ip-5-196-67.eu:4000/
 - Linux / Unix pour Hot Reload (buggué sous WSL)
 - Signer ses commits, sinon les PR ne sont pas mergeables
 
-
 # Lancement de l'application
 
 Dans un terminal :
