@@ -13,7 +13,7 @@ build:
 	@docker-compose build
 
 logs:
-	@docker-compose logs -f postgres react django
+	@docker-compose logs -f postgres react
 
 run:
 	@docker-compose build

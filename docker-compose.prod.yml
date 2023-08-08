@@ -15,20 +15,20 @@ services:
     volumes:
       - ~/Documents/PROJETS PERSOS/Stonkofus/db/docker/template-postgres/data:/var/lib/postgresql/data:rw
 
-  django:
-    container_name: django
-    build:
-      context: .
-      dockerfile: ./conf/django/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./back:/app:rw
-    depends_on:
-      - postgres
-    env_file:
-      - .env
+#  django:
+#    container_name: django
+#    build:
+#      context: .
+#      dockerfile: ./conf/django/Dockerfile
+#    command: python manage.py runserver 0.0.0.0:8000
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./back:/app:rw
+#    depends_on:
+#      - postgres
+#    env_file:
+#      - .env
 
   react:
     container_name: react
