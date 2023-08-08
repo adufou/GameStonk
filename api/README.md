@@ -12,3 +12,15 @@ On peut acceder à plus d'infos sur la DB via Pgadmin.
 
 Normalement, le serveur sera enregistré dans un volume, qui nécessite d'être crée via le make pour garantir l'acces à l'user du process dans le container
 Source: https://stackoverflow.com/questions/64781245/permission-denied-var-lib-pgadmin-sessions-in-docker
+
+# Todo
+
+https://wanago.io/2022/07/25/api-nestjs-database-migrations-typeorm/
+
+# Doc
+
+# Entity
+https://docs.nestjs.com/techniques/database#repository-pattern
+
+## Auth
+https://docs.nestjs.com/security/authentication
