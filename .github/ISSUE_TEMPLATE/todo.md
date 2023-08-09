@@ -7,10 +7,5 @@ assignees: ''
 
 ---
 
-# Todo
-
-### Author
-YOU
-
 ## TODO TITLE
 Todo things to do

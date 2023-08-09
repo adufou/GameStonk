@@ -7,11 +7,6 @@ assignees: ''
 
 ---
 
-# Todo
-
-### Author
-YOU
-
 ### Concerned PR
 PR
 
