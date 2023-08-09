@@ -19,8 +19,8 @@ https://wanago.io/2022/07/25/api-nestjs-database-migrations-typeorm/
 
 # Doc
 
-# Entity
+### Entity
 https://docs.nestjs.com/techniques/database#repository-pattern
 
-## Auth
+### Auth
 https://docs.nestjs.com/security/authentication
