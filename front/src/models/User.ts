@@ -1,9 +1,8 @@
 type User = {
-    pk: number,
+    id: number,
     email: string,
-    first_name: string,
-    last_name: string,
-    username: string,
+    firstName: string,
+    lastName: string,
 };
 
 export default User;

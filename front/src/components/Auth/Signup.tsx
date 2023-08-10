@@ -15,6 +15,8 @@ const Signup = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [errors, setErrors] = useState(false);
 
     const navigate = useNavigate();
@@ -34,16 +36,31 @@ const Signup = (): React.ReactElement => {
         setPassword2(event.target.value);
     };
 
+    const handleChangeFirstName = (event: ChangeEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        setFirstName(event.target.value);
+    };
+
+    const handleChangeLastName = (event: ChangeEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        setLastName(event.target.value);
+    };
+
     const onSubmit = async (): Promise<void> => {
+        if (password1 !== password2) {
+            setErrors(true);
+        }
+        
         const user = {
-            email: email,
-            password1: password1,
-            password2: password2
+            email,
+            password: password1,
+            firstName,
+            lastName
         };
 
         const response = await authApi.registerUser(user);
 
-        if (response.status === 201) {
+        if (response.status === 200) {
             if (response.body.access_token) {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);
@@ -52,9 +69,6 @@ const Signup = (): React.ReactElement => {
 
                 navigate('dashboard');
             } else {
-                setEmail('');
-                setPassword1('');
-                setPassword2('');
                 setErrors(true);
             }
         }
@@ -99,6 +113,26 @@ const Signup = (): React.ReactElement => {
                                     type='password'
                                     value={password2}
                                     onChange={handleChangePassword2}
+                                    isRequired
+                                />
+                            </div>
+
+                            <div className='signup__body__input'>
+                                <Input
+                                    label='Prénom'
+                                    name='firstName'
+                                    value={firstName}
+                                    onChange={handleChangeFirstName}
+                                    isRequired
+                                />
+                            </div>
+
+                            <div className='signup__body__input'>
+                                <Input
+                                    label='Nom'
+                                    name='lastName'
+                                    value={lastName}
+                                    onChange={handleChangeLastName}
                                     isRequired
                                 />
                             </div>
