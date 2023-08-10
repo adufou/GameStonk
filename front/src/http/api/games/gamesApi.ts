@@ -5,26 +5,26 @@ import ApiBodyResponse from '../../../types/ApiBodyResponse';
 import ApiStatusResponse from '../../../types/ApiStatusResponse';
 
 const getGames = (): Promise<ApiBodyResponse<Game[]>> => {
-    return apiCall('game', 'GET');
+    return apiCall('games', 'GET');
 };
 
 const getGame = (game: Game): Promise<ApiBodyResponse<Game>> => {
-    return apiCall(`game/${game.id}`, 'GET');
+    return apiCall(`games/${game.id}`, 'GET');
 };
 
 const addGame = (game: Partial<Game>): Promise<ApiBodyResponse<Game>> => {
-    return apiCall('game', 'POST', game);
+    return apiCall('games', 'POST', game);
 };
 
 const deleteGame = (game: Game): Promise<ApiStatusResponse> => {
-    return apiCall(`game/${game.id}`, 'DELETE');
+    return apiCall(`games/${game.id}`, 'DELETE');
 };
 
 const updateGame = (game: Game): Promise<ApiBodyResponse<Game>> => {
-    return apiCall(`game/${game.id}`, 'PUT', game);
+    return apiCall(`games/${game.id}`, 'PATCH', game);
 };
 
-const gameApi = {
+const gamesApi = {
     getGames,
     getGame,
     addGame,
@@ -32,4 +32,4 @@ const gameApi = {
     updateGame,
 };
 
-export default gameApi;
+export default gamesApi;

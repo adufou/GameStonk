@@ -12,8 +12,8 @@ import bcrypt from "bcrypt";
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import {Public} from "../decorators/public.decorator";
-import {RegisterDto} from "./dto/auth.register.dto";
-import {LoginDto} from "./dto/auth.login.dto";
+import {RegisterDto} from "./dto/login-register.dto";
+import {LoginDto} from "./dto/login-auth.dto";
 
 @Controller('auth')
 export class AuthController {

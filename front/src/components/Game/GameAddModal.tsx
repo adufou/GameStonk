@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../DesignSystem/Modal/Modal';
-import gameApi from '../../http/api/game/gameApi';
+import gamesApi from '../../http/api/games/gamesApi';
 import { addGame } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Button from '../DesignSystem/Button/Button';
@@ -22,11 +22,12 @@ const GameAddModal = ({ isOpen, closeModal }: GameAddModalProps): React.ReactEle
             name: newGameName,
         };
 
-        const response = await gameApi.addGame(newGame);
+        const response = await gamesApi.addGame(newGame);
         if (response.status === 201) {
             store.dispatch(addGame(response.body));
+            setGameName('');
         }
-
+        
         closeModal();
     }
 

@@ -12,19 +12,7 @@ import {clearLocalTokenAndRedirectToLogin} from "../../tools/authTools";
 
 const Logout = (): React.ReactElement => {
     const handleLogout = async () => {
-        const user = store.getState().userStore.user;
-        if (user === null) {
-            console.warn('User was null, cleared token.');
-
-            clearLocalTokenAndRedirectToLogin();
-            return;
-        }
-
-        const response = await authApi.logoutUser(user);
-
-        if (response.status === 200) {
-            clearLocalTokenAndRedirectToLogin();
-        }
+        clearLocalTokenAndRedirectToLogin();
     };
 
     return (

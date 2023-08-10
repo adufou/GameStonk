@@ -43,7 +43,7 @@ const Login = (): React.ReactElement => {
 
                 fetchCurrentUser();
 
-                navigate('dashboard');
+                navigate('/');
             } else {
                 setEmail('');
                 setPassword('');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import gameApi from '../../http/api/game/gameApi';
+import gamesApi from '../../http/api/games/gamesApi';
 import { updateGame } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
@@ -25,7 +25,7 @@ const GameConfigModal = ({ isOpen, closeModal, game }: GameConfigModalProps): Re
             name: newGameName
         };
 
-        const response = await gameApi.updateGame(updatedGame);
+        const response = await gamesApi.updateGame(updatedGame);
         if (response.status === 200) {
             store.dispatch(updateGame(response.body));
         }
