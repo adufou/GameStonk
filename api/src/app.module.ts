@@ -13,6 +13,9 @@ import {User} from "./users/user.entity";
             username: 'stonkofus',
             password: 'password',
             database: 'postgres',
+            /* https://docs.nestjs.com/techniques/database#auto-load-entities
+             * Should not have to add one if registered in a forFeature
+             */
             entities: [
                 User,
             ],

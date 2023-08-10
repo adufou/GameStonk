@@ -11,7 +11,8 @@ import {
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import {Public} from "../decorators/public.decorator";
-import {SignInDto} from "./dto/auth.signin.dto";
+import {RegisterDto} from "./dto/auth.register.dto";
+import {LoginDto} from "./dto/auth.login.dto";
 
 @Controller('auth')
 export class AuthController {
@@ -20,8 +21,15 @@ export class AuthController {
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    signIn(@Body() signInDto: SignInDto) {
-        return this.authService.signIn(signInDto.email, signInDto.password, signInDto.firstName, signInDto.lastName);
+    login(@Body() loginDto: LoginDto) {
+        return this.authService.login(loginDto.email, loginDto.password);
+    }
+
+    @Public()
+    @HttpCode(HttpStatus.OK)
+    @Post('register')
+    register(@Body() registerDto: RegisterDto) {
+        return this.authService.register(registerDto.email, registerDto.password, registerDto.firstName, registerDto.lastName);
     }
     
     @Get('profile')
