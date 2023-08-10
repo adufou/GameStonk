@@ -19,27 +19,17 @@ URL: http://ns399800.ip-5-196-67.eu:4000/
 
 # Lancement de l'application
 
-Dans un terminal :
-- cd dans le dossier Stonkofus/
-- `docker compose build`
-- `docker compose up`
-- Aller à http://localhost:8000/
+`make pgadmin-init`
+
+`make run`
 
 # Quand changement sur les modèles
 
-Dans un terminal :
-- cd dans le dossier Stonkofus/
-- `.\venv\Scripts\activate`
-- `cd back/`
-- `python .\manage.py makemigrations`
+
 
 # Créer superuser
 
-Dans un terminal :
-- cd dans le dossier Stonkofus/
-- `.\venv\Scripts\activate`
-- `cd back/`
-- `python manage.py createsuperuser`
+
 
 # Ressources
 
@@ -49,3 +39,4 @@ Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
 # Doc
 
 https://dzone.com/articles/a-new-way-to-implement-redux-like-global-store-wit
+https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei

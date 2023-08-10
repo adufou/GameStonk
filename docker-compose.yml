@@ -1,11 +1,11 @@
 version: '3.5'
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:11.6
+  db:
+    image: postgres
+    restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
@@ -13,25 +13,37 @@ services:
       - POSTGRES_HOST=${DB_HOST}
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - ${GAMESTONK_LOCATION}/db/docker/template-postgres/data:/var/lib/postgresql/data:rw
+      - ${GAMESTONK_LOCATION}/volumes/postgres:/var/lib/postgresql/data:rw
 
-  django:
-    container_name: django
+  api:
     build:
       context: .
-      dockerfile: ./conf/django/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+      dockerfile: ./api/Dockerfile
+    environment:
+      - PORT=${API_PORT}
     ports:
-      - "8000:8000"
-    volumes:
-      - ./back:/app:rw
+      - '3000:3000'
     depends_on:
-      - postgres
-    env_file:
-      - .env
+      - db
+    volumes:
+      - ./api/src:/app/src
 
+# Rappel : https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei
+  pgadmin:
+    image: dpage/pgadmin4
+    user: root
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '5050:80'
+    volumes:
+      - ${GAMESTONK_LOCATION}/volumes/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+    
   react:
-    container_name: react
     build:
       context: .
       dockerfile: ./conf/react/Dockerfile.dev
@@ -40,3 +52,5 @@ services:
     volumes:
       - ./front/src:/app/src
       - ./front/public:/app/public
+    depends_on: 
+      - api

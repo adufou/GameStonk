@@ -8,18 +8,14 @@ import './App.scss';
 import Games from '../Game/Games';
 import MyWallets from '../Wallet/MyWallets';
 import Admin from '../Admin/Admin';
-import { setToken } from '../../stores/user/userReducer';
-import store from '../../stores/globalStore';
-import { getLocalToken } from '../../tools/localToken';
-import { fetchUser } from '../../stores/user/userStore.tools';
 import { fetchGames } from '../../stores/game/gameStore.tools';
+import {authFlowOnStartup} from "../../tools/authTools";
 
 function App(): React.ReactElement {
     useEffect(() => {
-        document.title = 'Stonkofus';
+        document.title = 'GameStonk';
 
-        store.dispatch(setToken(getLocalToken()));
-        fetchUser();
+        authFlowOnStartup();
         fetchGames();
     }, []);
 

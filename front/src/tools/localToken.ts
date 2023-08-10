@@ -2,7 +2,7 @@ export function clearLocalToken() {
     localStorage.removeItem('token');
 }
 
-export function getLocalToken() {
+export function getLocalToken(): string | null {
     return localStorage.getItem('token');
 }
 

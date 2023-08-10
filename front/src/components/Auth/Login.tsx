@@ -9,7 +9,7 @@ import { setToken } from '../../stores/user/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { setLocalToken } from '../../tools/localToken';
 import store from '../../stores/globalStore';
-import { fetchUser } from '../../stores/user/userStore.tools';
+import { fetchCurrentUser } from '../../stores/user/userStore.tools';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -37,11 +37,11 @@ const Login = (): React.ReactElement => {
         const response = await authApi.loginUser(user);
 
         if (response.status === 200) {
-            if (response.body.key) {
-                store.dispatch(setToken(response.body.key));
-                setLocalToken(response.body.key);
+            if (response.body.access_token) {
+                store.dispatch(setToken(response.body.access_token));
+                setLocalToken(response.body.access_token);
 
-                fetchUser();
+                fetchCurrentUser();
 
                 navigate('dashboard');
             } else {
