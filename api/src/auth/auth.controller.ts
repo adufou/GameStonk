@@ -8,9 +8,12 @@ import {
     Request,
     UseGuards
 } from '@nestjs/common';
+import bcrypt from "bcrypt";
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import {Public} from "../decorators/public.decorator";
+import {RegisterDto} from "./dto/auth.register.dto";
+import {LoginDto} from "./dto/auth.login.dto";
 
 @Controller('auth')
 export class AuthController {
@@ -19,8 +22,15 @@ export class AuthController {
     @Public()
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    signIn(@Body() signInDto: Record<string, any>) {
-        return this.authService.signIn(signInDto.username, signInDto.password);
+    login(@Body() loginDto: LoginDto) {
+        return this.authService.login(loginDto.email, loginDto.password);
+    }
+
+    @Public()
+    @HttpCode(HttpStatus.OK)
+    @Post('register')
+    register(@Body() registerDto: RegisterDto) {
+        return this.authService.register(registerDto.email, registerDto.password, registerDto.firstName, registerDto.lastName);
     }
     
     @Get('profile')
