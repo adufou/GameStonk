@@ -6,7 +6,7 @@ import ServerEditModal from './ServerEditModal';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
 import Button from '../DesignSystem/Button/Button';
-import serverApi from '../../http/api/server/serverApi';
+import serversApi from '../../http/api/servers/serversApi';
 import { deleteServer } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Server from '../../models/Server';
@@ -20,7 +20,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     const [isUpdateServerModalOpen, setIsUpdateServerModalOpen] = useState(false);
 
     async function acceptServerDeletion(): Promise<void> {
-        const response = await serverApi.deleteServer(server);
+        const response = await serversApi.deleteServer(server);
         if (response.status === 204) {
             store.dispatch(deleteServer(server));
         }

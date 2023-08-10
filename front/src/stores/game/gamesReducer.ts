@@ -45,6 +45,10 @@ const gamesSlice = createSlice({
             console.log(action.payload);
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);
             console.log(gameIndex);
+            
+            if(!state.games[gameIndex].servers) {
+                state.games[gameIndex].servers = [];
+            }
             state.games[gameIndex].servers.push(action.payload);
         },
         deleteServer(state, action: {
