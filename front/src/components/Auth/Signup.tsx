@@ -8,7 +8,7 @@ import './Signup.scss';
 import { setToken } from '../../stores/user/userReducer';
 import { setLocalToken } from '../../tools/localToken';
 import store from '../../stores/globalStore';
-import { fetchUser } from '../../stores/user/userStore.tools';
+import { fetchCurrentUser } from '../../stores/user/userStore.tools';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = (): React.ReactElement => {
@@ -65,7 +65,7 @@ const Signup = (): React.ReactElement => {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);
 
-                fetchUser();
+                fetchCurrentUser();
 
                 navigate('dashboard');
             } else {
