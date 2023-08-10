@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Server from '../Server/Server';
 import { GrAdd } from 'react-icons/gr';
 import ConfigIcon from '../Icon/ConfigIcon';
@@ -11,6 +11,10 @@ import TableCell from '../DesignSystem/Table/TableCell';
 import TableHeader from '../DesignSystem/Table/TableHeader';
 import TableRow from '../DesignSystem/Table/TableRow';
 import Game from '../../models/Game';
+import gamesApi from "../../http/api/games/gamesApi";
+import store from "../../stores/globalStore";
+import {addServer, updateGame} from "../../stores/game/gamesReducer";
+import serversApi from "../../http/api/servers/serversApi";
 
 interface GameCellProps {
     game: Game;
@@ -26,6 +30,22 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
     function closeAddServerModal(): void {
         setIsAddServerModalOpen(false);
     }
+
+    const fetchServersFromGame = async () => {
+        const gameResponse = await serversApi.getServersFromGame(game);
+        if (gameResponse.status === 200) {
+            gameResponse.body.map((server) => {
+                store.dispatch(addServer({
+                    ...server,
+                    game: game.id,
+                }))
+            })
+        }
+    }
+
+    useEffect(() => {
+        fetchServersFromGame();
+    }, []);
 
     return (
         <div>

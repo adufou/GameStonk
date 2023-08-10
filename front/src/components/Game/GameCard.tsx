@@ -8,7 +8,7 @@ import GameConfigModal from './GameConfigModal';
 import Button from '../DesignSystem/Button/Button';
 import Card from '../DesignSystem/Card/Card';
 import CardBody from '../DesignSystem/Card/CardBody';
-import gameApi from '../../http/api/game/gameApi';
+import gamesApi from '../../http/api/games/gamesApi';
 import { deleteGame } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Game from '../../models/Game';
@@ -22,9 +22,9 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     const [isConfigGameModalOpen, setIsConfigGameModalOpen] = useState(false);
 
     async function acceptGameDeletion(): Promise<void> {
-        const response = await gameApi.deleteGame(game);
+        const response = await gamesApi.deleteGame(game);
 
-        if (response.status === 204) {
+        if (response.status === 200) {
             store.dispatch(deleteGame(game));
         }
     }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Modal from '../DesignSystem/Modal/Modal';
 import Game from '../../models/Game';
-import serverApi from '../../http/api/server/serverApi';
+import serversApi from '../../http/api/servers/serversApi';
 import { addServer } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Button from '../DesignSystem/Button/Button';
@@ -26,7 +26,7 @@ const ServerAddModal = ({ isOpen, closeModal, game }: ServerAddModalProps): Reac
             name: newServerName,
         };
 
-        const response = await serverApi.addServer(newServer);
+        const response = await serversApi.addServer(newServer);
         if (response.status === 201) {
             store.dispatch(addServer(response.body));
         }

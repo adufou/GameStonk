@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import {TypeOrmModule} from "@nestjs/typeorm";
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import {User} from "./users/user.entity";
+import { GamesModule } from './games/games.module';
+import { UsersModule } from './users/users.module';
+import { ServersModule } from './servers/servers.module';
 
 @Module({
     imports: [
@@ -16,9 +17,7 @@ import {User} from "./users/user.entity";
             /* https://docs.nestjs.com/techniques/database#auto-load-entities
              * Should not have to add one if registered in a forFeature
              */
-            entities: [
-                User,
-            ],
+            entities: [],
             /* https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei
               We set the synchronize option to true, which means that TypeORM will automatically generate database 
               tables based on the entities. However, this option should be used with caution in production because it 
@@ -31,6 +30,8 @@ import {User} from "./users/user.entity";
         }),
         AuthModule,
         UsersModule,
+        ServersModule,
+        GamesModule,
     ],
 })
 export class AppModule {}

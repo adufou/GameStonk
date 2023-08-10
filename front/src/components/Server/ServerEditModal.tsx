@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Server from '../../models/Server';
-import serverApi from '../../http/api/server/serverApi';
+import serversApi from '../../http/api/servers/serversApi';
 import { updateServer } from '../../stores/game/gamesReducer';
 import store from '../../stores/globalStore';
 import Modal from '../DesignSystem/Modal/Modal';
@@ -26,7 +26,7 @@ const ServerEditModal = ({ isOpen, closeModal, server }: ServerEditModalProps): 
             name: newServerName
         };
 
-        const response = await serverApi.updateServer(updatedServer);
+        const response = await serversApi.updateServer(updatedServer);
         if (response.status === 200) {
             store.dispatch(updateServer(response.body));
         }

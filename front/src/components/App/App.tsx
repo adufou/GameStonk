@@ -29,7 +29,7 @@ function App(): React.ReactElement {
                     <Route path="/signup" element={< Signup />} />
                     <Route path="/wallets" element={< MyWallets />} />
                     <Route path="/games" element={< Games />} />
-                    {/* <Route path="/games/:gameId" element={< Game game="gameId" />} /> */}
+                    {/* <Route path="/games/:gameId" element={< Game games="gameId" />} /> */}
                     <Route path="/admin" element={< Admin />} />
                 </Routes>
             </BrowserRouter>
