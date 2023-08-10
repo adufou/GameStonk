@@ -8,30 +8,22 @@ import store from '../../stores/globalStore';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '../../stores/user/userReducer';
 import { clearLocalToken } from '../../tools/localToken';
+import {clearLocalTokenAndRedirectToLogin} from "../../tools/authTools";
 
 const Logout = (): React.ReactElement => {
-    const navigate = useNavigate();
-
-    const clearTokenAndRedirectToLogin = () => {
-        store.dispatch(setToken(null));
-        clearLocalToken();
-
-        navigate('/login');
-    };
-    
     const handleLogout = async () => {
         const user = store.getState().userStore.user;
         if (user === null) {
             console.warn('User was null, cleared token.');
 
-            clearTokenAndRedirectToLogin();
+            clearLocalTokenAndRedirectToLogin();
             return;
         }
 
         const response = await authApi.logoutUser(user);
 
         if (response.status === 200) {
-            clearTokenAndRedirectToLogin();
+            clearLocalTokenAndRedirectToLogin();
         }
     };
 
