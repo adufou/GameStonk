@@ -37,9 +37,9 @@ const Login = (): React.ReactElement => {
         const response = await authApi.loginUser(user);
 
         if (response.status === 200) {
-            if (response.body.key) {
-                store.dispatch(setToken(response.body.key));
-                setLocalToken(response.body.key);
+            if (response.body.access_token) {
+                store.dispatch(setToken(response.body.access_token));
+                setLocalToken(response.body.access_token);
 
                 fetchUser();
 

@@ -1,4 +1,4 @@
-import { URL_PREFIX } from './consts';
+import {API_PORT, URL_PREFIX} from './consts';
 
 interface RequestData {
     method: string,
@@ -13,7 +13,7 @@ const constructUrl = (uri: string, port = 8000): string => {
     return `http://${URL_PREFIX}:${port}/${uri}/`;
 };
 
-export const apiCall = async (uri: string, method: string, data: any = null, port = 8000): Promise<{
+export const apiCall = async (uri: string, method: string, data: any = null, port = API_PORT): Promise<{
     status: number,
     body: any,
 }> => {
@@ -32,7 +32,7 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
         method,
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Token ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: undefined,
     };
@@ -61,7 +61,7 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
     }
 };
 
-export const publicApiCall = async (uri: string, method: string, data: any = null, port = 8000): Promise<{
+export const publicApiCall = async (uri: string, method: string, data: any = null, port = API_PORT): Promise<{
     status: number,
     body: any,
 }> => {

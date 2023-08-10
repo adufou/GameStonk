@@ -8,6 +8,7 @@ import {
     Request,
     UseGuards
 } from '@nestjs/common';
+import bcrypt from "bcrypt";
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import {Public} from "../decorators/public.decorator";
