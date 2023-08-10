@@ -44,9 +44,9 @@ const Signup = (): React.ReactElement => {
         const response = await authApi.registerUser(user);
 
         if (response.status === 201) {
-            if (response.body.key) {
-                store.dispatch(setToken(response.body.key));
-                setLocalToken(response.body.key);
+            if (response.body.access_token) {
+                store.dispatch(setToken(response.body.access_token));
+                setLocalToken(response.body.access_token);
 
                 fetchUser();
 

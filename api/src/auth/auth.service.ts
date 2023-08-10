@@ -3,6 +3,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import {ImATeapotException} from "@nestjs/common/exceptions/im-a-teapot.exception";
 import {User} from "../users/user.entity";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,8 @@ export class AuthService {
 
     async login(email: string, password: string) {
         const user = await this.usersService.findOneByEmail(email);
-        if (user?.password !== password) {
+        // if (user?.password !== password) {
+        if (!await bcrypt.compare(password, user.password)) {
             throw new UnauthorizedException();
         }
         
@@ -30,9 +32,11 @@ export class AuthService {
             throw new ImATeapotException()
         }
         
+        const bcryptedPassword = await bcrypt.hash(password, 15);
+        
         const newUser = new User()
         newUser.email = email;
-        newUser.password = password;
+        newUser.password = bcryptedPassword;
         newUser.firstName = firstName;
         newUser.lastName = lastName;
         
