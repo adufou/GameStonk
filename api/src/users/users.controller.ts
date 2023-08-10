@@ -8,6 +8,6 @@ export class UsersController {
     
     @Get(':id')
     findOne(@Param() params: FindOneParams) {
-        return 'This action returns a user';
+        return this.usersService.findOne(params.id);
     }
 }

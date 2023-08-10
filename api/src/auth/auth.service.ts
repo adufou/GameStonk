@@ -14,7 +14,6 @@ export class AuthService {
 
     async login(email: string, password: string) {
         const user = await this.usersService.findOneByEmail(email);
-        // if (user?.password !== password) {
         if (!await bcrypt.compare(password, user.password)) {
             throw new UnauthorizedException();
         }
@@ -27,9 +26,8 @@ export class AuthService {
     
     async register(email: string, password: string, firstName: string, lastName: string) {
         if (await this.userExists(email)) {
-            // 🫖 Dude you're already signed up
-            // TODO: handle this case
-            throw new ImATeapotException()
+            // TODO: handle this case ?
+            throw new ImATeapotException('🫖 Dude you\'re already signed up')
         }
         
         const bcryptedPassword = await bcrypt.hash(password, 15);
