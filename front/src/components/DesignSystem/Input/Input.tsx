@@ -13,8 +13,8 @@ const Input = ({
     label, name, type = 'input', value, onChange, isRequired = false, 
 }: InputProps): React.ReactElement => (
     <div className='input'>
-        {label &&
-                <span className='input__label'>{label}</span>
+        {label && 
+            <span className='input__label'>{label}</span>
         }
         <input
             className='input__input'
