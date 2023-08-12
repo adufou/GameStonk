@@ -1,6 +1,8 @@
-import {API_PORT, URL_PREFIX} from './consts';
+import {
+    API_PORT, URL_PREFIX,
+} from '@/tools/consts';
 
-interface RequestData {
+interface RequestData extends RequestInit {
     method: string,
     headers: {
         'Content-Type': string,
@@ -9,12 +11,12 @@ interface RequestData {
     body?: string,
 }
 
-const constructUrl = (uri: string, port = 8000): string => {
-    return `http://${URL_PREFIX}:${port}/${uri}/`;
-};
+const constructUrl = (uri: string, port = 8000): string => `http://${ URL_PREFIX }:${ port }/${ uri }/`;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const apiCall = async (uri: string, method: string, data: any = null, port = API_PORT): Promise<{
     status: number,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body: any,
 }> => {
     // TODO pourquoi le port sur fetch et dans l'url ??
@@ -32,7 +34,7 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
         method,
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${ token }`,
         },
         body: undefined,
     };
@@ -40,7 +42,7 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
     if (data) {
         requestData = {
             ...requestData,
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         };
     }
 
@@ -61,23 +63,23 @@ export const apiCall = async (uri: string, method: string, data: any = null, por
     }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const publicApiCall = async (uri: string, method: string, data: any = null, port = API_PORT): Promise<{
     status: number,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     body: any,
 }> => {
     // TODO pourquoi le port sur fetch et dans l'url ??
     const url = constructUrl(uri, port);
     let requestData: RequestData = {
         method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
     };
     
     if (data) {
         requestData = {
             ...requestData,
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         };
     }
 

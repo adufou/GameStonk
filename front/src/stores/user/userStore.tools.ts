@@ -1,12 +1,12 @@
-import store from '../globalStore';
-import { setUser } from './userReducer';
-import {getLocalToken} from '../../tools/localToken';
-import {clearLocalTokenAndRedirectToLogin} from '../../tools/authTools';
+import usersApi from '@/http/api/users/usersApi';
+import store from '@/stores/globalStore';
+import { setUser } from '@/stores/user/userReducer';
+import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
+import JwtInterface from '@/tools/jwtInterface';
+import { getLocalToken } from '@/tools/localToken';
 import jwtDecode from 'jwt-decode';
-import JwtInterface from '../../tools/jwtInterface';
-import usersApi from '../../http/api/users/usersApi';
 
-export async function fetchCurrentUser() {
+export async function fetchCurrentUser(): Promise<void> {
     const localToken = getLocalToken();
     if (localToken === null) {
         // Functionnaly should never happen
@@ -16,7 +16,6 @@ export async function fetchCurrentUser() {
     }
 
     const decodedJwt = jwtDecode<JwtInterface>(localToken);
-    
     
     const userResponse = await usersApi.getUser(decodedJwt.sub);
     if (userResponse.status === 200) {

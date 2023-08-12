@@ -1,11 +1,10 @@
+import Button from '@/components/DesignSystem/Button/Button';
+import store from '@/stores/globalStore';
+import mappedStateComponent from '@/tools/mappedStateComponent';
 import React, { Fragment } from 'react';
-import Button from '../DesignSystem/Button/Button';
-import './Navbar.scss';
-import store from '../../stores/globalStore';
-import mappedStateComponent from '../../tools/mappedStateComponent';
 
 const Navbar = (): React.ReactElement => {
-    const handleDebug = () => {
+    const handleDebug = (): void => {
         console.log('DEBUG START');
         console.log(store.getState().gamesStore);
         console.log(store.getState().userStore);

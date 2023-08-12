@@ -1,5 +1,9 @@
-@use 'colors.scss' as *;
+@use './colors' as *;
 
+// Import other index.scss files here
+@import "components";
+
+// CSS for SPA
 #root {
     height: 100%;
 }

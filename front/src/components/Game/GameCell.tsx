@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import Server from '../Server/Server';
+import Button from '@/components/DesignSystem/Button/Button';
+import Table from '@/components/DesignSystem/Table/Table';
+import TableBody from '@/components/DesignSystem/Table/TableBody';
+import TableCell from '@/components/DesignSystem/Table/TableCell';
+import TableHeader from '@/components/DesignSystem/Table/TableHeader';
+import TableRow from '@/components/DesignSystem/Table/TableRow';
+import GameCard from '@/components/Game/GameCard';
+import ConfigIcon from '@/components/Icon/ConfigIcon';
+import ServerAddModal from '@/components/Server/ServerAddModal';
+import ServerCard from '@/components/Server/ServerCard';
+import serversApi from '@/http/api/servers/serversApi';
+import Game from '@/models/Game';
+import { updateGame } from '@/stores/game/gamesReducer';
+import store from '@/stores/globalStore';
+import React, {
+    useEffect, useState, 
+} from 'react';
 import { GrAdd } from 'react-icons/gr';
-import ConfigIcon from '../Icon/ConfigIcon';
-import GameCard from './GameCard';
-import ServerAddModal from '../Server/ServerAddModal';
-import Button from '../DesignSystem/Button/Button';
-import Table from '../DesignSystem/Table/Table';
-import TableBody from '../DesignSystem/Table/TableBody';
-import TableCell from '../DesignSystem/Table/TableCell';
-import TableHeader from '../DesignSystem/Table/TableHeader';
-import TableRow from '../DesignSystem/Table/TableRow';
-import Game from '../../models/Game';
-import store from '../../stores/globalStore';
-import {addServer} from '../../stores/game/gamesReducer';
-import serversApi from '../../http/api/servers/serversApi';
 
 interface GameCellProps {
     game: Game;
@@ -30,18 +32,19 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
         setIsAddServerModalOpen(false);
     }
 
-    const fetchServersFromGame = async () => {
-        const gameResponse = await serversApi.getServersFromGame(game);
-        if (gameResponse.status === 200) {
-            gameResponse.body.map((server) => {
-                store.dispatch(addServer({
-                    ...server,
-                    game: game.id,
-                }));
-            });
-        }
+    const fetchServersFromGame = (): void => {
+        serversApi.getServersFromGame(game)
+            .then((response) => {
+                if (response.status === 200) {
+                    store.dispatch(updateGame({
+                        ...game,
+                        servers: response.body,
+                    }));
+                }
+            })
+            .catch(e => console.warn(e));
     };
-
+    
     useEffect(() => {
         fetchServersFromGame();
     }, []);
@@ -67,19 +70,21 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {game.servers?.map((server) => {
-                        return (
-                            <TableRow key={server.id}>
-                                <TableCell>
-                                    <Server server={server} />
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
+                    {game.servers?.map(server => (
+                        <TableRow key={server.id}>
+                            <TableCell>
+                                <ServerCard server={server} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
 
-            <ServerAddModal isOpen={isAddServerModalOpen} closeModal={closeAddServerModal} game={game} />
+            <ServerAddModal
+                isOpen={isAddServerModalOpen}
+                closeModal={closeAddServerModal}
+                game={game}
+            />
         </div>
     );
 };

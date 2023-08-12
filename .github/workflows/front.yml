@@ -1,0 +1,23 @@
+name: Front
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+        
+jobs:
+  eslint-audit:
+    name: Eslint audit
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: JS setup Front
+        uses: ./.github/actions/js-setup-front
+        
+      - name: Run eslint
+        run: |
+          cd front
+          npm run lint-all

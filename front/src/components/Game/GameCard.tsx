@@ -1,18 +1,17 @@
+import Button from '@/components/DesignSystem/Button/Button';
+import Card from '@/components/DesignSystem/Card/Card';
+import CardBody from '@/components/DesignSystem/Card/CardBody';
+import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
+import GameConfigModal from '@/components/Game/GameConfigModal';
+import ConfigIcon from '@/components/Icon/ConfigIcon';
+import gamesApi from '@/http/api/games/gamesApi';
+import Game from '@/models/Game';
+import { deleteGame } from '@/stores/game/gamesReducer';
+import store from '@/stores/globalStore';
 import React, { useState } from 'react';
-import { MdEdit } from 'react-icons/md';
-import ConfigIcon from '../Icon/ConfigIcon';
 import { GrSubtract } from 'react-icons/gr';
+import { MdEdit } from 'react-icons/md';
 import { MdInventory } from 'react-icons/md';
-import TwoCTAsModal from '../DesignSystem/Modal/TwoCTAsModal';
-import GameConfigModal from './GameConfigModal';
-import Button from '../DesignSystem/Button/Button';
-import Card from '../DesignSystem/Card/Card';
-import CardBody from '../DesignSystem/Card/CardBody';
-import gamesApi from '../../http/api/games/gamesApi';
-import { deleteGame } from '../../stores/game/gamesReducer';
-import store from '../../stores/globalStore';
-import Game from '../../models/Game';
-
 interface GameCardProps {
     game: Game;
 }
@@ -21,12 +20,14 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
     const [isConfigGameModalOpen, setIsConfigGameModalOpen] = useState(false);
 
-    async function acceptGameDeletion(): Promise<void> {
-        const response = await gamesApi.deleteGame(game);
-
-        if (response.status === 200) {
-            store.dispatch(deleteGame(game));
-        }
+    function acceptGameDeletion(): void {
+        gamesApi.deleteGame(game)
+            .then((response) => {
+                if (response.status === 200) {
+                    store.dispatch(deleteGame(game));
+                }
+            })
+            .catch(e => console.warn(e));
     }
 
     function openModalDeleteGame(): void {
@@ -71,8 +72,16 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
                 </div>
             </CardBody>
 
-            <TwoCTAsModal isOpen={isDeleteGameModalOpen} onAccept={acceptGameDeletion} onClose={closeModalDeleteGame} />
-            <GameConfigModal isOpen={isConfigGameModalOpen} closeModal={closeModalConfigGame} game={game} />
+            <TwoCTAsModal
+                isOpen={isDeleteGameModalOpen}
+                onAccept={acceptGameDeletion}
+                onClose={closeModalDeleteGame}
+            />
+            <GameConfigModal
+                isOpen={isConfigGameModalOpen}
+                closeModal={closeModalConfigGame}
+                game={game}
+            />
         </Card>
     );
 };

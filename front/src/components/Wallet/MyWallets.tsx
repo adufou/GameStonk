@@ -1,11 +1,9 @@
 import React from 'react';
 
-const MyWallets = () => {
-    return (
-        <div>
+const MyWallets = (): React.ReactElement => (
+    <div>
 
-        </div>
-    );
-};
+    </div>
+);
 
 export default MyWallets;

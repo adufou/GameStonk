@@ -1,8 +1,8 @@
+import Button from '@/components/DesignSystem/Button/Button';
+import Modal from '@/components/DesignSystem/Modal/Modal';
+import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
+import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import React from 'react';
-import Modal from './Modal';
-import Button from '../Button/Button';
-import ModalBody from './ModalBody';
-import ModalHeader from './ModalHeader';
 
 interface TwoCTAsModalProps {
     isOpen: boolean;
@@ -10,7 +10,9 @@ interface TwoCTAsModalProps {
     onClose: () => void;
 }
 
-const TwoCTAsModal = ({ isOpen, onAccept, onClose }: TwoCTAsModalProps): React.ReactElement => {
+const TwoCTAsModal = ({
+    isOpen, onAccept, onClose, 
+}: TwoCTAsModalProps): React.ReactElement => {
     function accept(): void {
         onAccept();
         onClose();

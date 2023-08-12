@@ -1,28 +1,17 @@
+import Game from '@/models/Game';
+import { apiCall } from '@/tools/apiCall';
+import ApiResponseBody from '@/types/ApiResponseBody';
+import ApiResponseStatus from '@/types/ApiResponseStatus';
 
-import Game from '../../../models/Game';
-import { apiCall } from '../../../tools/apiCall';
-import ApiBodyResponse from '../../../types/ApiBodyResponse';
-import ApiStatusResponse from '../../../types/ApiStatusResponse';
+const getGames = (): Promise<ApiResponseBody<Game[]>> => apiCall('games', 'GET');
 
-const getGames = (): Promise<ApiBodyResponse<Game[]>> => {
-    return apiCall('games', 'GET');
-};
+const getGame = (game: Game): Promise<ApiResponseBody<Game>> => apiCall(`games/${ game.id }`, 'GET');
 
-const getGame = (game: Game): Promise<ApiBodyResponse<Game>> => {
-    return apiCall(`games/${game.id}`, 'GET');
-};
+const addGame = (game: Partial<Game>): Promise<ApiResponseBody<Game>> => apiCall('games', 'POST', game);
 
-const addGame = (game: Partial<Game>): Promise<ApiBodyResponse<Game>> => {
-    return apiCall('games', 'POST', game);
-};
+const deleteGame = (game: Game): Promise<ApiResponseStatus> => apiCall(`games/${ game.id }`, 'DELETE');
 
-const deleteGame = (game: Game): Promise<ApiStatusResponse> => {
-    return apiCall(`games/${game.id}`, 'DELETE');
-};
-
-const updateGame = (game: Game): Promise<ApiBodyResponse<Game>> => {
-    return apiCall(`games/${game.id}`, 'PATCH', game);
-};
+const updateGame = (game: Game): Promise<ApiResponseBody<Game>> => apiCall(`games/${ game.id }`, 'PATCH', game);
 
 const gamesApi = {
     getGames,

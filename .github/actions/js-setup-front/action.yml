@@ -1,0 +1,26 @@
+name: JS Setup Front
+description: Setup everything for the front app
+
+inputs:
+  node-version:
+    description: Node version
+    required: false
+    default: 18.17.1
+  access-token-github:
+    description: GitHub token
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Install NodeJS
+      uses: action/setup-node@v2
+      with:
+        node-version: {{ inputs.node-version }}
+        cache: 'npm'
+        
+    - name: Install NodeJS dependencies
+      run: |
+        cd front
+        npm ci
+      shell: bash

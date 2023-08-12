@@ -1,14 +1,17 @@
-import React, { useState, ChangeEvent, Fragment } from 'react';
-import Button from '../DesignSystem/Button/Button';
-import Card from '../DesignSystem/Card/Card';
-import CardBody from '../DesignSystem/Card/CardBody';
-import authApi from '../../http/api/auth/authApi';
-import Input from '../DesignSystem/Input/Input';
-import './Signup.scss';
-import { setToken } from '../../stores/user/userReducer';
-import { setLocalToken } from '../../tools/localToken';
-import store from '../../stores/globalStore';
-import { fetchCurrentUser } from '../../stores/user/userStore.tools';
+import Button from '@/components/DesignSystem/Button/Button';
+import Card from '@/components/DesignSystem/Card/Card';
+import CardBody from '@/components/DesignSystem/Card/CardBody';
+import Input from '@/components/DesignSystem/Input/Input';
+import authApi from '@/http/api/auth/authApi';
+import store from '@/stores/globalStore';
+import { setToken } from '@/stores/user/userReducer';
+import { fetchCurrentUser } from '@/stores/user/userStore.tools';
+import { setLocalToken } from '@/tools/localToken';
+import React, {
+    ChangeEvent,
+    Fragment,
+    useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = (): React.ReactElement => {
@@ -55,7 +58,7 @@ const Signup = (): React.ReactElement => {
             email,
             password: password1,
             firstName,
-            lastName
+            lastName,
         };
 
         const response = await authApi.registerUser(user);
@@ -65,7 +68,9 @@ const Signup = (): React.ReactElement => {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);
 
-                fetchCurrentUser();
+                fetchCurrentUser().catch((e) => {
+                    console.warn(e);
+                });
 
                 navigate('dashboard');
             } else {
@@ -142,7 +147,7 @@ const Signup = (): React.ReactElement => {
                                     onClick={(): void => {
                                         onSubmit()
                                             .catch(
-                                                e => console.error(e)
+                                                e => console.error(e),
                                             );
                                     }}
                                 >
