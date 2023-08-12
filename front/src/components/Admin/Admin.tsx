@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Admin = () => {
-    return <></>;
-};
+const Admin = (): React.ReactElement => <></>;
 
 export default Admin;

@@ -1,6 +1,6 @@
-import IGlobalState from '../stores/IGlobalState';
-import {connect} from 'react-redux';
+import IGlobalState from '@/stores/IGlobalState';
 import React from 'react';
+import { connect } from 'react-redux';
 
 /**
  * This function maps the state to a
@@ -11,9 +11,7 @@ import React from 'react';
  * map the part of the state tree
  * that is necessary.
  */
-const mapStateToProps = (state: IGlobalState) => ({
-    state: state
-});
+const mapStateToProps = (state: IGlobalState): {state: IGlobalState} => { return { state: state }; };
 
 // ANTOINE : I don't think we need it right now
 // /**
@@ -28,16 +26,17 @@ const mapStateToProps = (state: IGlobalState) => ({
 // 	actions: bindActionCreators(Actions, dispatch)
 // })
 
-
-const mappedStateComponent = (component: () => React.ReactElement) => {
-    /**
+// TODO check why and if disable eslint is need
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const mappedStateComponent = (component: () => React.ReactElement) =>                                                   
+/**
      * Finally the Redux store is connected
      * to the component with the `connect()`
      * function.
      */
-    return connect(
-        mapStateToProps
-    )(component);
-};
+    connect(
+        mapStateToProps,
+    )(component)
+;
 
 export default mappedStateComponent;

@@ -1,12 +1,11 @@
+import Button from '@/components/DesignSystem/Button/Button';
+import Card from '@/components/DesignSystem/Card/Card';
+import CardBody from '@/components/DesignSystem/Card/CardBody';
+import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
 import React from 'react';
-import Card from '../DesignSystem/Card/Card';
-import CardBody from '../DesignSystem/Card/CardBody';
-import Button from '../DesignSystem/Button/Button';
-import './Logout.scss';
-import {clearLocalTokenAndRedirectToLogin} from '../../tools/authTools';
 
 const Logout = (): React.ReactElement => {
-    const handleLogout = async () => {
+    const handleLogout = (): void => {
         clearLocalTokenAndRedirectToLogin();
     };
 

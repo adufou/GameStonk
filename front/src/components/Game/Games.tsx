@@ -1,16 +1,16 @@
+import Button from '@/components/DesignSystem/Button/Button';
+import Table from '@/components/DesignSystem/Table/Table';
+import TableBody from '@/components/DesignSystem/Table/TableBody';
+import TableCell from '@/components/DesignSystem/Table/TableCell';
+import TableHeader from '@/components/DesignSystem/Table/TableHeader';
+import TableRow from '@/components/DesignSystem/Table/TableRow';
+import GameAddModal from '@/components/Game/GameAddModal';
+import GameCell from '@/components/Game/GameCell';
+import ConfigIcon from '@/components/Icon/ConfigIcon';
+import store from '@/stores/globalStore';
+import mappedStateComponent from '@/tools/mappedStateComponent';
 import React, { useState } from 'react';
-import GameCell from './GameCell';
 import { GrAdd } from 'react-icons/gr';
-import ConfigIcon from '../Icon/ConfigIcon';
-import GameAddModal from './GameAddModal';
-import Table from '../DesignSystem/Table/Table';
-import TableHeader from '../DesignSystem/Table/TableHeader';
-import TableCell from '../DesignSystem/Table/TableCell';
-import Button from '../DesignSystem/Button/Button';
-import TableRow from '../DesignSystem/Table/TableRow';
-import TableBody from '../DesignSystem/Table/TableBody';
-import store from '../../stores/globalStore';
-import mappedStateComponent from '../../tools/mappedStateComponent';
 
 const Games = (): React.ReactElement => {
     const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);
@@ -43,19 +43,20 @@ const Games = (): React.ReactElement => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {store.getState().gamesStore.games?.map((game) => {
-                        return (
-                            <TableRow key={game.id}>
-                                <TableCell>
-                                    <GameCell game={game} />
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
+                    {store.getState().gamesStore.games?.map(game => (
+                        <TableRow key={game.id}>
+                            <TableCell>
+                                <GameCell game={game} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
 
-            <GameAddModal isOpen={isAddGameModalOpen} closeModal={closeAddGameModal} />
+            <GameAddModal
+                isOpen={isAddGameModalOpen}
+                closeModal={closeAddGameModal}
+            />
         </div>
     );
 };

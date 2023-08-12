@@ -1,6 +1,6 @@
+import User from '@/models/User';
+import IUserState from '@/stores/user/IUserState';
 import { createSlice } from '@reduxjs/toolkit';
-import IUserState from './IUserState';
-import User from '../../models/User';
 
 const initialState: IUserState = {
     user: null,
@@ -21,9 +21,11 @@ const userSlice = createSlice({
         }) {
             state.token = action.payload;
         },
-    }
+    },
 });
 
-export const { setUser, setToken } = userSlice.actions;
+export const {
+    setUser, setToken, 
+} = userSlice.actions;
 
 export default userSlice.reducer;

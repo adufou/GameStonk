@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-
-import Modal from '../DesignSystem/Modal/Modal';
-import Game from '../../models/Game';
-import serversApi from '../../http/api/servers/serversApi';
-import { addServer } from '../../stores/game/gamesReducer';
-import store from '../../stores/globalStore';
-import Button from '../DesignSystem/Button/Button';
-import Input from '../DesignSystem/Input/Input';
-import ModalBody from '../DesignSystem/Modal/ModalBody';
-import ModalFooter from '../DesignSystem/Modal/ModalFooter';
-import ModalHeader from '../DesignSystem/Modal/ModalHeader';
+import Button from '@/components/DesignSystem/Button/Button';
+import Input from '@/components/DesignSystem/Input/Input';
+import Modal from '@/components/DesignSystem/Modal/Modal';
+import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
+import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
+import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
+import serversApi from '@/http/api/servers/serversApi';
+import Game from '@/models/Game';
+import { addServer } from '@/stores/game/gamesReducer';
+import store from '@/stores/globalStore';
+import React, {
+    ChangeEvent, useState,
+} from 'react';
 
 interface ServerAddModalProps {
     isOpen: boolean;
@@ -17,22 +18,31 @@ interface ServerAddModalProps {
     game: Game;
 }
 
-const ServerAddModal = ({ isOpen, closeModal, game }: ServerAddModalProps): React.ReactElement => {
+const ServerAddModal = ({
+    isOpen, closeModal, game, 
+}: ServerAddModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState('');
 
-    async function addNewServer(): Promise<void> {
+    const addNewServer = (): void => {
         const newServer = {
             game: game.id,
             name: newServerName,
         };
 
-        const response = await serversApi.addServer(newServer);
-        if (response.status === 201) {
-            store.dispatch(addServer(response.body));
-        }
+        serversApi.addServer(newServer)
+            .then((response) => {
+                if (response.status === 201) {
+                    store.dispatch(addServer(response.body));
+                }      
+            })
+            .catch(e => console.warn(e));
 
         closeModal();
-    }
+    };
+    
+    const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
+        setServerName(e.target.value);
+    };
 
     return (
         <Modal isOpen={isOpen}>
@@ -43,7 +53,7 @@ const ServerAddModal = ({ isOpen, closeModal, game }: ServerAddModalProps): Reac
                 <Input
                     label="name"
                     value={newServerName}
-                    onChange={e => setServerName(e.target.value)}
+                    onChange={handleChangeInput}
                 />
             </ModalBody>
             <ModalFooter>

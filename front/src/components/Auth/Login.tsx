@@ -1,15 +1,18 @@
-import React, { useState, ChangeEvent, Fragment } from 'react';
-import Button from '../DesignSystem/Button/Button';
-import authApi from '../../http/api/auth/authApi';
-import Card from '../DesignSystem/Card/Card';
-import CardBody from '../DesignSystem/Card/CardBody';
-import Input from '../DesignSystem/Input/Input';
-import './Login.scss';
-import { setToken } from '../../stores/user/userReducer';
+import Button from '@/components/DesignSystem/Button/Button';
+import Card from '@/components/DesignSystem/Card/Card';
+import CardBody from '@/components/DesignSystem/Card/CardBody';
+import Input from '@/components/DesignSystem/Input/Input';
+import authApi from '@/http/api/auth/authApi';
+import store from '@/stores/globalStore';
+import { setToken } from '@/stores/user/userReducer';
+import { fetchCurrentUser } from '@/stores/user/userStore.tools';
+import { setLocalToken } from '@/tools/localToken';
+import React, {
+    ChangeEvent,
+    Fragment,
+    useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setLocalToken } from '../../tools/localToken';
-import store from '../../stores/globalStore';
-import { fetchCurrentUser } from '../../stores/user/userStore.tools';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -41,7 +44,9 @@ const Login = (): React.ReactElement => {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);
 
-                fetchCurrentUser();
+                fetchCurrentUser().catch((e) => {
+                    console.warn(e);
+                });
 
                 navigate('/');
             } else {
@@ -89,7 +94,7 @@ const Login = (): React.ReactElement => {
                                     onClick={(): void => {
                                         onSubmit()
                                             .catch(
-                                                e => console.error(e)
+                                                e => console.error(e),
                                             );
                                     }}
                                 >

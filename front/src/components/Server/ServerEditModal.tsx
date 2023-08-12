@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import Server from '../../models/Server';
-import serversApi from '../../http/api/servers/serversApi';
-import { updateServer } from '../../stores/game/gamesReducer';
-import store from '../../stores/globalStore';
-import Modal from '../DesignSystem/Modal/Modal';
-import Button from '../DesignSystem/Button/Button';
-import Input from '../DesignSystem/Input/Input';
-import ModalBody from '../DesignSystem/Modal/ModalBody';
-import ModalHeader from '../DesignSystem/Modal/ModalHeader';
-import ModalFooter from '../DesignSystem/Modal/ModalFooter';
-
+import Button from '@/components/DesignSystem/Button/Button';
+import Input from '@/components/DesignSystem/Input/Input';
+import Modal from '@/components/DesignSystem/Modal/Modal';
+import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
+import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
+import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
+import serversApi from '@/http/api/servers/serversApi';
+import Server from '@/models/Server';
+import { updateServer } from '@/stores/game/gamesReducer';
+import store from '@/stores/globalStore';
+import React, {
+    ChangeEvent, useState,
+} from 'react';
 
 interface ServerEditModalProps {
     isOpen: boolean;
@@ -17,23 +18,32 @@ interface ServerEditModalProps {
     server: Server;
 }
 
-const ServerEditModal = ({ isOpen, closeModal, server }: ServerEditModalProps): React.ReactElement => {
+const ServerEditModal = ({
+    isOpen, closeModal, server, 
+}: ServerEditModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState(server.name);
 
-    async function editServer(): Promise<void> {
+    const editServer = (): void => {
         const updatedServer = {
             ...server,
-            name: newServerName
+            name: newServerName,
         };
 
-        const response = await serversApi.updateServer(updatedServer);
-        if (response.status === 200) {
-            store.dispatch(updateServer(response.body));
-        }
+        serversApi.updateServer(updatedServer)
+            .then((response) => { 
+                if (response.status === 200) {
+                    store.dispatch(updateServer(response.body)); 
+                }
+            })
+            .catch(e => console.warn(e));
 
         closeModal();
-    }
-
+    };
+    
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        setServerName(e.target.value);
+    };
+    
     return (
         <Modal isOpen={isOpen}>
             <ModalHeader>
@@ -43,7 +53,7 @@ const ServerEditModal = ({ isOpen, closeModal, server }: ServerEditModalProps): 
                 <Input
                     label="Name"
                     value={newServerName}
-                    onChange={e => setServerName(e.target.value)}
+                    onChange={handleInputChange}
                 />
             </ModalBody>
             <ModalFooter>

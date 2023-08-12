@@ -1,4 +1,4 @@
-import Game from './Game';
+import Game from '@/models/Game';
 
 interface Server {
     id: number;

@@ -1,11 +1,9 @@
+import Game from '@/models/Game';
+import Server from '@/models/Server';
+import IGameState from '@/stores/game/IGameState';
 import { createSlice } from '@reduxjs/toolkit';
-import Game from '../../models/Game';
-import IGameState from './IGameState';
-import Server from '../../models/Server';
 
-const initialState: IGameState = {
-    games: []
-};
+const initialState: IGameState = { games: [] };
 
 const gamesSlice = createSlice({
     name: 'games',
@@ -36,7 +34,7 @@ const gamesSlice = createSlice({
             const gameIndex = state.games.findIndex(g => g.id === action.payload.id);
         
             if (gameIndex !== -1) {
-                state.games[gameIndex] = action.payload;
+                state.games[ gameIndex ] = action.payload;
             }
         },
         addServer(state, action: {
@@ -46,29 +44,31 @@ const gamesSlice = createSlice({
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);
             console.log(gameIndex);
             
-            if(!state.games[gameIndex].servers) {
-                state.games[gameIndex].servers = [];
+            if(!state.games[ gameIndex ].servers) {
+                state.games[ gameIndex ].servers = [];
             }
-            state.games[gameIndex].servers.push(action.payload);
+            state.games[ gameIndex ].servers.push(action.payload);
         },
         deleteServer(state, action: {
             payload: Server
         }) {
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);        
-            const serverIndex = state.games[gameIndex].servers.findIndex(s => s.id === action.payload.id);
-            state.games[gameIndex].servers.splice(serverIndex, 1);
+            const serverIndex = state.games[ gameIndex ].servers.findIndex(s => s.id === action.payload.id);
+            state.games[ gameIndex ].servers.splice(serverIndex, 1);
         },
         updateServer(state, action: {
             payload: Server
         }) {
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);        
-            const serverIndex = state.games[gameIndex].servers.findIndex(s => s.id === action.payload.id);
+            const serverIndex = state.games[ gameIndex ].servers.findIndex(s => s.id === action.payload.id);
 
-            state.games[gameIndex].servers.splice(serverIndex, 1, action.payload);
+            state.games[ gameIndex ].servers.splice(serverIndex, 1, action.payload);
         },
-    }
+    },
 });
 
-export const { addGame, setGames, deleteGame, updateGame, addServer, deleteServer, updateServer } = gamesSlice.actions;
+export const {
+    addGame, setGames, deleteGame, updateGame, addServer, deleteServer, updateServer, 
+} = gamesSlice.actions;
 
 export default gamesSlice.reducer;

@@ -1,35 +1,44 @@
-import React, { useState } from 'react';
-import Modal from '../DesignSystem/Modal/Modal';
-import gamesApi from '../../http/api/games/gamesApi';
-import { addGame } from '../../stores/game/gamesReducer';
-import store from '../../stores/globalStore';
-import Button from '../DesignSystem/Button/Button';
-import Input from '../DesignSystem/Input/Input';
-import ModalBody from '../DesignSystem/Modal/ModalBody';
-import ModalFooter from '../DesignSystem/Modal/ModalFooter';
-import ModalHeader from '../DesignSystem/Modal/ModalHeader';
+import Button from '@/components/DesignSystem/Button/Button';
+import Input from '@/components/DesignSystem/Input/Input';
+import Modal from '@/components/DesignSystem/Modal/Modal';
+import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
+import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
+import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
+import gamesApi from '@/http/api/games/gamesApi';
+import { addGame } from '@/stores/game/gamesReducer';
+import store from '@/stores/globalStore';
+import React, {
+    ChangeEvent, useState, 
+} from 'react';
 
 interface GameAddModalProps {
     isOpen: boolean;
     closeModal: () => void;
 }
 
-const GameAddModal = ({ isOpen, closeModal }: GameAddModalProps): React.ReactElement => {
+const GameAddModal = ({
+    isOpen, closeModal, 
+}: GameAddModalProps): React.ReactElement => {
     const [newGameName, setGameName] = useState('');
 
-    async function addNewGame(): Promise<void> {
-        const newGame = {
-            name: newGameName,
-        };
+    const addNewGame = (): void => {
+        const newGame = { name: newGameName };
 
-        const response = await gamesApi.addGame(newGame);
-        if (response.status === 201) {
-            store.dispatch(addGame(response.body));
-            setGameName('');
-        }
+        gamesApi.addGame(newGame)
+            .then((response) => {
+                if (response.status === 201) {
+                    store.dispatch(addGame(response.body));
+                    setGameName('');
+                }
+            })
+            .catch(e => console.warn(e));
         
         closeModal();
-    }
+    };
+    
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        setGameName(e.target.value);
+    };
 
     return (
         <Modal isOpen={isOpen} >
@@ -40,7 +49,7 @@ const GameAddModal = ({ isOpen, closeModal }: GameAddModalProps): React.ReactEle
                 <Input
                     label="name"
                     value={newGameName}
-                    onChange={(e) => setGameName(e.target.value)}
+                    onChange={handleInputChange}
                 />
             </ModalBody>
             <ModalFooter>
