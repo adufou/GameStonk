@@ -18,7 +18,7 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'npm'
-#        token: ${{ secrets.GITHUB_TOKEN }}
+        cache-dependency-path: 'api/package-lock.json'
         
     - name: Install NodeJS dependencies
       run: |
