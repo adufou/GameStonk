@@ -3,7 +3,7 @@ import Server from '../../../models/Server';
 import {apiCall} from '../../../tools/apiCall';
 import ApiBodyResponse from '../../../types/ApiBodyResponse';
 import ApiStatusResponse from '../../../types/ApiStatusResponse';
-import Game from "../../../models/Game";
+import Game from '../../../models/Game';
 
 
 const addServer = (server: Partial<Server>): Promise<ApiBodyResponse<Server>> => {
@@ -16,7 +16,7 @@ const deleteServer = (server: Server): Promise<ApiStatusResponse> => {
 
 const getServersFromGame = (game: Game): Promise<ApiBodyResponse<Server[]>> => {
     return apiCall(`servers/game/${game.id}`, 'GET');
-}
+};
 
 const updateServer = (server: Server): Promise<ApiBodyResponse<Server>> => {
     return apiCall(`servers/${server.id}`, 'PATCH', server );

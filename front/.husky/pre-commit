@@ -6,3 +6,4 @@ cd front
 
 # TODO: Reactiver quand on aura fini de passer a NestJS
 # npm run lint-fix
+npx lint-staged

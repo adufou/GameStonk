@@ -8,8 +8,8 @@ import './App.scss';
 import Games from '../Game/Games';
 import MyWallets from '../Wallet/MyWallets';
 import Admin from '../Admin/Admin';
-import { fetchGames } from '../../stores/game/gameStore.tools';
-import {authFlowOnStartup} from "../../tools/authTools";
+import { fetchGames } from '@/stores/game/gameStore.tools';
+import {authFlowOnStartup} from '@/tools/authTools';
 
 function App(): React.ReactElement {
     useEffect(() => {
