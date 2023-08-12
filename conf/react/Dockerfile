@@ -29,4 +29,4 @@ COPY /conf/react/compileAndWatch.sh /app/
 # CMD tsc-watch -p front/tsconfig.json && cd ./front && webpack serve --watch
 # CMD tsc --watch -p front/tsconfig.json & (webpack serve --watch)
 
-CMD ./compileAndWatch.sh
+#CMD ./compileAndWatch.sh

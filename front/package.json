@@ -61,13 +61,13 @@
         "webpack-merge": "^5"
     },
     "scripts": {
-        "start:dev": "webpack build --config ./webpack.config.cjs && webpack serve",
         "build:prod": "webpack -p --config webpack.prod.js",
         "lint": "npx eslint .",
         "lint-fix": "npx eslint . --fix",
         "prepare": "cd .. && husky install front/.husky"
     },
     "devDependencies": {
-        "husky": "^8.0.0"
+        "husky": "^8.0.0",
+        "tsconfig-paths-webpack-plugin": "^4.1.0"
     }
 }

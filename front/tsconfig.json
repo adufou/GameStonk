@@ -1,5 +1,11 @@
 {
+    "include": ["./src/**/*"],
     "compilerOptions": {
+//        https://stackoverflow.com/a/55385441/22369399
+        "baseUrl": "src",
+        "paths": {
+            "@/*": ["./*"]
+        },
         "allowJs": false,
         "checkJs": false,
         "module": "ES2020",
