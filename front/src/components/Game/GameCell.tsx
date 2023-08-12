@@ -11,10 +11,9 @@ import TableCell from '../DesignSystem/Table/TableCell';
 import TableHeader from '../DesignSystem/Table/TableHeader';
 import TableRow from '../DesignSystem/Table/TableRow';
 import Game from '../../models/Game';
-import gamesApi from "../../http/api/games/gamesApi";
-import store from "../../stores/globalStore";
-import {addServer, updateGame} from "../../stores/game/gamesReducer";
-import serversApi from "../../http/api/servers/serversApi";
+import store from '../../stores/globalStore';
+import {addServer} from '../../stores/game/gamesReducer';
+import serversApi from '../../http/api/servers/serversApi';
 
 interface GameCellProps {
     game: Game;
@@ -38,10 +37,10 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
                 store.dispatch(addServer({
                     ...server,
                     game: game.id,
-                }))
-            })
+                }));
+            });
         }
-    }
+    };
 
     useEffect(() => {
         fetchServersFromGame();

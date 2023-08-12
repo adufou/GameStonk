@@ -1,22 +1,24 @@
+import './App.scss';
+import Admin from '@/components/Admin/Admin';
+import Login from '@/components/Auth/Login';
+import Logout from '@/components/Auth/Logout';
+import Signup from '@/components/Auth/Signup';
+import Games from '@/components/Game/Games';
+import Navbar from '@/components/Navbar/Navbar';
+import MyWallets from '@/components/Wallet/MyWallets';
+import { fetchGames } from '@/stores/game/gameStore.tools';
+import {authFlowOnStartup} from '@/tools/authTools';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from '../Auth/Login';
-import Navbar from '../Navbar/Navbar';
-import Logout from '../Auth/Logout';
-import Signup from '../Auth/Signup';
-import './App.scss';
-import Games from '../Game/Games';
-import MyWallets from '../Wallet/MyWallets';
-import Admin from '../Admin/Admin';
-import { fetchGames } from '../../stores/game/gameStore.tools';
-import {authFlowOnStartup} from "../../tools/authTools";
 
 function App(): React.ReactElement {
     useEffect(() => {
         document.title = 'GameStonk';
 
         authFlowOnStartup();
-        fetchGames();
+        fetchGames().catch((e) => {
+            console.warn(e);
+        });
     }, []);
 
     return (

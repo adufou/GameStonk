@@ -1,10 +1,10 @@
-import store from "../stores/globalStore";
-import {setToken} from "../stores/user/userReducer";
-import {clearLocalToken, getLocalToken} from "./localToken";
-import redirect from "./redirect";
-import jwtDecode, {InvalidTokenError} from "jwt-decode";
-import JwtInterface from "./jwtInterface";
-import {fetchCurrentUser} from "../stores/user/userStore.tools";
+import store from '../stores/globalStore';
+import {setToken} from '../stores/user/userReducer';
+import {clearLocalToken, getLocalToken} from './localToken';
+import redirect from './redirect';
+import jwtDecode, {InvalidTokenError} from 'jwt-decode';
+import JwtInterface from './jwtInterface';
+import {fetchCurrentUser} from '../stores/user/userStore.tools';
 
 const LOGIN_URI = 'login';
 const MIN_EXP_REMAINING_DURATION_IN_MS = 86400000; // 1 day
@@ -21,7 +21,7 @@ export const clearLocalTokenAndRedirectToLogin = () => {
 export const authFlowOnStartup = () => {
     const localToken = getLocalToken();
     if (localToken === null) {
-        clearLocalTokenAndRedirectToLogin()
+        clearLocalTokenAndRedirectToLogin();
         return;
     }
     
@@ -44,4 +44,4 @@ export const authFlowOnStartup = () => {
     }
     
     store.dispatch(setToken(getLocalToken()));
-}
+};

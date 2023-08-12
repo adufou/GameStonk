@@ -20,7 +20,8 @@ module.exports = {
     "plugins": [
         "@typescript-eslint",
         "react",
-        "unused-imports"
+        "unused-imports",
+        "import",
     ],
     "root": true,
     "rules": {
@@ -60,6 +61,25 @@ module.exports = {
                 "argsIgnorePattern": "^_"
             }
         ],
-        "@typescript-eslint/explicit-function-return-type": "error"
+        "@typescript-eslint/explicit-function-return-type": "error",
+        'import/order': [
+            'error',
+            {
+                groups: ['builtin', 'unknown', 'external'],
+                alphabetize: {
+                    order: 'asc',
+                    caseInsensitive: true,
+                },
+            },
+        ],
+        'sort-imports': [
+            'error',
+            {
+                ignoreCase: true,
+                ignoreDeclarationSort: true,
+                ignoreMemberSort: false,
+                memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+            },
+        ],
     }
 }

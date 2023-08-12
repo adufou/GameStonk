@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
     entry: [
@@ -100,6 +101,7 @@ module.exports = {
             path.resolve(__dirname, './src'),
             path.resolve(__dirname, '.'),
         ],
+        plugins: [new TsconfigPathsPlugin({/* options: see https://www.npmjs.com/package/tsconfig-paths-webpack-plugin */})]
     },
 
     // DEV
@@ -116,13 +118,13 @@ module.exports = {
         hot: true,
         compress: true,
         historyApiFallback: true,
-        proxy: {
-            '/api/**': {
-                target: 'http://django:8000',
-                changeOrigin: true,
-                secure: false,
-            },
-        },
+        // proxy: {
+        //     '/api/**': {
+        //         target: 'http://django:8000',
+        //         changeOrigin: true,
+        //         secure: false,
+        //     },
+        // },
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
