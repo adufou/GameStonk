@@ -1,3 +1,7 @@
+import React, {
+    ChangeEvent,
+    useState,
+} from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Modal from '@/components/DesignSystem/Modal/Modal';
@@ -8,9 +12,6 @@ import serversApi from '@/http/api/servers/serversApi';
 import Game from '@/models/Game';
 import { addServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
-import React, {
-    ChangeEvent, useState,
-} from 'react';
 
 interface ServerAddModalProps {
     isOpen: boolean;

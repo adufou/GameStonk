@@ -1,6 +1,6 @@
-import ReactChildren from '@/types/ReactChildren';
 import * as React from 'react';
 import * as ReactModal from 'react-modal';
+import ReactChildren from '@/types/ReactChildren';
 
 interface ModalProps {
     isOpen: boolean;

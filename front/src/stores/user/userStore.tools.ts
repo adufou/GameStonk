@@ -1,10 +1,10 @@
+import jwtDecode from 'jwt-decode';
 import usersApi from '@/http/api/users/usersApi';
 import store from '@/stores/globalStore';
 import { setUser } from '@/stores/user/userReducer';
 import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
 import JwtInterface from '@/tools/jwtInterface';
 import { getLocalToken } from '@/tools/localToken';
-import jwtDecode from 'jwt-decode';
 
 export async function fetchCurrentUser(): Promise<void> {
     const localToken = getLocalToken();

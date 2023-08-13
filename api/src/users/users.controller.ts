@@ -1,30 +1,34 @@
 import {
-    Controller, Get, Body, Patch, Param, Delete, 
+    Controller,
+    Get,
+    Param,
+    Delete,
 } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersService } from './users.service';
+import { DeleteResult } from 'typeorm';
+import { User } from '@/users/entities/user.entity';
+import { UsersService } from '@/users/users.service';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     
     @Get()
-    findAll() {
+    findAll(): Promise<User[]> {
         return this.usersService.findAll();
     }
     
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id') id: string): Promise<User | null> {
         return this.usersService.findOne(+id);
     }
     
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.usersService.update(+id, updateUserDto);
-    }
+    // @Patch(':id')
+    // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    //     return this.usersService.update(+id, updateUserDto);
+    // }
     
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    remove(@Param('id') id: string): Promise<DeleteResult> {
         return this.usersService.remove(+id);
     }
 }

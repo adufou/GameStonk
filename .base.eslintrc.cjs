@@ -9,10 +9,11 @@ module.exports = {
         "@typescript-eslint",
         "unused-imports",
         "import",
+        "import-newlines",
     ],
     "root": true,
     "rules": {
-        "max-len": ["error", { "code": 120, "tabWidth": 4 }],
+        "max-len": ["error", { "code": 120, "comments": 160, "tabWidth": 4 }],
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["warn"],
         "unused-imports/no-unused-imports": "error",
@@ -36,7 +37,7 @@ module.exports = {
         'import/order': [
             'error',
             {
-                groups: ['builtin', 'unknown', 'external'],
+                groups: ['external', 'unknown', 'builtin'],
                 alphabetize: {
                     order: 'asc',
                     caseInsensitive: true,
@@ -68,6 +69,13 @@ module.exports = {
                 }
             ],
         }],
+        "import-newlines/enforce": [
+            "error",
+            {
+                "items": 1,
+                "semi": true,
+            }
+        ],
         'padded-blocks': ["error", "never"],
         'object-curly-newline': ["error", { "minProperties": 2 }],
         'object-property-newline': "error",

@@ -1,12 +1,13 @@
+import jwtDecode, { InvalidTokenError } from 'jwt-decode';
 import store from '@/stores/globalStore';
 import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';
 import JwtInterface from '@/tools/jwtInterface';
 import {
-    clearLocalToken, getLocalToken,
+    clearLocalToken,
+    getLocalToken,
 } from '@/tools/localToken';
 import redirect from '@/tools/redirect';
-import jwtDecode, { InvalidTokenError } from 'jwt-decode';
 
 const LOGIN_URI = 'login';
 const MIN_EXP_REMAINING_DURATION_IN_MS = 86400000; // 1 day

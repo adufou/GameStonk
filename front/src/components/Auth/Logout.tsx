@@ -1,8 +1,8 @@
+import React from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Card from '@/components/DesignSystem/Card/Card';
 import CardBody from '@/components/DesignSystem/Card/CardBody';
 import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
-import React from 'react';
 
 const Logout = (): React.ReactElement => {
     const handleLogout = (): void => {

@@ -1,6 +1,6 @@
-import IGlobalState from '@/stores/IGlobalState';
 import React from 'react';
 import { connect } from 'react-redux';
+import IGlobalState from '@/stores/IGlobalState';
 
 /**
  * This function maps the state to a

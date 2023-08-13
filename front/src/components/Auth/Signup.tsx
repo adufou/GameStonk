@@ -1,3 +1,9 @@
+import React, {
+    ChangeEvent,
+    Fragment,
+    useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/DesignSystem/Button/Button';
 import Card from '@/components/DesignSystem/Card/Card';
 import CardBody from '@/components/DesignSystem/Card/CardBody';
@@ -7,12 +13,6 @@ import store from '@/stores/globalStore';
 import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';
 import { setLocalToken } from '@/tools/localToken';
-import React, {
-    ChangeEvent,
-    Fragment,
-    useState,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Signup = (): React.ReactElement => {
     const [email, setEmail] = useState('');

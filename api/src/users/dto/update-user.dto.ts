@@ -1,5 +1,7 @@
 import {
-    IsEmail, IsInt, IsNotEmpty,
+    IsEmail,
+    IsInt,
+    IsNotEmpty,
 } from 'class-validator';
 
 export class UpdateUserDto {

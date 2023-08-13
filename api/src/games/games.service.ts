@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateGameDto } from './dto/create-game.dto';
-import { UpdateGameDto } from './dto/update-game.dto';
-import { Game } from './entities/game.entity';
-import { Server } from '../servers/entities/server.entity';
+import {
+    DeleteResult,
+    Repository,
+} from 'typeorm';
+import { CreateGameDto } from '@/games/dto/create-game.dto';
+import { UpdateGameDto } from '@/games/dto/update-game.dto';
+import { Game } from '@/games/entities/game.entity';
+import { Server } from '@/servers/entities/server.entity';
 
 @Injectable()
 export class GamesService {
@@ -13,7 +16,7 @@ export class GamesService {
         private gameRepository: Repository<Game>
     ) {}
     
-    create(createGameDto: CreateGameDto) {
+    create(createGameDto: CreateGameDto): Promise<Game> {
         return this.gameRepository.save(createGameDto);
     }
     
@@ -34,7 +37,7 @@ export class GamesService {
         return game.servers;
     }
     
-    async update(id: number, updateGameDto: UpdateGameDto) {
+    async update(id: number, updateGameDto: UpdateGameDto): Promise<Game> {
         const game = await this.gameRepository.findOneBy({ id });
         
         if (game) {
@@ -47,7 +50,7 @@ export class GamesService {
         // TODO what if no game ? How to return an error ?
     }
     
-    remove(id: number) {
+    remove(id: number): Promise<DeleteResult> {
         return this.gameRepository.delete(id);
     }
 }

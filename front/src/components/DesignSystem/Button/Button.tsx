@@ -1,6 +1,6 @@
-import ReactChildren from '@/types/ReactChildren';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ReactChildren from '@/types/ReactChildren';
 
 interface ButtonProps {
     children: ReactChildren;

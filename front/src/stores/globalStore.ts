@@ -1,8 +1,8 @@
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import gamesReducer from '@/stores/game/gamesReducer';
 import IGlobalState from '@/stores/IGlobalState';
 import userReducer from '@/stores/user/userReducer';
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 
 const reducer: IGlobalState = {
     gamesStore: gamesReducer,

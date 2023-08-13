@@ -7,13 +7,17 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { jwtConstants } from './constants';
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { jwtConstants } from '@/auth/constants';
+import { IS_PUBLIC_KEY } from '@/decorators/public.decorator';
+
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(private jwtService: JwtService, private reflector: Reflector) {}
-
+    
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
             context.getHandler(),
@@ -45,3 +49,7 @@ export class AuthGuard implements CanActivate {
         return type === 'Bearer' ? token : undefined;
     }
 }
+
+/* eslint-enable @typescript-eslint/no-unsafe-assignment */
+/* eslint-enable @typescript-eslint/no-unsafe-argument */
+/* eslint-enable @typescript-eslint/no-unsafe-member-access */

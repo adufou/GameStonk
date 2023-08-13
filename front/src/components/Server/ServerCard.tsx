@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import { GrSubtract } from 'react-icons/gr';
+import { MdEdit } from 'react-icons/md';
 import Button from '@/components/DesignSystem/Button/Button';
 import Card from '@/components/DesignSystem/Card/Card';
 import CardBody from '@/components/DesignSystem/Card/CardBody';
@@ -8,9 +11,6 @@ import serversApi from '@/http/api/servers/serversApi';
 import Server from '@/models/Server';
 import { deleteServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
-import React, { useState } from 'react';
-import { GrSubtract } from 'react-icons/gr';
-import { MdEdit } from 'react-icons/md';
 
 interface ServerCardProps {
     server: Server;

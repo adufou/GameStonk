@@ -1,8 +1,8 @@
+import React from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
-import React from 'react';
 
 interface TwoCTAsModalProps {
     isOpen: boolean;

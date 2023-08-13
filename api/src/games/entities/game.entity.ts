@@ -1,7 +1,10 @@
 import {
-    Column, Entity, OneToMany, PrimaryGeneratedColumn,
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Server } from '../../servers/entities/server.entity';
+import { Server } from '@/servers/entities/server.entity';
 
 @Entity()
 export class Game {

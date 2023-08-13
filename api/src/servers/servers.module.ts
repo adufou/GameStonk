@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Server } from './entities/server.entity';
-import { ServersController } from './servers.controller';
-import { ServersService } from './servers.service';
-import { Game } from '../games/entities/game.entity';
-import { GamesService } from '../games/games.service';
+import { Game } from '@/games/entities/game.entity';
+import { GamesService } from '@/games/games.service';
+import { Server } from '@/servers/entities/server.entity';
+import { ServersController } from '@/servers/servers.controller';
+import { ServersService } from '@/servers/servers.service';
 
 @Module({
     imports: [

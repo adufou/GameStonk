@@ -1,3 +1,7 @@
+import React, {
+    ChangeEvent,
+    useState,
+} from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Modal from '@/components/DesignSystem/Modal/Modal';
@@ -8,9 +12,6 @@ import gamesApi from '@/http/api/games/gamesApi';
 import Game from '@/models/Game';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
-import React, {
-    ChangeEvent, useState, 
-} from 'react';
 
 interface GameConfigModalProps {
     isOpen: boolean;

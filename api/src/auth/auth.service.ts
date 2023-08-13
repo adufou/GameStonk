@@ -1,11 +1,12 @@
 import {
-    Injectable, UnauthorizedException, 
+    Injectable,
+    UnauthorizedException,
 } from '@nestjs/common';
 import { ImATeapotException } from '@nestjs/common/exceptions/im-a-teapot.exception';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { User } from '../users/entities/user.entity';
-import { UsersService } from '../users/users.service';
+import { User } from '@/users/entities/user.entity';
+import { UsersService } from '@/users/users.service';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
         private jwtService: JwtService
     ) {}
 
-    async login(email: string, password: string) {
+    async login(email: string, password: string): Promise<{ access_token: string }> {
         const user = await this.usersService.findOneByEmail(email);
         if (!await bcrypt.compare(password, user.password)) {
             throw new UnauthorizedException();
@@ -27,7 +28,12 @@ export class AuthService {
         return { access_token: await this.jwtService.signAsync(payload) };
     }
     
-    async register(email: string, password: string, firstName: string, lastName: string) {
+    async register(
+        email: string,
+        password: string,
+        firstName: string,
+        lastName: string
+    ): Promise<{ access_token: string }> {
         if (await this.userExists(email)) {
             // TODO: handle this case ?
             throw new ImATeapotException('🫖 Dude you\'re already signed up');

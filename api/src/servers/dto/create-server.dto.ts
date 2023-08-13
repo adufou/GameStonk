@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { Game } from '../../games/entities/game.entity';
+import { Game } from '@/games/entities/game.entity';
 
 export class CreateServerDto {
     @IsNotEmpty()
