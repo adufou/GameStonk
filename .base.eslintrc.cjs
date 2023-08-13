@@ -85,7 +85,6 @@ module.exports = {
         'array-bracket-spacing': 'off',
         curly: ['error', 'all'],
         "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
-        "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
         'no-template-curly-in-string': 'warn',
         'block-spacing': ['error', 'always'],
         'template-curly-spacing': ["error", "always"],
