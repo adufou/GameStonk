@@ -12,6 +12,7 @@ import gamesApi from '@/http/api/games/gamesApi';
 import Game from '@/models/Game';
 import { deleteGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 interface GameCardProps {
     game: Game;
 }
@@ -23,7 +24,7 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     function acceptGameDeletion(): void {
         gamesApi.deleteGame(game)
             .then((response) => {
-                if (response.status === 200) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(deleteGame(game));
                 }
             })

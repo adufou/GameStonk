@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import React, { useState } from 'react';
 import { GrSubtract } from 'react-icons/gr';
 import { MdEdit } from 'react-icons/md';
@@ -11,6 +12,7 @@ import serversApi from '@/http/api/servers/serversApi';
 import Server from '@/models/Server';
 import { deleteServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerCardProps {
     server: Server;
@@ -23,7 +25,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     function acceptServerDeletion(): void {
         serversApi.deleteServer(server)
             .then((response) => {
-                if (response.status === 204) {
+                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.NoContent)) {
                     store.dispatch(deleteServer(server));
                 }
             })

@@ -12,6 +12,7 @@ import serversApi from '@/http/api/servers/serversApi';
 import Server from '@/models/Server';
 import { updateServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerEditModalProps {
     isOpen: boolean;
@@ -32,7 +33,7 @@ const ServerEditModal = ({
 
         serversApi.updateServer(updatedServer)
             .then((response) => { 
-                if (response.status === 200) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(updateServer(response.body)); 
                 }
             })

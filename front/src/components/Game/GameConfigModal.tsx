@@ -12,6 +12,7 @@ import gamesApi from '@/http/api/games/gamesApi';
 import Game from '@/models/Game';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameConfigModalProps {
     isOpen: boolean;
@@ -32,7 +33,7 @@ const GameConfigModal = ({
         
         gamesApi.updateGame(updatedGame)
             .then((response) => {
-                if (response.status === 200) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(updateGame(response.body));
                 }
             })

@@ -12,6 +12,7 @@ import authApi from '@/http/api/auth/authApi';
 import store from '@/stores/globalStore';
 import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 import { setLocalToken } from '@/tools/localToken';
 
 const Signup = (): React.ReactElement => {
@@ -63,7 +64,7 @@ const Signup = (): React.ReactElement => {
 
         const response = await authApi.registerUser(user);
 
-        if (response.status === 200) {
+        if (isCorrectStatusCodeOrNotModified(response.status)) {
             if (response.body.access_token) {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);

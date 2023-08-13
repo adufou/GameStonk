@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
@@ -12,6 +13,7 @@ import serversApi from '@/http/api/servers/serversApi';
 import Game from '@/models/Game';
 import { addServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerAddModalProps {
     isOpen: boolean;
@@ -32,7 +34,7 @@ const ServerAddModal = ({
 
         serversApi.addServer(newServer)
             .then((response) => {
-                if (response.status === 201) {
+                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.Created)) {
                     store.dispatch(addServer(response.body));
                 }      
             })

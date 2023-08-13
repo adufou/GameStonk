@@ -17,6 +17,7 @@ import serversApi from '@/http/api/servers/serversApi';
 import Game from '@/models/Game';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameCellProps {
     game: Game;
@@ -36,7 +37,7 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
     const fetchServersFromGame = (): void => {
         serversApi.getServersFromGame(game)
             .then((response) => {
-                if (response.status === 200) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(updateGame({
                         ...game,
                         servers: response.body,

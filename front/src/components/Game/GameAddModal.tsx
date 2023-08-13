@@ -1,3 +1,4 @@
+import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
@@ -11,6 +12,7 @@ import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import gamesApi from '@/http/api/games/gamesApi';
 import { addGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameAddModalProps {
     isOpen: boolean;
@@ -27,7 +29,7 @@ const GameAddModal = ({
 
         gamesApi.addGame(newGame)
             .then((response) => {
-                if (response.status === 201) {
+                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.Created)) {
                     store.dispatch(addGame(response.body));
                     setGameName('');
                 }
