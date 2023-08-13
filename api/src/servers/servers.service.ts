@@ -1,11 +1,12 @@
-import {Inject, Injectable} from '@nestjs/common';
-import { CreateServerDto } from './dto/create-server.dto';
-import { UpdateServerDto } from './dto/update-server.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Server} from "./entities/server.entity";
-import {Repository} from "typeorm";
-import {Game} from "../games/entities/game.entity";
-import {GamesService} from "../games/games.service";
+import {
+    Inject,
+    Injectable,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { GamesService } from '@/games/games.service';
+import { CreateServerDto } from '@/servers/dto/create-server.dto';
+import { Server } from '@/servers/entities/server.entity';
 
 @Injectable()
 export class ServersService {
@@ -24,15 +25,15 @@ export class ServersService {
         return this.gamesService.getServers(id);
     }
     
-    findOne(id: number) {
-        return `This action returns a #${id} server`;
-    }
-    
-    update(id: number, updateServerDto: UpdateServerDto) {
-        return `This action updates a #${id} server`;
-    }
-    
-    remove(id: number) {
-        return `This action removes a #${id} server`;
-    }
+    // findOne(id: number) {
+    //     return `This action returns a #${ id } server`;
+    // }
+    //
+    // update(id: number, updateServerDto: UpdateServerDto) {
+    //     return `This action updates a #${ id } server`;
+    // }
+    //
+    // remove(id: number) {
+    //     return `This action removes a #${ id } server`;
+    // }
 }

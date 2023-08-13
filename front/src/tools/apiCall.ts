@@ -1,5 +1,6 @@
 import {
-    API_PORT, URL_PREFIX,
+    API_PORT,
+    URL_PREFIX,
 } from '@/tools/consts';
 
 interface RequestData extends RequestInit {

@@ -1,5 +1,4 @@
-FROM node:18-alpine
-MAINTAINER Robert Wells <rwells@dvele.com>
+FROM node:18
 
 WORKDIR /tmp
 COPY front/package.json /tmp/

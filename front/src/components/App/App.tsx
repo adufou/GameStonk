@@ -1,3 +1,9 @@
+import React, { useEffect } from 'react';
+import {
+    BrowserRouter,
+    Route,
+    Routes,
+} from 'react-router-dom';
 import Admin from '@/components/Admin/Admin';
 import Login from '@/components/Auth/Login';
 import Logout from '@/components/Auth/Logout';
@@ -7,12 +13,6 @@ import Navbar from '@/components/Navbar/Navbar';
 import MyWallets from '@/components/Wallet/MyWallets';
 import { fetchGames } from '@/stores/game/gameStore.tools';
 import { authFlowOnStartup } from '@/tools/authTools';
-import React, { useEffect } from 'react';
-import {
-    BrowserRouter,
-    Route,
-    Routes,
-} from 'react-router-dom';
 
 function App(): React.ReactElement {
     useEffect(() => {

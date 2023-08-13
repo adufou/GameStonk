@@ -1,6 +1,6 @@
-import ReactChildren from '@/types/ReactChildren';
 import React from 'react';
 import { IconContext } from 'react-icons';
+import ReactChildren from '@/types/ReactChildren';
 
 interface ConfigIconProps {
     children: ReactChildren

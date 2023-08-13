@@ -1,6 +1,6 @@
+import { createSlice } from '@reduxjs/toolkit';
 import User from '@/models/User';
 import IUserState from '@/stores/user/IUserState';
-import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: IUserState = {
     user: null,

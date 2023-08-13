@@ -1,10 +1,11 @@
 import gamesApi from '@/http/api/games/gamesApi';
 import { setGames } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 export async function fetchGames(): Promise<void> {
     const gamesResponse = await gamesApi.getGames();
-    if (gamesResponse.status === 200) {
+    if (isCorrectStatusCodeOrNotModified(gamesResponse.status)) {
         store.dispatch(setGames(gamesResponse.body));
     }
 }

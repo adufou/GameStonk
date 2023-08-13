@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import { GrSubtract } from 'react-icons/gr';
+import { MdEdit } from 'react-icons/md';
+import { MdInventory } from 'react-icons/md';
 import Button from '@/components/DesignSystem/Button/Button';
 import Card from '@/components/DesignSystem/Card/Card';
 import CardBody from '@/components/DesignSystem/Card/CardBody';
@@ -8,10 +12,7 @@ import gamesApi from '@/http/api/games/gamesApi';
 import Game from '@/models/Game';
 import { deleteGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
-import React, { useState } from 'react';
-import { GrSubtract } from 'react-icons/gr';
-import { MdEdit } from 'react-icons/md';
-import { MdInventory } from 'react-icons/md';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 interface GameCardProps {
     game: Game;
 }
@@ -23,7 +24,7 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     function acceptGameDeletion(): void {
         gamesApi.deleteGame(game)
             .then((response) => {
-                if (response.status === 200) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(deleteGame(game));
                 }
             })

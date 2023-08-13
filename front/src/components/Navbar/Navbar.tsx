@@ -1,7 +1,7 @@
+import React, { Fragment } from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import store from '@/stores/globalStore';
 import mappedStateComponent from '@/tools/mappedStateComponent';
-import React, { Fragment } from 'react';
 
 const Navbar = (): React.ReactElement => {
     const handleDebug = (): void => {

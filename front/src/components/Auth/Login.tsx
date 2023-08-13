@@ -1,3 +1,9 @@
+import React, {
+    ChangeEvent,
+    Fragment,
+    useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/DesignSystem/Button/Button';
 import Card from '@/components/DesignSystem/Card/Card';
 import CardBody from '@/components/DesignSystem/Card/CardBody';
@@ -6,13 +12,8 @@ import authApi from '@/http/api/auth/authApi';
 import store from '@/stores/globalStore';
 import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';
+import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 import { setLocalToken } from '@/tools/localToken';
-import React, {
-    ChangeEvent,
-    Fragment,
-    useState,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -39,7 +40,7 @@ const Login = (): React.ReactElement => {
 
         const response = await authApi.loginUser(user);
 
-        if (response.status === 200) {
+        if (isCorrectStatusCodeOrNotModified(response.status)) {
             if (response.body.access_token) {
                 store.dispatch(setToken(response.body.access_token));
                 setLocalToken(response.body.access_token);

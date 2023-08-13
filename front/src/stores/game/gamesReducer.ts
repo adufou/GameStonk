@@ -1,7 +1,7 @@
+import { createSlice } from '@reduxjs/toolkit';
 import Game from '@/models/Game';
 import Server from '@/models/Server';
 import IGameState from '@/stores/game/IGameState';
-import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: IGameState = { games: [] };
 

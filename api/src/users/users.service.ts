@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {DeleteResult, Repository} from 'typeorm';
-import { User } from './entities/user.entity';
-import {UpdateUserDto} from "./dto/update-user.dto";
-import {RegisterDto} from "../auth/dto/login-register.dto";
+import {
+    DeleteResult,
+    Repository,
+} from 'typeorm';
+import { RegisterDto } from '@/auth/dto/login-register.dto';
+import { User } from '@/users/entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -28,9 +30,9 @@ export class UsersService {
         return this.usersRepository.findOneBy({ email });
     }
 
-    update(id: number, updateGameDto: UpdateUserDto) {
-        // noop
-    }
+    // update(id: number, updateGameDto: UpdateUserDto) {
+    //     // noop
+    // }
 
     remove(id: number): Promise<DeleteResult> {
         return this.usersRepository.delete(id);

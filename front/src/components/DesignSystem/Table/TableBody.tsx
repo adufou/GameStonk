@@ -1,5 +1,5 @@
-import ReactChildren from '@/types/ReactChildren';
 import React from 'react';
+import ReactChildren from '@/types/ReactChildren';
 
 interface TableBodyProps {
     children: ReactChildren;

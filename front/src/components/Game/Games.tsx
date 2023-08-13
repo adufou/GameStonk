@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { GrAdd } from 'react-icons/gr';
 import Button from '@/components/DesignSystem/Button/Button';
 import Table from '@/components/DesignSystem/Table/Table';
 import TableBody from '@/components/DesignSystem/Table/TableBody';
@@ -9,8 +11,6 @@ import GameCell from '@/components/Game/GameCell';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import store from '@/stores/globalStore';
 import mappedStateComponent from '@/tools/mappedStateComponent';
-import React, { useState } from 'react';
-import { GrAdd } from 'react-icons/gr';
 
 const Games = (): React.ReactElement => {
     const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);
