@@ -1,0 +1,23 @@
+name: API
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  eslint-audit:
+    name: Eslint audit
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: JS setup Front
+        uses: ./.github/actions/js-setup-api
+
+      - name: Run eslint
+        run: |
+          cd api
+          npm run lint-all
