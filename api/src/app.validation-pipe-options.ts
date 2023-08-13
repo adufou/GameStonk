@@ -1,5 +1,3 @@
-const AppValidationPipeOptions = {
-    
-}
+const AppValidationPipeOptions = {};
 
-export default AppValidationPipeOptions
+export default AppValidationPipeOptions;

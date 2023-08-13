@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Game} from "./entities/game.entity";
-import {Repository} from "typeorm";
-import {Server} from "../servers/entities/server.entity";
+import { Game } from './entities/game.entity';
+import { Server } from '../servers/entities/server.entity';
 
 @Injectable()
 export class GamesService {
@@ -14,7 +14,7 @@ export class GamesService {
     ) {}
     
     create(createGameDto: CreateGameDto) {
-        return this.gameRepository.save(createGameDto)
+        return this.gameRepository.save(createGameDto);
     }
     
     findAll(): Promise<Game[]> {
@@ -22,14 +22,12 @@ export class GamesService {
     }
     
     findOne(id: number): Promise<Game | null> {
-        return this.gameRepository.findOneBy({ id })
+        return this.gameRepository.findOneBy({ id });
     }
     
     async getServers(id: number): Promise<Server[]> {
         const game = await this.gameRepository.findOne({
-            where: {
-                id
-            },
+            where: { id },
             relations: ['servers'],
         });
 
@@ -43,7 +41,7 @@ export class GamesService {
             return this.gameRepository.save({
                 ...game,
                 ...updateGameDto,
-            })
+            });
         }
         
         // TODO what if no game ? How to return an error ?

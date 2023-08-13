@@ -1,16 +1,16 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Server} from "../../servers/entities/server.entity";
+import {
+    Column, Entity, OneToMany, PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Server } from '../../servers/entities/server.entity';
 
 @Entity()
 export class Game {
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
-    @Column({
-        unique: true,
-    })
-    name: string;
+    @Column({ unique: true })
+        name: string;
     
-    @OneToMany(() => Server, (server) => server.game)
-    servers: Server[];
+    @OneToMany(() => Server, server => server.game)
+        servers: Server[];
 }

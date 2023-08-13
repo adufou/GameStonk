@@ -1,34 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ServersService } from './servers.service';
+import {
+    Controller, Get, Post, Body, Patch, Param, Delete, 
+} from '@nestjs/common';
 import { CreateServerDto } from './dto/create-server.dto';
 import { UpdateServerDto } from './dto/update-server.dto';
+import { ServersService } from './servers.service';
 
 @Controller('servers')
 export class ServersController {
-  constructor(private readonly serversService: ServersService) {}
+    constructor(private readonly serversService: ServersService) {}
 
   @Post()
-  create(@Body() createServerDto: CreateServerDto) {
-    return this.serversService.create(createServerDto);
-  }
+    create(@Body() createServerDto: CreateServerDto) {
+        return this.serversService.create(createServerDto);
+    }
 
   @Get('/game/:id')
   findAllByGame(@Param('id') id: string) {
-    return this.serversService.findAllByGame(+id);
+      return this.serversService.findAllByGame(+id);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.serversService.findOne(+id);
+      return this.serversService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateServerDto: UpdateServerDto) {
-    return this.serversService.update(+id, updateServerDto);
+      return this.serversService.update(+id, updateServerDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.serversService.remove(+id);
+      return this.serversService.remove(+id);
   }
 }

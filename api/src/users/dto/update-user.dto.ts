@@ -1,15 +1,17 @@
-import {IsEmail, IsInt, IsNotEmpty} from "class-validator";
+import {
+    IsEmail, IsInt, IsNotEmpty,
+} from 'class-validator';
 
 export class UpdateUserDto {
     @IsInt()
-    id: number;
+        id: number;
     
     @IsEmail()
-    email?: string;
+        email?: string;
 
     @IsNotEmpty()
-    firstName?: string;
+        firstName?: string;
 
     @IsNotEmpty()
-    lastName?: string;
+        lastName?: string;
 }

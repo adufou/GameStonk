@@ -6,14 +6,11 @@ import {
     HttpStatus,
     Post,
     Request,
-    UseGuards
 } from '@nestjs/common';
-import bcrypt from "bcrypt";
-import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import {Public} from "../decorators/public.decorator";
-import {RegisterDto} from "./dto/login-register.dto";
-import {LoginDto} from "./dto/login-auth.dto";
+import { LoginDto } from './dto/login-auth.dto';
+import { RegisterDto } from './dto/login-register.dto';
+import { Public } from '../decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
