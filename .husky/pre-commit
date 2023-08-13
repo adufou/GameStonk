@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+COLOR_RESET='\e[0m'
+COLOR_DEFAULT='\033[39;49m'
+COLOR_DEFAULT_BOLD_ITALIC='\033[39;49;1;3m'
+COLOR_GREEN_BOLD='\033[32;49;1m'
+COLOR_YELLOW_BOLD='\033[33;49;1m'
+
+### Pre-commit for both front and API
+
+# API
+echo "${COLOR_GREEN_BOLD}API${COLOR_DEFAULT} pre-commit${COLOR_RESET}"
+echo "${COLOR_YELLOW_BOLD}- ${COLOR_DEFAULT_BOLD_ITALIC}Lint staged files...${COLOR_RESET}"
+cd api && npx lint-staged
+
+# Back to project root
+cd ..
+
+# FRONT
+echo "${COLOR_GREEN_BOLD}Front${COLOR_DEFAULT} pre-commit${COLOR_RESET}"
+echo "${COLOR_YELLOW_BOLD}- ${COLOR_DEFAULT_BOLD_ITALIC}Lint staged files...${COLOR_RESET}"
+cd front && npx lint-staged

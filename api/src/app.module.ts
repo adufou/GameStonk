@@ -27,6 +27,7 @@ import { ServersModule } from './servers/servers.module';
             autoLoadEntities: true,
             retryDelay: 5000,
             retryAttempts: 25,
+            
         }),
         AuthModule,
         UsersModule,

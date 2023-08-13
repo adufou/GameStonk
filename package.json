@@ -1,0 +1,13 @@
+{
+    "name": "template",
+    "version": "0.1.0",
+    "author": "Robert Wells",
+    "private": true,
+    "type": "module",
+    "devDependencies": {
+        "husky": "^8.0.0"
+    },
+    "scripts": {
+        "prepare": "husky install"
+    }
+}
