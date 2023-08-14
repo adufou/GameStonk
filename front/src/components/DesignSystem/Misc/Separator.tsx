@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { classNames } from '@/tools/classNames';
 
 interface SeparatorProps {
     className?: string
@@ -6,10 +7,7 @@ interface SeparatorProps {
 
 const Separator = ({ className }: SeparatorProps): React.ReactElement => {
     const separatorClassName = useMemo(() => {
-        let name = 'separator ';
-        name += className ? className : 'separator-base-color';
-        
-        return name;
+        return classNames('separator', className ? [className] : ['separator-base-color']);
     }, []);
     
     return (
