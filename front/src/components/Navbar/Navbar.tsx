@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Button from '@/components/DesignSystem/Button/Button';
+import ButtonLink from '@/components/DesignSystem/Button/ButtonLink';
 import store from '@/stores/globalStore';
 import mappedStateComponent from '@/tools/mappedStateComponent';
 
@@ -15,61 +15,61 @@ const Navbar = (): React.ReactElement => {
     return (
         <nav className='navbar'>
             <div className='navbar__home-button'>
-                <Button href='/companion'>
+                <ButtonLink href='/companion'>
                     <span>Stonkofus</span>
-                </Button>
+                </ButtonLink>
             </div>
 
             <div className='navbar__debug-button'>
-                <Button onClick={handleDebug}>
+                <ButtonLink onClick={handleDebug}>
                     <span>DEBUG</span>
-                </Button>
+                </ButtonLink>
             </div>
 
             <div className='navbar__navigation'>
                 {store.getState().userStore.token ? (
                     <Fragment>
                         {/* <li>
-                            <Button layout="link" tag='a' href='/companion'>Companion</Button>
+                            <ButtonLink layout="link" tag='a' href='/companion'>Companion</ButtonLink>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/holdings'>Report</Button>
+                            <ButtonLink layout="link" tag='a' href='/holdings'>Report</ButtonLink>
                         </li>
                         <li>
-                            <Button layout="link" tag='a' href='/dashboard'>Dashboard</Button>
+                            <ButtonLink layout="link" tag='a' href='/dashboard'>Dashboard</ButtonLink>
                         </li> */}
                         <div className='navbar__navigation__button'>
-                            <Button href='/admin'>
+                            <ButtonLink href='/admin'>
                                 <span>Admin</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button href='/games'>
+                            <ButtonLink href='/games'>
                                 <span>Games</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button href='/wallets'>
+                            <ButtonLink href='/wallets'>
                                 <span>My Wallets</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button href='/logout'>
+                            <ButtonLink href='/logout'>
                                 <span>Logout</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                     </Fragment>
                 ) : (
                     <Fragment>
                         <div className='navbar__navigation__button'>
-                            <Button href='/login'>
+                            <ButtonLink href='/login'>
                                 <span>Login</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                         <div className='navbar__navigation__button'>
-                            <Button href='/signup'>
+                            <ButtonLink href='/signup'>
                                 <span>Signup</span>
-                            </Button>
+                            </ButtonLink>
                         </div>
                     </Fragment>
                 )}
