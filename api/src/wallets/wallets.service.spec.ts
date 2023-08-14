@@ -2,7 +2,7 @@ import {
     Test,
     TestingModule,
 } from '@nestjs/testing';
-import { WalletsService } from './wallets.service';
+import { WalletsService } from '@/wallets/wallets.service';
 
 describe('WalletsService', () => {
     let service: WalletsService;

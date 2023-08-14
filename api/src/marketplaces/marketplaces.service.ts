@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMarketplaceDto } from './dto/create-marketplace.dto';
-import { UpdateMarketplaceDto } from './dto/update-marketplace.dto';
+import { CreateMarketplaceDto } from '@/marketplaces/dto/create-marketplace.dto';
+import { UpdateMarketplaceDto } from '@/marketplaces/dto/update-marketplace.dto';
 
 @Injectable()
 export class MarketplacesService {

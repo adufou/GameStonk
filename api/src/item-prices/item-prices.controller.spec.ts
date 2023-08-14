@@ -2,8 +2,8 @@ import {
     Test,
     TestingModule,
 } from '@nestjs/testing';
-import { ItemPricesController } from './item-prices.controller';
-import { ItemPricesService } from './item-prices.service';
+import { ItemPricesController } from '@/item-prices/item-prices.controller';
+import { ItemPricesService } from '@/item-prices/item-prices.service';
 
 describe('ItemPricesController', () => {
     let controller: ItemPricesController;

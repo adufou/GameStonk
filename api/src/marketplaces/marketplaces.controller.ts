@@ -7,9 +7,9 @@ import {
     Param,
     Delete,
 } from '@nestjs/common';
-import { CreateMarketplaceDto } from './dto/create-marketplace.dto';
-import { UpdateMarketplaceDto } from './dto/update-marketplace.dto';
-import { MarketplacesService } from './marketplaces.service';
+import { CreateMarketplaceDto } from '@/marketplaces/dto/create-marketplace.dto';
+import { UpdateMarketplaceDto } from '@/marketplaces/dto/update-marketplace.dto';
+import { MarketplacesService } from '@/marketplaces/marketplaces.service';
 
 @Controller('marketplaces')
 export class MarketplacesController {

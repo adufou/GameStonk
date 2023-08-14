@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateItemPriceDto } from './dto/create-item-price.dto';
-import { UpdateItemPriceDto } from './dto/update-item-price.dto';
+import { CreateItemPriceDto } from '@/item-prices/dto/create-item-price.dto';
+import { UpdateItemPriceDto } from '@/item-prices/dto/update-item-price.dto';
 
 @Injectable()
 export class ItemPricesService {

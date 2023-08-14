@@ -2,8 +2,8 @@ import {
     Test,
     TestingModule,
 } from '@nestjs/testing';
-import { MarketplacesController } from './marketplaces.controller';
-import { MarketplacesService } from './marketplaces.service';
+import { MarketplacesController } from '@/marketplaces/marketplaces.controller';
+import { MarketplacesService } from '@/marketplaces/marketplaces.service';
 
 describe('MarketplacesController', () => {
     let controller: MarketplacesController;

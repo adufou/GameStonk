@@ -7,9 +7,9 @@ import {
     Param,
     Delete,
 } from '@nestjs/common';
-import { BlueprintsService } from './blueprints.service';
-import { CreateBlueprintDto } from './dto/create-blueprint.dto';
-import { UpdateBlueprintDto } from './dto/update-blueprint.dto';
+import { BlueprintsService } from '@/blueprints/blueprints.service';
+import { CreateBlueprintDto } from '@/blueprints/dto/create-blueprint.dto';
+import { UpdateBlueprintDto } from '@/blueprints/dto/update-blueprint.dto';
 
 @Controller('blueprints')
 export class BlueprintsController {

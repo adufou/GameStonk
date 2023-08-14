@@ -2,7 +2,7 @@ import {
     Test,
     TestingModule,
 } from '@nestjs/testing';
-import { BlueprintsService } from './blueprints.service';
+import { BlueprintsService } from '@/blueprints/blueprints.service';
 
 describe('BlueprintsService', () => {
     let service: BlueprintsService;

@@ -7,9 +7,9 @@ import {
     Param,
     Delete,
 } from '@nestjs/common';
-import { CreateWalletDto } from './dto/create-wallet.dto';
-import { UpdateWalletDto } from './dto/update-wallet.dto';
-import { WalletsService } from './wallets.service';
+import { CreateWalletDto } from '@/wallets/dto/create-wallet.dto';
+import { UpdateWalletDto } from '@/wallets/dto/update-wallet.dto';
+import { WalletsService } from '@/wallets/wallets.service';
 
 @Controller('wallets')
 export class WalletsController {

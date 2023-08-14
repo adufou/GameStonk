@@ -2,8 +2,8 @@ import {
     Test,
     TestingModule,
 } from '@nestjs/testing';
-import { BlueprintsController } from './blueprints.controller';
-import { BlueprintsService } from './blueprints.service';
+import { BlueprintsController } from '@/blueprints/blueprints.controller';
+import { BlueprintsService } from '@/blueprints/blueprints.service';
 
 describe('BlueprintsController', () => {
     let controller: BlueprintsController;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBlueprintDto } from './dto/create-blueprint.dto';
-import { UpdateBlueprintDto } from './dto/update-blueprint.dto';
+import { CreateBlueprintDto } from '@/blueprints/dto/create-blueprint.dto';
+import { UpdateBlueprintDto } from '@/blueprints/dto/update-blueprint.dto';
 
 @Injectable()
 export class BlueprintsService {
