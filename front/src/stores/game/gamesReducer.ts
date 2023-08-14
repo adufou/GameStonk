@@ -40,9 +40,7 @@ const gamesSlice = createSlice({
         addServer(state, action: {
             payload: Server
         }) {
-            console.log(action.payload);
             const gameIndex = state.games.findIndex(g => g.id === action.payload.game);
-            console.log(gameIndex);
             
             if(!state.games[ gameIndex ].servers) {
                 state.games[ gameIndex ].servers = [];

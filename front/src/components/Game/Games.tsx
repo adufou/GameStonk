@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { GrAdd } from 'react-icons/gr';
-import Button from '@/components/DesignSystem/Button/Button';
-import Table from '@/components/DesignSystem/Table/Table';
-import TableBody from '@/components/DesignSystem/Table/TableBody';
-import TableCell from '@/components/DesignSystem/Table/TableCell';
-import TableHeader from '@/components/DesignSystem/Table/TableHeader';
-import TableRow from '@/components/DesignSystem/Table/TableRow';
+import { MdAdd } from 'react-icons/md';
+import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import GameAddModal from '@/components/Game/GameAddModal';
 import GameCell from '@/components/Game/GameCell';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
@@ -24,34 +19,27 @@ const Games = (): React.ReactElement => {
     }
 
     return (
-        <div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableCell>
-                            <span>
-                                GAMES
-                            </span>
-                            <div>
-                                <Button onClick={openAddGameModal}>
-                                    <ConfigIcon>
-                                        <GrAdd />
-                                    </ConfigIcon>
-                                </Button>
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {store.getState().gamesStore.games?.map(game => (
-                        <TableRow key={game.id}>
-                            <TableCell>
-                                <GameCell game={game} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+        <div className='games'>
+            <div className='games__header'>
+                <span>
+                    GAMES
+                </span>
+                <div>
+                    <ButtonXSmall onClick={openAddGameModal}>
+                        <ConfigIcon>
+                            <MdAdd />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </div>
+            </div>
+            <div className='games__list'>
+                {store.getState().gamesStore.games?.map(game => (
+                    <GameCell
+                        key={'game-cell-' + String(game.id)}
+                        game={game}
+                    />
+                ))}
+            </div>
 
             <GameAddModal
                 isOpen={isAddGameModalOpen}

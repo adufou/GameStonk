@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
+import Separator from '@/components/DesignSystem/Misc/Separator';
 import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
@@ -48,10 +49,16 @@ const ServerAddModal = ({
     };
 
     return (
-        <Modal isOpen={isOpen}>
+        <Modal
+            isOpen={isOpen}
+            onClose={closeModal}
+        >
             <ModalHeader>
                 <span>Add a Server</span>
             </ModalHeader>
+            
+            <Separator />
+            
             <ModalBody>
                 <Input
                     label="name"
@@ -59,11 +66,20 @@ const ServerAddModal = ({
                     onChange={handleChangeInput}
                 />
             </ModalBody>
+
+            <Separator />
+            
             <ModalFooter>
-                <Button onClick={closeModal}>
+                <Button
+                    className='server-add-modal__footer-button'
+                    onClick={closeModal}
+                >
                     <span>Cancel</span>
                 </Button>
-                <Button onClick={addNewServer}>
+                <Button
+                    className='server-add-modal__footer-button'
+                    onClick={addNewServer}
+                >
                     <span>Accept</span>
                 </Button>
             </ModalFooter>

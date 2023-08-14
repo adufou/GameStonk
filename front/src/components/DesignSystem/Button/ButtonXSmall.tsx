@@ -2,32 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactChildren from '@/types/ReactChildren';
 
-interface ButtonLinkProps {
+interface ButtonXSmallProps {
     children: ReactChildren;
     onClick?: () => void;
     href?: string;
     label?: string;
 }
 
-const ButtonLink = ({
+const ButtonXSmall = ({
     children = [], onClick, href, label,
-}: ButtonLinkProps): React.ReactElement => (
-    <div className='button-link'>
+}: ButtonXSmallProps): React.ReactElement => (
+    <div className='button-xsmall'>
         {(label !== undefined) &&
-            <span className='button-link__label'>{label}</span>
+            <span className='button-xsmall__label'>{label}</span>
         }
 
         {
             (href === undefined) ? (
                 <div
-                    className='button-link__button'
+                    className='button-xsmall__button'
                     onClick={onClick}
                 >
                     {children}
                 </div>
             ) : (
                 <Link
-                    className='button-link__button'
+                    className='button-xsmall__button'
                     to={href}
                     onClick={onClick}
                 >
@@ -39,4 +39,4 @@ const ButtonLink = ({
     </div>
 );
 
-export default ButtonLink;
+export default ButtonXSmall;

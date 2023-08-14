@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { GrSubtract } from 'react-icons/gr';
-import { MdEdit } from 'react-icons/md';
+import {
+    MdEdit,
+    MdRemove,
+} from 'react-icons/md';
 import { MdInventory } from 'react-icons/md';
-import Button from '@/components/DesignSystem/Button/Button';
-import Card from '@/components/DesignSystem/Card/Card';
-import CardBody from '@/components/DesignSystem/Card/CardBody';
+import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import GameConfigModal from '@/components/Game/GameConfigModal';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
@@ -48,30 +48,30 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     }
 
     return (
-        <Card>
-            <CardBody>
+        <>
+            <div className='game-card'>
                 <span>
                     {game.name}
                 </span>
 
-                <div>
-                    <Button onClick={openModalConfigGame}>
+                <div className='game-card__buttons'>
+                    <ButtonXSmall onClick={openModalConfigGame}>
                         <ConfigIcon>
-                            <MdInventory />
+                            <MdInventory className='game-card__button-icon'/>
                         </ConfigIcon>
-                    </Button>
-                    <Button onClick={openModalConfigGame}>
+                    </ButtonXSmall>
+                    <ButtonXSmall onClick={openModalConfigGame}>
                         <ConfigIcon>
-                            <MdEdit />
+                            <MdEdit className='game-card__button-icon'/>
                         </ConfigIcon>
-                    </Button>
-                    <Button onClick={openModalDeleteGame}>
+                    </ButtonXSmall>
+                    <ButtonXSmall onClick={openModalDeleteGame}>
                         <ConfigIcon>
-                            <GrSubtract />
+                            <MdRemove className='game-card__button-icon'/>
                         </ConfigIcon>
-                    </Button>
+                    </ButtonXSmall>
                 </div>
-            </CardBody>
+            </div>
 
             <TwoCTAsModal
                 isOpen={isDeleteGameModalOpen}
@@ -83,7 +83,7 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
                 closeModal={closeModalConfigGame}
                 game={game}
             />
-        </Card>
+        </>
     );
 };
 

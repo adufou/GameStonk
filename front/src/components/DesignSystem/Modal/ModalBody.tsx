@@ -6,7 +6,7 @@ interface ModalBodyProps {
 }
 
 const ModalBody = ({ children = [] }: ModalBodyProps): React.ReactElement => (
-    <div>
+    <div className='modal__body'>
         {children}
     </div>
 );

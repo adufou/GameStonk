@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
+import Separator from '@/components/DesignSystem/Misc/Separator';
 import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
@@ -47,10 +48,16 @@ const ServerEditModal = ({
     };
     
     return (
-        <Modal isOpen={isOpen}>
+        <Modal
+            isOpen={isOpen}
+            onClose={closeModal}
+        >
             <ModalHeader>
                 <span>Update {server.name}</span>
             </ModalHeader>
+            
+            <Separator />
+            
             <ModalBody>
                 <Input
                     label="Name"
@@ -58,11 +65,20 @@ const ServerEditModal = ({
                     onChange={handleInputChange}
                 />
             </ModalBody>
+            
+            <Separator />
+            
             <ModalFooter>
-                <Button onClick={closeModal}>
+                <Button
+                    className='server-edit-modal__footer-button'
+                    onClick={closeModal}
+                >
                     <span>Cancel</span>
                 </Button>
-                <Button onClick={editServer}>
+                <Button
+                    className='server-edit-modal__footer-button'
+                    onClick={editServer}
+                >
                     <span>Accept</span>
                 </Button>
             </ModalFooter>

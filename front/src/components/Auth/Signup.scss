@@ -1,4 +1,4 @@
-@use '../../colors' as *;
+@use 'colors.scss' as *;
 
 .signup {
     display: flex;
@@ -7,17 +7,27 @@
     flex: 1 0 auto;
 
     &__body {
+        background: $blue10;
+        color: $white;
+        border-radius: 8px;
+        padding: 8px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
-        &__input {
-            margin: 4px 0;
+        &__button {
+            border-radius: 4px;
+            margin-top: 8px;
+            background: $gold;
         }
 
-        &__button {
-            margin-top: 4px;
+        &__error {
+            color: $red;
+        }
+
+        &__input {
+            margin: 4px 0;
         }
     }
 }

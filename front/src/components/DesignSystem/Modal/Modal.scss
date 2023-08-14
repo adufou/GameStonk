@@ -1,0 +1,23 @@
+@use 'colors.scss' as *;
+
+.modal {
+    position: absolute;
+    background-color: $blue25;
+    color: $white;
+    border-radius: 8px;
+    
+    &:focus {
+        outline: none;
+    }
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

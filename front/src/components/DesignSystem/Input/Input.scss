@@ -1,11 +1,8 @@
-@use '' as *;
-
 .input {
     display: flex;
     flex-direction: column;
 
     &__label {
-        color: $black;
         margin-bottom: 4px;
     }
 

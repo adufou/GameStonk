@@ -1,0 +1,10 @@
+@use 'colors.scss' as *;
+
+.separator {
+    width: auto;
+    height: 1px;
+}
+
+.separator-base-color {
+    background: $blue;
+}

@@ -8,11 +8,19 @@
 
     &__home-button {
         margin: 8px;
+
+        span {
+            color: $white;
+        }
     }
 
     &__debug-button {
         margin: 6px;
         border: solid 2px $red;
+
+        span {
+            color: $white;
+        }
     }
 
     &__navigation {
@@ -21,6 +29,10 @@
 
         &__button {
             margin: 8px;
+            
+            span {
+                color: $white;
+            }
         }
     }
 }

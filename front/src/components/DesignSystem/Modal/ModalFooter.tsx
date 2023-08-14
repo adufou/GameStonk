@@ -5,8 +5,8 @@ interface ModalFooterProps {
     children: ReactChildren;
 }
 
-const ModalFooter = ({ children = [] }: ModalFooterProps): React.ReactElement => (
-    <div>
+const ModalFooter = ({ children }: ModalFooterProps): React.ReactElement => (
+    <div className='modal__footer'>
         {children}
     </div>
 );

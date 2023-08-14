@@ -1,10 +1,10 @@
 import { HttpStatusCode } from 'axios';
 import React, { useState } from 'react';
-import { GrSubtract } from 'react-icons/gr';
-import { MdEdit } from 'react-icons/md';
-import Button from '@/components/DesignSystem/Button/Button';
-import Card from '@/components/DesignSystem/Card/Card';
-import CardBody from '@/components/DesignSystem/Card/CardBody';
+import {
+    MdEdit,
+    MdRemove,
+} from 'react-icons/md';
+import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerEditModal from '@/components/Server/ServerEditModal';
@@ -49,25 +49,24 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     }
 
     return (
-        <Card>
-            <CardBody>
-                <span>
-                    {server.name}
-                </span>
+        <div className='server-card'>
+            <span>
+                {server.name}
+            </span>
 
-                <div>
-                    <Button onClick={openModalUpdateServer}>
-                        <ConfigIcon>
-                            <MdEdit />
-                        </ConfigIcon>
-                    </Button>
-                    <Button onClick={openModalDeleteServer}>
-                        <ConfigIcon>
-                            <GrSubtract />
-                        </ConfigIcon>
-                    </Button>
-                </div>
-            </CardBody>
+            <div className='server-card__buttons'>
+                <ButtonXSmall onClick={openModalUpdateServer}>
+                    <ConfigIcon>
+                        <MdEdit />
+                    </ConfigIcon>
+                </ButtonXSmall>
+                <ButtonXSmall onClick={openModalDeleteServer}>
+                    <ConfigIcon>
+                        <MdRemove />
+                    </ConfigIcon>
+                </ButtonXSmall>
+            </div>
+
             <TwoCTAsModal 
                 isOpen={isDeleteServerModalOpen}
                 onAccept={acceptServerDeletion}
@@ -78,7 +77,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
                 closeModal={closeModalUpdateServer}
                 server={server}
             />
-        </Card>
+        </div>
     );
 };
 

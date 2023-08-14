@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import Admin from '@/components/Admin/Admin';
 import Login from '@/components/Auth/Login';
-import Logout from '@/components/Auth/Logout';
 import Signup from '@/components/Auth/Signup';
 import Games from '@/components/Game/Games';
 import Navbar from '@/components/Navbar/Navbar';
@@ -32,10 +31,6 @@ function App(): React.ReactElement {
                     <Route
                         path="/login"
                         element={< Login />}
-                    />
-                    <Route
-                        path="/logout"
-                        element={< Logout />}
                     />
                     <Route
                         path="/signup"

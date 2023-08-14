@@ -1,12 +1,9 @@
 import React, {
     ChangeEvent,
-    Fragment,
     useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/DesignSystem/Button/Button';
-import Card from '@/components/DesignSystem/Card/Card';
-import CardBody from '@/components/DesignSystem/Card/CardBody';
 import Input from '@/components/DesignSystem/Input/Input';
 import authApi from '@/http/api/auth/authApi';
 import store from '@/stores/globalStore';
@@ -50,7 +47,7 @@ const Signup = (): React.ReactElement => {
         setLastName(event.target.value);
     };
 
-    const onSubmit = async (): Promise<void> => {
+    const handleSignup = (): void => {
         if (password1 !== password2) {
             setErrors(true);
         }
@@ -62,103 +59,99 @@ const Signup = (): React.ReactElement => {
             lastName,
         };
 
-        const response = await authApi.registerUser(user);
+        authApi.registerUser(user)
+            .then((response) => {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
+                    if (response.body.access_token) {
+                        store.dispatch(setToken(response.body.access_token));
+                        setLocalToken(response.body.access_token);
 
-        if (isCorrectStatusCodeOrNotModified(response.status)) {
-            if (response.body.access_token) {
-                store.dispatch(setToken(response.body.access_token));
-                setLocalToken(response.body.access_token);
+                        fetchCurrentUser().catch((e) => {
+                            console.warn(e);
+                        });
 
-                fetchCurrentUser().catch((e) => {
-                    console.warn(e);
-                });
+                        navigate('dashboard');
+                    }
+                    
+                    return;
+                }
 
-                navigate('dashboard');
-            } else {
+                setPassword1('');
+                setPassword2('');
                 setErrors(true);
-            }
-        }
+            })
+            .catch(
+                e => console.error(e),
+            );
     };
 
     return (
         <div className='signup'>
-            <Card>
-                <CardBody>
-                    <Fragment>
-                        {errors &&
-                            <h2>Cannot signup with provided credentials</h2>
-                        }
+            <div className='signup__body'>
+                {errors &&
+                    <span className='signup__body__error'>Cannot signup with provided credentials</span>
+                }
+                
+                <div className='signup__body__input'>
+                    <Input
+                        label='Adresse email'
+                        name='email'
+                        type='email'
+                        value={email}
+                        onChange={handleChangeEmail}
+                        isRequired
+                    />
+                </div>
 
-                        <div className='signup__body'>
-                            <div className='signup__body__input'>
-                                <Input
-                                    label='Adresse email'
-                                    name='email'
-                                    type='email'
-                                    value={email}
-                                    onChange={handleChangeEmail}
-                                    isRequired
-                                />
-                            </div>
+                <div className='signup__body__input'>
+                    <Input
+                        label='Mot de passe'
+                        name='password1'
+                        type='password'
+                        value={password1}
+                        onChange={handleChangePassword1}
+                        isRequired
+                    />
+                </div>
 
-                            <div className='signup__body__input'>
-                                <Input
-                                    label='Mot de passe'
-                                    name='password1'
-                                    type='password'
-                                    value={password1}
-                                    onChange={handleChangePassword1}
-                                    isRequired
-                                />
-                            </div>
+                <div className='signup__body__input'>
+                    <Input
+                        label='Confirmer le mot de passe'
+                        name='password2'
+                        type='password'
+                        value={password2}
+                        onChange={handleChangePassword2}
+                        isRequired
+                    />
+                </div>
 
-                            <div className='signup__body__input'>
-                                <Input
-                                    label='Confirmer le mot de passe'
-                                    name='password2'
-                                    type='password'
-                                    value={password2}
-                                    onChange={handleChangePassword2}
-                                    isRequired
-                                />
-                            </div>
+                <div className='signup__body__input'>
+                    <Input
+                        label='Prénom'
+                        name='firstName'
+                        value={firstName}
+                        onChange={handleChangeFirstName}
+                        isRequired
+                    />
+                </div>
 
-                            <div className='signup__body__input'>
-                                <Input
-                                    label='Prénom'
-                                    name='firstName'
-                                    value={firstName}
-                                    onChange={handleChangeFirstName}
-                                    isRequired
-                                />
-                            </div>
-
-                            <div className='signup__body__input'>
-                                <Input
-                                    label='Nom'
-                                    name='lastName'
-                                    value={lastName}
-                                    onChange={handleChangeLastName}
-                                    isRequired
-                                />
-                            </div>
-
-                            <div className='signup__body__button'>
-                                <Button
-                                    onClick={(): void => {
-                                        onSubmit()
-                                            .catch(
-                                                e => console.error(e),
-                                            );
-                                    }}
-                                >
-                                    <p>Sign Up</p>
-                                </Button>
-                            </div>
-                        </div>
-                    </Fragment>
-                </CardBody>
-            </Card>
+                <div className='signup__body__input'>
+                    <Input
+                        label='Nom'
+                        name='lastName'
+                        value={lastName}
+                        onChange={handleChangeLastName}
+                        isRequired
+                    />
+                </div>
+                
+                <Button
+                    className='signup__body__button'
+                    onClick={handleSignup}
+                >
+                    <p>Sign Up</p>
+                </Button>
+            </div>
         </div>
     );
 };

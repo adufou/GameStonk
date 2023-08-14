@@ -1,12 +1,12 @@
 @use 'colors.scss' as *;
 
-.button-link {
+.button-xsmall {
     &__button {
         cursor: pointer;
-        height: 32px;
+        height: 16px;
         border-radius: 4px;
         padding: 4px;
-        width: 100px;
+        width: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
