@@ -25,6 +25,12 @@
 
             &__icon {
                 color: $blue75;
+                transform: rotate(0deg);
+                transition: transform 0.5s cubic-bezier(0,1,1,1);
+                
+                &__rotated {
+                    transform: rotate(90deg);
+                }
             }
         }
 
