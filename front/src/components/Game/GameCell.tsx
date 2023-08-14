@@ -53,10 +53,19 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
         setIsServerListOpen(!isServerListOpen);
     };
     
-    const transitionClassName = useMemo(() => {
+    const transitionServerListClassName = useMemo(() => {
         return optinalClassNames('game-cell__body__transition', [
             {
                 class: 'game-cell__body__transition__open',
+                condition: isServerListOpen,
+            },
+        ]);
+    }, [isServerListOpen]);
+
+    const transitionIconClassName = useMemo(() => {
+        return optinalClassNames('game-cell__body__headers__icon', [
+            {
+                class: 'game-cell__body__headers__icon__rotated',
                 condition: isServerListOpen,
             },
         ]);
@@ -77,7 +86,7 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
                     <div className='game-cell__body__headers__title'>
                         <ButtonXSmall onClick={handleToggleOpenServerList}>
                             <ConfigIcon>
-                                <MdChevronRight className='game-cell__body__headers__icon'/>
+                                <MdChevronRight className={transitionIconClassName}/>
                             </ConfigIcon>
                         </ButtonXSmall>
                         <span>
@@ -93,7 +102,7 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
                     </div>
                 </div>
 
-                <div className={transitionClassName}>
+                <div className={transitionServerListClassName}>
                     <div className='game-cell__body__server-list'>
                         {game.servers?.map(server => (
                             <ServerCard
