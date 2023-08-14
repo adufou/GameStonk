@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ItemPricesService } from './item-prices.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ItemPrice } from '@/item-prices/entities/item-price.entity';
 import { ItemPricesController } from './item-prices.controller';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {Game} from "@/games/entities/game.entity";
-import {GamesService} from "@/games/games.service";
-import {ItemPrice} from "@/item-prices/entities/item-price.entity";
+import { ItemPricesService } from './item-prices.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([ItemPrice])],
     exports: [ItemPricesService],
-  controllers: [ItemPricesController],
-  providers: [ItemPricesService],
+    controllers: [ItemPricesController],
+    providers: [ItemPricesService],
 })
 export class ItemPricesModule {}

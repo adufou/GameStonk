@@ -1,28 +1,34 @@
-import {Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {OrderType} from "@/orders/types/order-type";
-import {ItemPrice} from "@/item-prices/entities/item-price.entity";
-import {Wallet} from "@/wallets/entities/wallet.entity";
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ItemPrice } from '@/item-prices/entities/item-price.entity';
+import { OrderType } from '@/orders/types/order-type';
+import { Wallet } from '@/wallets/entities/wallet.entity';
 
 @Entity()
 export class Order {
     @PrimaryGeneratedColumn()
-    id: number;
+        id: number;
 
     @Column()
-    type: OrderType
+        type: OrderType;
 
     @Column()
-    volume: number
+        volume: number;
 
     @Column()
-    filled: boolean
+        filled: boolean;
 
     @Column()
-    canceled: boolean
+        canceled: boolean;
 
     @OneToOne(() => ItemPrice, itemPrice => itemPrice.order)
-    itemPrice: ItemPrice
+        itemPrice: ItemPrice;
     
     @ManyToOne(() => Wallet, wallet => wallet.orders)
-    wallet: Wallet
+        wallet: Wallet;
 }

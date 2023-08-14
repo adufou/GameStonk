@@ -4,8 +4,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Blueprint } from '@/blueprints/entities/blueprint.entity';
 import { Server } from '@/servers/entities/server.entity';
-import {Blueprint} from "@/blueprints/entities/blueprint.entity";
 
 @Entity()
 export class Game {

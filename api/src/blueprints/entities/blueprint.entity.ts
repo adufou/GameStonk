@@ -1,7 +1,13 @@
-import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Game} from "@/games/entities/game.entity";
-import {BlueprintConfig} from "@/blueprints/config/blueprint.config";
-import {Item} from "@/items/entities/item.entity";
+import {
+    Column,
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { BlueprintConfig } from '@/blueprints/config/blueprint.config';
+import { Game } from '@/games/entities/game.entity';
+import { Item } from '@/items/entities/item.entity';
 
 @Entity()
 export class Blueprint {
@@ -12,8 +18,8 @@ export class Blueprint {
         game: Game;
     
     @OneToMany(() => Item, item => item.blueprint)
-        items: Item[]
+        items: Item[];
     
-    @Column({ type: "jsonb" })
-        config: BlueprintConfig
+    @Column({ type: 'jsonb' })
+        config: BlueprintConfig;
 }

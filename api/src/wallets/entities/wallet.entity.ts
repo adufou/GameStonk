@@ -1,9 +1,12 @@
-import {Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Game} from "@/games/entities/game.entity";
-import {Server} from "@/servers/entities/server.entity";
-import {Marketplace} from "@/marketplaces/entities/marketplace.entity";
-import {User} from "@/users/entities/user.entity";
-import {Order} from "@/orders/entities/order.entity";
+import {
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
+import { Order } from '@/orders/entities/order.entity';
+import { User } from '@/users/entities/user.entity';
 
 @Entity()
 export class Wallet {
@@ -17,5 +20,5 @@ export class Wallet {
         user: User;
     
     @OneToMany(() => Order, order => order.wallet)
-        orders: Order[]
+        orders: Order[];
 }

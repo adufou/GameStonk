@@ -1,11 +1,12 @@
 import {
     Column,
     Entity,
-    ManyToOne, OneToMany,
+    ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Game } from '@/games/entities/game.entity';
-import {Marketplace} from "@/marketplaces/entities/marketplace.entity";
+import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
 
 @Entity()
 export class Server {
@@ -19,5 +20,5 @@ export class Server {
         game: Game;
     
     @OneToMany(() => Marketplace, marketplace => marketplace.server)
-        marketplaces: Marketplace[]
+        marketplaces: Marketplace[];
 }
