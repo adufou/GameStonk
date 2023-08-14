@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { classNames } from '@/tools/classNames';
 import ReactChildren from '@/types/ReactChildren';
 
 interface ButtonProps {
@@ -14,12 +15,7 @@ const Button = ({
     children = [], onClick, href, label, className,
 }: ButtonProps): React.ReactElement => {
     const buttonClassName = useMemo(() => {
-        let name = 'button';
-        if (className) {
-            name += ` ${ className }`;
-        }
-        
-        return name;
+        return classNames('button', className ? [className] : []);
     }, []);
     
     return (

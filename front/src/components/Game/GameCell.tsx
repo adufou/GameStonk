@@ -1,8 +1,12 @@
 import React, {
     useEffect,
+    useMemo,
     useState,
 } from 'react';
-import { MdAdd } from 'react-icons/md';
+import {
+    MdAdd,
+    MdChevronRight,
+} from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import Separator from '@/components/DesignSystem/Misc/Separator';
 import GameCard from '@/components/Game/GameCard';
@@ -13,6 +17,7 @@ import serversApi from '@/http/api/servers/serversApi';
 import Game from '@/models/Game';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
+import { optinalClassNames } from '@/tools/classNames';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameCellProps {
@@ -21,7 +26,8 @@ interface GameCellProps {
 
 const GameCell = ({ game }: GameCellProps): React.ReactElement => {
     const [isAddServerModalOpen, setIsAddServerModalOpen] = useState(false);
-
+    const [isServerListOpen, setIsServerListOpen] = useState(false);
+    
     function openAddServerModal(): void {
         setIsAddServerModalOpen(true);
     }
@@ -43,6 +49,19 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
             .catch(e => console.warn(e));
     };
     
+    const handleToggleOpenServerList = (): void => {
+        setIsServerListOpen(!isServerListOpen);
+    };
+    
+    const transitionClassName = useMemo(() => {
+        return optinalClassNames('game-cell__body__transition', [
+            {
+                class: 'game-cell__body__transition__open',
+                condition: isServerListOpen,
+            },
+        ]);
+    }, [isServerListOpen]);
+    
     useEffect(() => {
         fetchServersFromGame();
     }, []);
@@ -53,26 +72,37 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
             
             <Separator className='game-cell__separator' />
 
-            <div className='game-cell__headers'>
-                <span>
-                    SERVERS
-                </span>
-                <div>
-                    <ButtonXSmall onClick={openAddServerModal}>
-                        <ConfigIcon>
-                            <MdAdd />
-                        </ConfigIcon>
-                    </ButtonXSmall>
+            <div className='game-cell__body'>
+                <div className='game-cell__body__headers'>
+                    <div className='game-cell__body__headers__title'>
+                        <ButtonXSmall onClick={handleToggleOpenServerList}>
+                            <ConfigIcon>
+                                <MdChevronRight className='game-cell__body__headers__icon'/>
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                        <span>
+                        SERVERS
+                        </span>
+                    </div>
+                    <div>
+                        <ButtonXSmall onClick={openAddServerModal}>
+                            <ConfigIcon>
+                                <MdAdd />
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                    </div>
                 </div>
-            </div>
-    
-            <div className='game-cell__server-list'>
-                {game.servers?.map(server => (
-                    <ServerCard
-                        key={'server-card-' + String(server.id)}
-                        server={server}
-                    />
-                ))}
+
+                <div className={transitionClassName}>
+                    <div className='game-cell__body__server-list'>
+                        {game.servers?.map(server => (
+                            <ServerCard
+                                key={'server-card-' + String(server.id)}
+                                server={server}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
     
             <ServerAddModal
