@@ -6,7 +6,7 @@ interface ModalHeaderProps {
 }
 
 const ModalHeader = ({ children = [] }: ModalHeaderProps): React.ReactElement => (
-    <div>
+    <div className='modal__header'>
         {children}
     </div>
 );

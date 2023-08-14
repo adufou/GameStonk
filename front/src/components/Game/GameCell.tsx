@@ -2,13 +2,9 @@ import React, {
     useEffect,
     useState,
 } from 'react';
-import { GrAdd } from 'react-icons/gr';
-import Button from '@/components/DesignSystem/Button/Button';
-import Table from '@/components/DesignSystem/Table/Table';
-import TableBody from '@/components/DesignSystem/Table/TableBody';
-import TableCell from '@/components/DesignSystem/Table/TableCell';
-import TableHeader from '@/components/DesignSystem/Table/TableHeader';
-import TableRow from '@/components/DesignSystem/Table/TableRow';
+import { MdAdd } from 'react-icons/md';
+import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
+import Separator from '@/components/DesignSystem/Misc/Separator';
 import GameCard from '@/components/Game/GameCard';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerAddModal from '@/components/Server/ServerAddModal';
@@ -52,36 +48,33 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
     }, []);
 
     return (
-        <div>
+        <div className='game-cell'>
             <GameCard game={game} />
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableCell>
-                            <span>
-                                SERVERS
-                            </span>
-                            <div>
-                                <Button onClick={openAddServerModal}>
-                                    <ConfigIcon>
-                                        <GrAdd />
-                                    </ConfigIcon>
-                                </Button>
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {game.servers?.map(server => (
-                        <TableRow key={server.id}>
-                            <TableCell>
-                                <ServerCard server={server} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            
+            <Separator className='game-cell__separator' />
 
+            <div className='game-cell__headers'>
+                <span>
+                    SERVERS
+                </span>
+                <div>
+                    <ButtonXSmall onClick={openAddServerModal}>
+                        <ConfigIcon>
+                            <MdAdd />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </div>
+            </div>
+    
+            <div className='game-cell__server-list'>
+                {game.servers?.map(server => (
+                    <ServerCard
+                        key={'server-card-' + String(server.id)}
+                        server={server}
+                    />
+                ))}
+            </div>
+    
             <ServerAddModal
                 isOpen={isAddServerModalOpen}
                 closeModal={closeAddServerModal}

@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
+import Separator from '@/components/DesignSystem/Misc/Separator';
 import Modal from '@/components/DesignSystem/Modal/Modal';
-import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
+import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 
 interface TwoCTAsModalProps {
@@ -19,18 +20,30 @@ const TwoCTAsModal = ({
     }
 
     return (
-        <Modal isOpen={isOpen}>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+        >
             <ModalHeader>
                 <span>Are you sure ?</span>
             </ModalHeader>
-            <ModalBody>
-                <Button onClick={onClose}>
+
+            <Separator />
+            
+            <ModalFooter>
+                <Button
+                    className='two-ctas-modal__footer-button'
+                    onClick={onClose}
+                >
                     <span>Cancel</span>
                 </Button>
-                <Button onClick={accept}>
+                <Button
+                    className='two-ctas-modal__footer-button'
+                    onClick={accept}
+                >
                     <span>Accept</span>
                 </Button>
-            </ModalBody>
+            </ModalFooter>
         </Modal>
     );
 };

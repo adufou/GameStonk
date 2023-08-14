@@ -1,0 +1,7 @@
+@use 'colors.scss' as *;
+
+.game-add-modal {
+    &__footer-button {
+        background: $blue50;
+    }
+}

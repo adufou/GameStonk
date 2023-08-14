@@ -1,12 +1,12 @@
 @use 'colors.scss' as *;
 
-.button {
-    border-radius: 4px;
-    
+.button-xsmall {
     &__button {
         cursor: pointer;
-        height: 32px;
-        width: 100px;
+        height: 16px;
+        border-radius: 4px;
+        padding: 4px;
+        width: 16px;
         display: flex;
         align-items: center;
         justify-content: center;

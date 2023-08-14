@@ -1,12 +1,8 @@
 import React, {
     ChangeEvent,
-    Fragment,
     useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '@/components/DesignSystem/Button/Button';
-import Card from '@/components/DesignSystem/Card/Card';
-import CardBody from '@/components/DesignSystem/Card/CardBody';
 import Input from '@/components/DesignSystem/Input/Input';
 import authApi from '@/http/api/auth/authApi';
 import store from '@/stores/globalStore';
@@ -14,13 +10,12 @@ import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 import { setLocalToken } from '@/tools/localToken';
+import redirect from '@/tools/redirect';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
-
-    const navigate = useNavigate();
 
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         event.preventDefault();
@@ -32,81 +27,73 @@ const Login = (): React.ReactElement => {
         setPassword(event.target.value);
     };
 
-    const onSubmit = async (): Promise<void> => {
+    const handleLogin = (): void => {
         const user = {
             email: email,
             password: password,
         };
 
-        const response = await authApi.loginUser(user);
+        authApi.loginUser(user)
+            .then((response) => {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
+                    if (response.body.access_token) {
+                        store.dispatch(setToken(response.body.access_token));
+                        setLocalToken(response.body.access_token);
 
-        if (isCorrectStatusCodeOrNotModified(response.status)) {
-            if (response.body.access_token) {
-                store.dispatch(setToken(response.body.access_token));
-                setLocalToken(response.body.access_token);
+                        fetchCurrentUser().catch((e) => {
+                            console.warn(e);
+                        });
 
-                fetchCurrentUser().catch((e) => {
-                    console.warn(e);
-                });
+                        redirect('games');
+                    }
 
-                navigate('/');
-            } else {
-                setEmail('');
+                    return;
+                }
+
                 setPassword('');
                 setErrors(true);
-            }
-        }
+            }).catch(
+                e => console.error(e),
+            );
     };
 
     return (
         <div className='login'>
-            <Card>
-                <CardBody>
-                    <Fragment>
-                        {errors &&
-                            <h2>Cannot log in with provided credentials</h2>
-                        }
+            <div className='login__body'>
+                {errors &&
+                    <span className='login__body__error'>Cannot log in with provided credentials</span>
+                }
+                
+                <div className='login__body__input'>
+                    <Input
+                        label='Adresse email'
+                        name='email'
+                        type='email'
+                        value={email}
+                        isRequired
+                        onChange={handleChangeEmail}
+                    />
+                </div>
 
-                        <div className='login__body'>
-                            <div className='login__body__input'>
-                                <Input
-                                    label='Adresse email'
-                                    name='email'
-                                    type='email'
-                                    value={email}
-                                    isRequired
-                                    onChange={handleChangeEmail}
-                                />
-                            </div>
+                <div className='login__body__input'>
+                    <Input
+                        label='Mot de passe'
+                        name='password'
+                        type='password'
+                        value={password}
+                        isRequired
+                        onChange={handleChangePassword}
+                    />
+                </div>
+                
+                <Button
+                    className='login__body__button'
+                    onClick={handleLogin}
+                >
+                    <p>Login</p>
+                </Button>
 
-                            <div className='login__body__input'>
-                                <Input
-                                    label='Mot de passe'
-                                    name='password'
-                                    type='password'
-                                    value={password}
-                                    isRequired
-                                    onChange={handleChangePassword}
-                                />
-                            </div>
-
-                            <div className='login__body__button'>
-                                <Button
-                                    onClick={(): void => {
-                                        onSubmit()
-                                            .catch(
-                                                e => console.error(e),
-                                            );
-                                    }}
-                                >
-                                    <p>Login</p>
-                                </Button>
-                            </div>
-
-                        </div>
-                    </Fragment>
-                </CardBody>
-            </Card>
+            </div>
         </div>
     );
 };

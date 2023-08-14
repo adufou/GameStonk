@@ -1,0 +1,20 @@
+@use 'colors.scss' as *;
+
+.games {
+    margin: 8px;
+    color: $white;
+    
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+}
