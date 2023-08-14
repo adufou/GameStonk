@@ -2,7 +2,9 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
+    OneToMany,
 } from 'typeorm';
+import { Wallet } from '@/wallets/entities/wallet.entity';
 
 @Entity()
 export class User {
@@ -23,4 +25,7 @@ export class User {
 
     @Column({ default: true })
         isActive: boolean;
+    
+    @OneToMany(() => Wallet, wallet => wallet.user)
+        wallets: Wallet[];
 }

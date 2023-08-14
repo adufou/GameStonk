@@ -4,6 +4,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Blueprint } from '@/blueprints/entities/blueprint.entity';
 import { Server } from '@/servers/entities/server.entity';
 
 @Entity()
@@ -16,4 +17,7 @@ export class Game {
     
     @OneToMany(() => Server, server => server.game)
         servers: Server[];
+
+    @OneToMany(() => Blueprint, blueprint => blueprint.game)
+        blueprints: Blueprint[];
 }
