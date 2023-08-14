@@ -4,6 +4,13 @@ import { AuthModule } from '@/auth/auth.module';
 import { GamesModule } from '@/games/games.module';
 import { ServersModule } from '@/servers/servers.module';
 import { UsersModule } from '@/users/users.module';
+import {MarketplacesModule} from "@/marketplaces/marketplaces.module";
+import {WalletsModule} from "@/wallets/wallets.module";
+import {ItemsModule} from "@/items/items.module";
+import {BlueprintsModule} from "@/blueprints/blueprints.module";
+import {OrdersModule} from "@/orders/orders.module";
+import {ItemPricesModule} from "@/item-prices/item-prices.module";
+
 
 @Module({ imports: [
     TypeOrmModule.forRoot({
@@ -32,5 +39,11 @@ import { UsersModule } from '@/users/users.module';
     UsersModule,
     ServersModule,
     GamesModule,
+    MarketplacesModule,
+    WalletsModule,
+    ItemsModule,
+    BlueprintsModule,
+    OrdersModule,
+    ItemPricesModule,
 ] })
 export class AppModule {}
