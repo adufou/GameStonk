@@ -64,16 +64,22 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
                         </ConfigIcon>
                     </ButtonXSmall>
                 </Tooltip>
-                <ButtonXSmall onClick={openModalUpdateServer}>
-                    <ConfigIcon>
-                        <MdEdit />
-                    </ConfigIcon>
-                </ButtonXSmall>
-                <ButtonXSmall onClick={openModalDeleteServer}>
-                    <ConfigIcon>
-                        <MdRemove />
-                    </ConfigIcon>
-                </ButtonXSmall>
+
+                <Tooltip content="Edit server">
+                    <ButtonXSmall onClick={openModalUpdateServer}>
+                        <ConfigIcon>
+                            <MdEdit />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </Tooltip>
+
+                <Tooltip content="Delete server">
+                    <ButtonXSmall onClick={openModalDeleteServer}>
+                        <ConfigIcon>
+                            <MdRemove />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </Tooltip>
             </div>
 
             <TwoCTAsModal 

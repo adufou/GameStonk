@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
+import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import GameAddModal from '@/components/Game/GameAddModal';
 import GameCell from '@/components/Game/GameCell';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
@@ -25,11 +26,13 @@ const Games = (): React.ReactElement => {
                     GAMES
                 </span>
                 <div>
-                    <ButtonXSmall onClick={openAddGameModal}>
-                        <ConfigIcon>
-                            <MdAdd />
-                        </ConfigIcon>
-                    </ButtonXSmall>
+                    <Tooltip content='Add a game'>
+                        <ButtonXSmall onClick={openAddGameModal}>
+                            <ConfigIcon>
+                                <MdAdd />
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                    </Tooltip>
                 </div>
             </div>
             <div className='games__list'>

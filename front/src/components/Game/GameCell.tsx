@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import Separator from '@/components/DesignSystem/Misc/Separator';
+import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import GameCard from '@/components/Game/GameCard';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerAddModal from '@/components/Server/ServerAddModal';
@@ -71,6 +72,10 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
         ]);
     }, [isServerListOpen]);
     
+    const toggleOpenServerListTooltipContent = useMemo(() => {
+        return isServerListOpen ? 'Close server list' : 'Open server list';
+    }, [isServerListOpen]);
+    
     useEffect(() => {
         fetchServersFromGame();
     }, []);
@@ -84,21 +89,25 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
             <div className='game-cell__body'>
                 <div className='game-cell__body__headers'>
                     <div className='game-cell__body__headers__title'>
-                        <ButtonXSmall onClick={handleToggleOpenServerList}>
-                            <ConfigIcon>
-                                <MdChevronRight className={transitionIconClassName}/>
-                            </ConfigIcon>
-                        </ButtonXSmall>
+                        <Tooltip content={toggleOpenServerListTooltipContent}>
+                            <ButtonXSmall onClick={handleToggleOpenServerList}>
+                                <ConfigIcon>
+                                    <MdChevronRight className={transitionIconClassName}/>
+                                </ConfigIcon>
+                            </ButtonXSmall>
+                        </Tooltip>
                         <span>
                         SERVERS
                         </span>
                     </div>
                     <div>
-                        <ButtonXSmall onClick={openAddServerModal}>
-                            <ConfigIcon>
-                                <MdAdd />
-                            </ConfigIcon>
-                        </ButtonXSmall>
+                        <Tooltip content='Add a server'>
+                            <ButtonXSmall onClick={openAddServerModal}>
+                                <ConfigIcon>
+                                    <MdAdd />
+                                </ConfigIcon>
+                            </ButtonXSmall>
+                        </Tooltip>
                     </div>
                 </div>
 
