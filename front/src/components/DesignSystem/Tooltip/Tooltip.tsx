@@ -32,6 +32,8 @@ const Tooltip = ({
         /* tippy.js props */
         // Arrow defaults to true
         arrow: props?.arrow !== undefined ? props.arrow : false,
+        // see https://atomiks.github.io/tippyjs/v6/all-props/#offset
+        offset: props?.offset ? props.offset as [number, number] : [0, 1] as [number, number],
 
         /* @tippyjs/react props */
         className: props?.className ? props.className : defaultClassName,
@@ -44,6 +46,7 @@ const Tooltip = ({
         <Tippy 
             content={<>{content}</>}
             arrow={tippyProps.arrow}
+            offset={tippyProps.offset}
             
             className={tippyProps.className}
             disabled={tippyProps.disabled}
