@@ -1,14 +1,18 @@
-import Tippy from '@tippyjs/react';
+import Tippy, { TippyProps } from '@tippyjs/react';
 import React, { forwardRef } from 'react';
 import ReactChildren from '@/types/ReactChildren';
 
 interface TooltipProps {
     children: React.ReactElement,
     content: ReactChildren | string,
+    /* see https://atomiks.github.io/tippyjs/v6/all-props/ for tippy.js props
+     * and https://www.npmjs.com/package/@tippyjs/react#props for @tippyjs/react props
+     */
+    props?: Partial<TippyProps>,
 }
 
 const Tooltip = ({
-    children, content, 
+    children, content, props,
 }: TooltipProps): React.ReactElement => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const TooltipForwardRef = forwardRef<any, unknown>((props, ref) => {
@@ -20,8 +24,29 @@ const Tooltip = ({
     });   
     TooltipForwardRef.displayName = 'TooltipForwardRef';
     
+    // Add supported props here for type, default values and clarity
+    /* eslint-disable react/prop-types */
+    const tippyProps = {
+        /* tippy.js props */
+        // Arrow defaults to true
+        arrow: props?.arrow !== undefined ? props.arrow : true,
+
+        /* @tippyjs/react props */
+        className: props?.className,
+        disabled: props?.disabled,
+        visible: props?.visible,
+    };
+    /* eslint-enable react/prop-types */
+    
     return(
-        <Tippy content={<>{content}</>}>
+        <Tippy 
+            content={<>{content}</>}
+            arrow={tippyProps.arrow}
+            
+            className={tippyProps.className}
+            disabled={tippyProps.disabled}
+            visible={tippyProps.visible}
+        >
             <TooltipForwardRef />
         </Tippy>
     );
