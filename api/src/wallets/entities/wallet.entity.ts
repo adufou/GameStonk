@@ -4,8 +4,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Item } from '@/items/entities/item.entity';
 import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
-import { Order } from '@/orders/entities/order.entity';
 import { User } from '@/users/entities/user.entity';
 
 @Entity()
@@ -19,6 +19,6 @@ export class Wallet {
     @ManyToOne(() => User, user => user.wallets)
         user: User;
     
-    @OneToMany(() => Order, order => order.wallet)
-        orders: Order[];
+    @OneToMany(() => Item, item => item.wallet)
+        items: Item[];
 }
