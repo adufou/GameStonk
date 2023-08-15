@@ -2,10 +2,12 @@ import { HttpStatusCode } from 'axios';
 import React, { useState } from 'react';
 import {
     MdEdit,
+    MdOutlineAccountBalanceWallet,
     MdRemove,
 } from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
+import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerEditModal from '@/components/Server/ServerEditModal';
 import serversApi from '@/http/api/servers/serversApi';
@@ -55,16 +57,29 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
             </span>
 
             <div className='server-card__buttons'>
-                <ButtonXSmall onClick={openModalUpdateServer}>
-                    <ConfigIcon>
-                        <MdEdit />
-                    </ConfigIcon>
-                </ButtonXSmall>
-                <ButtonXSmall onClick={openModalDeleteServer}>
-                    <ConfigIcon>
-                        <MdRemove />
-                    </ConfigIcon>
-                </ButtonXSmall>
+                <Tooltip content="Go to wallet">
+                    <ButtonXSmall onClick={openModalUpdateServer}>
+                        <ConfigIcon>
+                            <MdOutlineAccountBalanceWallet />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </Tooltip>
+
+                <Tooltip content="Edit server">
+                    <ButtonXSmall onClick={openModalUpdateServer}>
+                        <ConfigIcon>
+                            <MdEdit />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </Tooltip>
+
+                <Tooltip content="Delete server">
+                    <ButtonXSmall onClick={openModalDeleteServer}>
+                        <ConfigIcon>
+                            <MdRemove />
+                        </ConfigIcon>
+                    </ButtonXSmall>
+                </Tooltip>
             </div>
 
             <TwoCTAsModal 

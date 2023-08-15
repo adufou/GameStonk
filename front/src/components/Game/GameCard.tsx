@@ -6,6 +6,7 @@ import {
 import { MdInventory } from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
+import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import GameConfigModal from '@/components/Game/GameConfigModal';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import gamesApi from '@/http/api/games/gamesApi';
@@ -55,21 +56,29 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
                 </span>
 
                 <div className='game-card__buttons'>
-                    <ButtonXSmall onClick={openModalConfigGame}>
-                        <ConfigIcon>
-                            <MdInventory className='game-card__button-icon'/>
-                        </ConfigIcon>
-                    </ButtonXSmall>
-                    <ButtonXSmall onClick={openModalConfigGame}>
-                        <ConfigIcon>
-                            <MdEdit className='game-card__button-icon'/>
-                        </ConfigIcon>
-                    </ButtonXSmall>
-                    <ButtonXSmall onClick={openModalDeleteGame}>
-                        <ConfigIcon>
-                            <MdRemove className='game-card__button-icon'/>
-                        </ConfigIcon>
-                    </ButtonXSmall>
+                    <Tooltip content='Config game (WIP)'>
+                        <ButtonXSmall onClick={openModalConfigGame}>
+                            <ConfigIcon>
+                                <MdInventory className='game-card__button-icon'/>
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                    </Tooltip>
+                    
+                    <Tooltip content='Edit game'>
+                        <ButtonXSmall onClick={openModalConfigGame}>
+                            <ConfigIcon>
+                                <MdEdit className='game-card__button-icon'/>
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                    </Tooltip>
+                    
+                    <Tooltip content='Delete game'>
+                        <ButtonXSmall onClick={openModalDeleteGame}>
+                            <ConfigIcon>
+                                <MdRemove className='game-card__button-icon'/>
+                            </ConfigIcon>
+                        </ButtonXSmall>
+                    </Tooltip>
                 </div>
             </div>
 
