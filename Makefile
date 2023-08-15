@@ -9,11 +9,11 @@ default:
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}build${COLOR_DEFAULT}               |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build Docker images${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}up${COLOR_DEFAULT}                  |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Up Docker images${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}down${COLOR_DEFAULT}                |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Down Docker images${COLOR_RESET}"
-	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}drun${COLOR_DEFAULT}                |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Down, Build and Up Docker images${COLOR_RESET}"
-	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}run${COLOR_DEFAULT}                 |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and Up Docker images${COLOR_RESET}"
-	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}run-api${COLOR_DEFAULT}             |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and Up API Docker images${COLOR_RESET}"
-	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}run-db${COLOR_DEFAULT}              |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and Up Database Docker images${COLOR_RESET}"
-	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}run-front${COLOR_DEFAULT}           |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and Up Front Docker images${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}run${COLOR_DEFAULT}                 |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Down, build and up Docker images${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}restart${COLOR_DEFAULT}             |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and restart Docker images${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}restart-api${COLOR_DEFAULT}         |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and restart API Docker images${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}restart-db${COLOR_DEFAULT}          |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and restart Database Docker images${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}restart-front${COLOR_DEFAULT}       |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Build and restart Front Docker images${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}logs${COLOR_DEFAULT}                |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Show Logs${COLOR_RESET}"
 	@echo
 	@echo "${COLOR_YELLOW_BOLD_UNDERLINE}[Pgadmin & Postgres (Volumes)]${COLOR_RESET}"
@@ -44,26 +44,26 @@ logs:
 logs-pgadmin:
 	@docker-compose logs -f db api react pgadmin
 
-drun:
+run:
 	@docker-compose down
 	@docker-compose build
 	@docker-compose up -d
 
-run:
+restart:
 	@docker-compose build
 	@docker-compose up -d
 	
-run-api:
+restart-api:
 	@docker-compose build api pgadmin
-	@docker-compose up -d api pgadmin
+	@docker-compose restart api pgadmin
     	
-run-db:
+restart-db:
 	@docker-compose build db
-	@docker-compose up -d db
+	@docker-compose restart db
 
-run-front:
+restart-front:
 	@docker-compose build react
-	@docker-compose up -d react
+	@docker-compose restart react
 
 up:
 	@docker-compose up -d
