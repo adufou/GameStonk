@@ -1,1 +1,25 @@
+@use 'colors.scss' as *;
+@use 'fonts.scss' as *;
+
 @import 'tippy.js/dist/tippy.css';
+
+.tooltip {
+    @include mono;
+    font-size: 11px;
+    color: $white;
+    
+    /* From https://css.glass */
+    background: rgba($blue, 0.75);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.tippy-content {
+    
+}
+
+.tippy-arrow {
+    color: rgba($blue, 0.95);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(4px);
+}

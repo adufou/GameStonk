@@ -24,15 +24,17 @@ const Tooltip = ({
     });   
     TooltipForwardRef.displayName = 'TooltipForwardRef';
     
+    const defaultClassName = 'tooltip';
+    
     // Add supported props here for type, default values and clarity
     /* eslint-disable react/prop-types */
     const tippyProps = {
         /* tippy.js props */
         // Arrow defaults to true
-        arrow: props?.arrow !== undefined ? props.arrow : true,
+        arrow: props?.arrow !== undefined ? props.arrow : false,
 
         /* @tippyjs/react props */
-        className: props?.className,
+        className: props?.className ? props.className : defaultClassName,
         disabled: props?.disabled,
         visible: props?.visible,
     };
