@@ -6,8 +6,10 @@ COPY front/package.json /tmp/
 ENV NODE_ENV=development
 # RUN npm config set unsafe-perm true
 
-RUN npm install --loglevel verbose
 RUN npm i -g typescript tsc-watch nodemon webpack webpack-cli --loglevel verbose
+
+RUN npm install --loglevel verbose
+
 
 WORKDIR /app
 
