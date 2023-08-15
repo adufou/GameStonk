@@ -6,7 +6,10 @@ COPY ./api/package*.json ./
 
 RUN npm install --loglevel verbose
 
-COPY ./api/ .
+COPY ./api/.eslintrc.js .
+COPY ./api/nest-cli.json .
+COPY ./api/tsconfig.build.json .
+COPY ./api/tsconfig.json .
 
 RUN npm run build
 

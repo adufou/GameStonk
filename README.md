@@ -1,42 +1,84 @@
-⚠️ J'ai refacto une grosse partie de l'app, je mettrai bientôt le README à jour ⚠️
+# Get started
 
-⚠️ UPDATE - J'insisite ⚠️
+> 🙏 If you encounter any problem following the README, please open an Issue !
+> https://github.com/adufou/GameStonk/issues/new/
 
-### Stonkofus
+## Requirements
 
-## Je veux y accéder
+- **Unix** (Windows not entirely supported, mainly hot reload. Need to be able to run `make` for optimal dev experience too)
+- **Node** `18`
+- **Docker**
 
-URL: stonkofus.fr
-URL: http://ns399800.ip-5-196-67.eu:4000/
+## Install repo and initialize
 
-## Je veux participer au dev
+> 📣 Here, `GAMESTONK_ROOT` refers to the result of `pwd` in the `GameStonk` folder created by the `git clone` command
 
-# PREREQUIS
+### Clone the repo
+```
+git clone https://github.com/adufou/GameStonk.git
+```
 
-- Docker
-- Linux / Unix pour Hot Reload (buggué sous WSL)
-- Signer ses commits, sinon les PR ne sont pas mergeables
+### Create your `.env` file:
+1. Duplicate the `.env.template` file in the same location.
+2. Update the `GAMESTONK_LOCATION` variable to `GAMESTONK_ROOT`
 
-# Lancement de l'application
+### Installation
+> 📑 For more information, see https://github.com/adufou/GameStonk/blob/master/api/README.md (FR only at the moment)
 
-`make pgadmin-init`
+> 💡 If you want to see all `make` commands, simply run
+> ```
+> make
+> ```
 
-`make run`
+In `GAMESTONK_ROOT`, run
+```
+make init-volumes
+make install
+```
 
-# Quand changement sur les modèles
+Then, run the app 🚀
 
+```
+make run
+```
+[.env](.env)
+Once the app is up and running, you can see logs by running
+```
+make logs
+```
 
+You can access : 
+- Front: http://localhost:4000/
+- Pgadmin: http://localhost:5050/ (see [Setup Pgadmin](https://github.com/adufou/GameStonk#setup-pgadmin))
+- API URL is http://localhost:3000/
 
-# Créer superuser
+### Setup Pgadmin
+Go to http://localhost:5050/, and login with
+- email: `admin@admin.com`
+- password: `admin`
 
+Refer to [this guide](https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei), mainly the `Setting up pgAdmin and PostgreSQL Server` part at the end
 
+> Basically:
+> - Right click `Servers` (top left of Pgadmin), then `Register > Server...`
+> - Name: Whatever you want
+> - Then in `Connection` tab
+>   - Host name/address: `DB_HOST` of your `.env`
+>   - Port: `DB_PORT` of your `.env`
+>   - Maintenance database: `postgres`
+>   - Username: `DB_USER` of your `.env`
+>   - Password: `DB_PASSWORD` of your `.env`
+
+Now pgadmin will be configured to use the DB until you remove the `volumes` folder in `GAMESTONK_ROOT`, or run `make init-pgadmin` or `make init-volumes` commands
 
 # Ressources
 
 Trello: https://trello.com/b/F5yH0slC/stonkofus
+
 Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
 
 # Doc
 
 https://dzone.com/articles/a-new-way-to-implement-redux-like-global-store-wit
+
 https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei

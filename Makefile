@@ -22,7 +22,14 @@ default:
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}init-volumes${COLOR_DEFAULT}        |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Init pgadmin AND postgres folder${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}logs-pgadmin${COLOR_DEFAULT}        |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Show Logs with Pgadmin logs${COLOR_RESET}"
 	@echo
-	
+	@echo "${COLOR_YELLOW_BOLD_UNDERLINE}[Install]${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}install${COLOR_DEFAULT}             |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Install npm packages for API and Front${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}install-api${COLOR_DEFAULT}         |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Install npm packages for API${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}install-front${COLOR_DEFAULT}       |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Install npm packages for Front${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}uninstall${COLOR_DEFAULT}           |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Remove node modules for API and Front${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}uninstall-api${COLOR_DEFAULT}       |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Remove node modules for API${COLOR_RESET}"
+	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}uninstall-front${COLOR_DEFAULT}     |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Remove node modules for Front${COLOR_RESET}"
+	@echo
 	@echo "${COLOR_YELLOW_BOLD_UNDERLINE}[Code]${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}lint-all${COLOR_DEFAULT}            |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Lint all projects${COLOR_RESET}"
 	@echo "${COLOR_DEFAULT}> ${COLOR_GREEN_BOLD}lint-all-api${COLOR_DEFAULT}        |-----------------------------------------|  ${COLOR_DEFAULT_BOLD_ITALIC}Lint whole api project${COLOR_RESET}"
@@ -87,6 +94,28 @@ init-volumes:
 #Postgres
 	@sudo rm -rf volumes/postgres
 
+install:
+	@npm i
+	@cd api && npm i
+	@cd front && npm i
+
+install-api:
+	@cd api && npm i
+
+install-front:
+	@cd front && npm i
+	
+uninstall:
+	@rm -rf node_modules
+	@cd api && rm -rf node_modules
+	@cd front && rm -rf node_modules
+
+uninstall-api:
+	@cd api && rm -rf node_modules
+
+uninstall-front:
+	@cd front && rm -rf node_modules
+	
 lint-all:
 	@npm run --prefix api lint-all
 	@npm run --prefix front lint-all
