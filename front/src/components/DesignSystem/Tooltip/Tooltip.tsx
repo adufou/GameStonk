@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import ReactChildren from '@/types/ReactChildren';
 
 interface TooltipProps {
@@ -10,9 +10,19 @@ interface TooltipProps {
 const Tooltip = ({
     children, content, 
 }: TooltipProps): React.ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const TooltipForwardRef = forwardRef<any, unknown>((props, ref) => {
+        return (
+            <div ref={ref}>
+                { children }
+            </div>
+        );
+    });   
+    TooltipForwardRef.displayName = 'TooltipForwardRef';
+    
     return(
         <Tippy content={<>{content}</>}>
-            {children}
+            <TooltipForwardRef />
         </Tippy>
     );
 };
