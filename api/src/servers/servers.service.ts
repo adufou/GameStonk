@@ -3,9 +3,14 @@ import {
     Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {
+    DeleteResult,
+    Repository,
+} from 'typeorm';
 import { GamesService } from '@/games/games.service';
+import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
 import { CreateServerDto } from '@/servers/dto/create-server.dto';
+import { UpdateServerDto } from '@/servers/dto/update-server.dto';
 import { Server } from '@/servers/entities/server.entity';
 
 @Injectable()
@@ -21,19 +26,33 @@ export class ServersService {
         return this.serverRepository.save(createServerDto);
     }
     
-    async findAllByGame(id: number): Promise<Server[]> {
-        return this.gamesService.getServers(id);
+    async findAllByGame(gameId: number): Promise<Server[]> {
+        return this.gamesService.getServers(gameId);
+    }
+
+    async getMarketplaces(id: number): Promise<Marketplace[]> {
+        const server = await this.serverRepository.findOne({
+            where: { id },
+            relations: ['marketplaces'],
+        });
+
+        return server.marketplaces;
     }
     
-    // findOne(id: number) {
-    //     return `This action returns a #${ id } server`;
-    // }
-    //
-    // update(id: number, updateServerDto: UpdateServerDto) {
-    //     return `This action updates a #${ id } server`;
-    // }
-    //
-    // remove(id: number) {
-    //     return `This action removes a #${ id } server`;
-    // }
+    async update(id: number, updateServerDto: UpdateServerDto): Promise<Server> {
+        const server = await this.serverRepository.findOneBy({ id });
+
+        if (server) {
+            return this.serverRepository.save({
+                ...server,
+                ...updateServerDto,
+            });
+        }
+
+        // TODO what if no game ? How to return an error ?
+    }
+    
+    remove(id: number): Promise<DeleteResult> {
+        return this.serverRepository.delete(id);
+    }
 }
