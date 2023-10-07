@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import usersApi from '@/http/api/users/usersApi';
+import usersApi from '@/http/api/users/users.api';
 import store from '@/stores/globalStore';
 import { setUser } from '@/stores/user/userReducer';
 import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';

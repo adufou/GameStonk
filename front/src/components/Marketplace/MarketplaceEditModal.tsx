@@ -9,33 +9,33 @@ import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
-import serversApi from '@/http/api/servers/servers.api';
-import ServerModel from '@/models/server.model';
-import { updateServer } from '@/stores/game/gamesReducer';
+import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
+import MarketplaceModel from '@/models/marketplace.model';
+import { updateMarketplace } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
-interface ServerEditModalProps {
+interface MarketplaceEditModalProps {
     isOpen: boolean;
     closeModal: () => void;
-    server: ServerModel;
+    marketplace: MarketplaceModel;
 }
 
-const ServerEditModal = ({
-    isOpen, closeModal, server, 
-}: ServerEditModalProps): React.ReactElement => {
-    const [newServerName, setServerName] = useState(server.name);
+const MarketplaceEditModal = ({
+    isOpen, closeModal, marketplace, 
+}: MarketplaceEditModalProps): React.ReactElement => {
+    const [newMarketplaceName, setMarketplaceName] = useState(marketplace.name);
 
-    const editServer = (): void => {
-        const updatedServer = {
-            ...server,
-            name: newServerName,
+    const editMarketplace = (): void => {
+        const updatedMarketplace = {
+            ...marketplace,
+            name: newMarketplaceName,
         };
 
-        serversApi.updateServer(updatedServer)
+        marketplacesApi.updateMarketplace(updatedMarketplace)
             .then((response) => { 
                 if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(updateServer(response.body)); 
+                    store.dispatch(updateMarketplace(response.body)); 
                 }
             })
             .catch(e => console.warn(e));
@@ -44,7 +44,7 @@ const ServerEditModal = ({
     };
     
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setServerName(e.target.value);
+        setMarketplaceName(e.target.value);
     };
     
     return (
@@ -53,7 +53,7 @@ const ServerEditModal = ({
             onClose={closeModal}
         >
             <ModalHeader>
-                <span>Update {server.name}</span>
+                <span>Update {marketplace.name}</span>
             </ModalHeader>
             
             <Separator />
@@ -61,7 +61,7 @@ const ServerEditModal = ({
             <ModalBody>
                 <Input
                     label="Name"
-                    value={newServerName}
+                    value={newMarketplaceName}
                     onChange={handleInputChange}
                 />
             </ModalBody>
@@ -70,14 +70,14 @@ const ServerEditModal = ({
             
             <ModalFooter>
                 <Button
-                    className='server-edit-modal__footer-button'
+                    className='marketplace-edit-modal__footer-button'
                     onClick={closeModal}
                 >
                     <span>Cancel</span>
                 </Button>
                 <Button
-                    className='server-edit-modal__footer-button'
-                    onClick={editServer}
+                    className='marketplace-edit-modal__footer-button'
+                    onClick={editMarketplace}
                 >
                     <span>Accept</span>
                 </Button>
@@ -86,4 +86,4 @@ const ServerEditModal = ({
     );
 };
 
-export default ServerEditModal;
+export default MarketplaceEditModal;

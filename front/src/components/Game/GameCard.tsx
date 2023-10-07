@@ -9,13 +9,13 @@ import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import GameConfigModal from '@/components/Game/GameConfigModal';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
-import gamesApi from '@/http/api/games/gamesApi';
-import Game from '@/models/Game';
+import gamesApi from '@/http/api/games/games.api';
+import GameModel from '@/models/game.model';
 import { deleteGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 interface GameCardProps {
-    game: Game;
+    game: GameModel;
 }
 
 const GameCard = ({ game }: GameCardProps): React.ReactElement => {

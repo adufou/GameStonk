@@ -9,8 +9,8 @@ import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
-import gamesApi from '@/http/api/games/gamesApi';
-import Game from '@/models/Game';
+import gamesApi from '@/http/api/games/games.api';
+import GameModel from '@/models/game.model';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
@@ -18,7 +18,7 @@ import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotMo
 interface GameConfigModalProps {
     isOpen: boolean;
     closeModal: () => void;
-    game: Game;
+    game: GameModel;
 }
 
 const GameConfigModal = ({

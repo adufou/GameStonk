@@ -10,8 +10,8 @@ import Modal from '@/components/DesignSystem/Modal/Modal';
 import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
-import serversApi from '@/http/api/servers/serversApi';
-import Game from '@/models/Game';
+import serversApi from '@/http/api/servers/servers.api';
+import GameModel from '@/models/game.model';
 import { addServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
@@ -19,7 +19,7 @@ import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotMo
 interface ServerAddModalProps {
     isOpen: boolean;
     closeModal: () => void;
-    game: Game;
+    game: GameModel;
 }
 
 const ServerAddModal = ({

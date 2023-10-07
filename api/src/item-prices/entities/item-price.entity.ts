@@ -24,7 +24,7 @@ export class ItemPrice {
     })
         timestamp: Date;
 
-    @ManyToOne(() => Item, item => item.itemPrices)
+    @ManyToOne(() => Item, item => item.itemPrices, { onDelete: 'CASCADE' })
         item: Item;
 
     @OneToOne(() => Order, order => order.itemPrice)

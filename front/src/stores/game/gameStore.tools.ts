@@ -1,4 +1,4 @@
-import gamesApi from '@/http/api/games/gamesApi';
+import gamesApi from '@/http/api/games/games.api';
 import { setGames } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';

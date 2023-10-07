@@ -4,8 +4,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Item } from '@/items/entities/item.entity';
 import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
-import { Order } from '@/orders/entities/order.entity';
 import { User } from '@/users/entities/user.entity';
 
 @Entity()
@@ -13,12 +13,12 @@ export class Wallet {
     @PrimaryGeneratedColumn()
         id: number;
 
-    @ManyToOne(() => Marketplace, marketplace => marketplace.wallets)
+    @ManyToOne(() => Marketplace, marketplace => marketplace.wallets, { onDelete: 'CASCADE' })
         marketplace: Marketplace;
 
-    @ManyToOne(() => User, user => user.wallets)
+    @ManyToOne(() => User, user => user.wallets, { onDelete: 'CASCADE' })
         user: User;
     
-    @OneToMany(() => Order, order => order.wallet)
-        orders: Order[];
+    @OneToMany(() => Item, item => item.wallet)
+        items: Item[];
 }

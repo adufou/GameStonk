@@ -1,8 +1,6 @@
-import { HttpStatusCode } from 'axios';
 import React, { useState } from 'react';
 import {
     MdEdit,
-    MdOutlineAccountBalanceWallet,
     MdRemove,
 } from 'react-icons/md';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
@@ -10,14 +8,14 @@ import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerEditModal from '@/components/Server/ServerEditModal';
-import serversApi from '@/http/api/servers/serversApi';
-import Server from '@/models/Server';
+import serversApi from '@/http/api/servers/servers.api';
+import ServerModel from '@/models/server.model';
 import { deleteServer } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerCardProps {
-    server: Server;
+    server: ServerModel;
 }
 
 const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
@@ -27,7 +25,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     function acceptServerDeletion(): void {
         serversApi.deleteServer(server)
             .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.NoContent)) {
+                if (isCorrectStatusCodeOrNotModified(response.status)) {
                     store.dispatch(deleteServer(server));
                 }
             })
@@ -57,14 +55,6 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
             </span>
 
             <div className='server-card__buttons'>
-                <Tooltip content="Go to wallet">
-                    <ButtonXSmall onClick={openModalUpdateServer}>
-                        <ConfigIcon>
-                            <MdOutlineAccountBalanceWallet />
-                        </ConfigIcon>
-                    </ButtonXSmall>
-                </Tooltip>
-
                 <Tooltip content="Edit server">
                     <ButtonXSmall onClick={openModalUpdateServer}>
                         <ConfigIcon>

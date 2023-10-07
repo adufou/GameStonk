@@ -14,7 +14,7 @@ export class Blueprint {
     @PrimaryGeneratedColumn()
         id: number;
 
-    @ManyToOne(() => Game, game => game.blueprints)
+    @ManyToOne(() => Game, game => game.blueprints, { onDelete: 'CASCADE' })
         game: Game;
     
     @OneToMany(() => Item, item => item.blueprint)

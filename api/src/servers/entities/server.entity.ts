@@ -16,7 +16,7 @@ export class Server {
     @Column()
         name: string;
     
-    @ManyToOne(() => Game, game => game.servers)
+    @ManyToOne(() => Game, game => game.servers, { onDelete: 'CASCADE' })
         game: Game;
     
     @OneToMany(() => Marketplace, marketplace => marketplace.server)

@@ -1,7 +1,7 @@
-import User from '@/models/User';
+import UserModel from '@/models/user.model';
 
 interface IUserState {
-    user: User | null;
+    user: UserModel | null;
     token: string | null;
 }
 
