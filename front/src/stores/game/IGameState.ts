@@ -1,7 +1,7 @@
-import Game from '@/models/Game';
+import GameModel from '@/models/game.model';
 
 interface IGameState {
-    games: Game[];
+    games: GameModel[];
 }
 
 export default IGameState;

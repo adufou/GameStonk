@@ -19,13 +19,13 @@ export class Item {
     @Column({ type: 'jsonb' } )
         config: ItemConfig;
 
-    @ManyToOne(() => Marketplace, marketplace => marketplace.items)
+    @ManyToOne(() => Marketplace, marketplace => marketplace.items, { onDelete: 'CASCADE' })
         marketplace: Marketplace;
     
-    @ManyToOne(() => Blueprint, blueprint => blueprint.items)
+    @ManyToOne(() => Blueprint, blueprint => blueprint.items, { onDelete: 'CASCADE' })
         blueprint: Blueprint;
     
-    @ManyToOne(() => Wallet, wallet => wallet.items)
+    @ManyToOne(() => Wallet, wallet => wallet.items, { onDelete: 'CASCADE' })
         wallet: Wallet;
 
     @OneToMany(() => ItemPrice, itemPrice => itemPrice.item)

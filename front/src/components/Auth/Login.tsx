@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
-import authApi from '@/http/api/auth/authApi';
+import authApi from '@/http/api/auth/auth.api';
 import store from '@/stores/globalStore';
 import { setToken } from '@/stores/user/userReducer';
 import { fetchCurrentUser } from '@/stores/user/userStore.tools';

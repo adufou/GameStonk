@@ -44,7 +44,7 @@ function App(): React.ReactElement {
                         path="/games"
                         element={< Games />}
                     />
-                    {/* <Route path="/games/:gameId" element={< Game games="gameId" />} /> */}
+                    {/* <Route path="/games/:gameId" element={< GameModel games="gameId" />} /> */}
                     <Route
                         path="/admin"
                         element={< Admin />}

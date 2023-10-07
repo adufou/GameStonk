@@ -13,10 +13,10 @@ export class Wallet {
     @PrimaryGeneratedColumn()
         id: number;
 
-    @ManyToOne(() => Marketplace, marketplace => marketplace.wallets)
+    @ManyToOne(() => Marketplace, marketplace => marketplace.wallets, { onDelete: 'CASCADE' })
         marketplace: Marketplace;
 
-    @ManyToOne(() => User, user => user.wallets)
+    @ManyToOne(() => User, user => user.wallets, { onDelete: 'CASCADE' })
         user: User;
     
     @OneToMany(() => Item, item => item.wallet)

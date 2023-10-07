@@ -1,0 +1,59 @@
+@use 'colors.scss' as *;
+
+.marketplace-cell {
+    padding: 8px;
+    border-radius: 4px;
+    background: $blue10;
+
+    &__body {
+        margin-top: 8px;
+        background: $blue25;
+        border-radius: 4px;
+
+        &__headers {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 4px 0;
+
+            &__title {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            &__icon {
+                color: $blue75;
+                transform: rotate(0deg);
+                transition: transform 0.5s cubic-bezier(0,1,1,1);
+
+                &__rotated {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+
+        &__marketplace-list {
+            display: flex;
+            flex-direction: column;
+            padding: 0 8px;
+            overflow: hidden;
+        }
+
+        &__transition {
+            // Transition trick from https://www.stefanjudis.com/snippets/how-to-animate-height-with-css-grid/
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0,1,1,1);
+
+            &__open {
+                grid-template-rows: 1fr;
+            }
+        }
+    }
+
+    &__separator {
+        background: $gold;
+    }
+}

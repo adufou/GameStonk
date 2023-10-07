@@ -13,16 +13,16 @@ import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import GameCard from '@/components/Game/GameCard';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerAddModal from '@/components/Server/ServerAddModal';
-import ServerCard from '@/components/Server/ServerCard';
-import serversApi from '@/http/api/servers/serversApi';
-import Game from '@/models/Game';
+import ServerCell from '@/components/Server/ServerCell';
+import serversApi from '@/http/api/servers/servers.api';
+import GameModel from '@/models/game.model';
 import { updateGame } from '@/stores/game/gamesReducer';
 import store from '@/stores/globalStore';
 import { optinalClassNames } from '@/tools/classNames';
 import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameCellProps {
-    game: Game;
+    game: GameModel;
 }
 
 const GameCell = ({ game }: GameCellProps): React.ReactElement => {
@@ -114,8 +114,8 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
                 <div className={transitionServerListClassName}>
                     <div className='game-cell__body__server-list'>
                         {game.servers?.map(server => (
-                            <ServerCard
-                                key={'server-card-' + String(server.id)}
+                            <ServerCell
+                                key={'server-cell-' + String(server.id)}
                                 server={server}
                             />
                         ))}

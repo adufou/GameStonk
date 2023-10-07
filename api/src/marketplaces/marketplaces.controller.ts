@@ -11,6 +11,7 @@ import { DeleteResult } from 'typeorm';
 import { CreateMarketplaceDto } from '@/marketplaces/dto/create-marketplace.dto';
 import { UpdateMarketplaceDto } from '@/marketplaces/dto/update-marketplace.dto';
 import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
+import { MarketplaceWithServerIdSerialization } from '@/marketplaces/entities/serializations/marketplace-with-server-id.serialization';
 import { MarketplacesService } from '@/marketplaces/marketplaces.service';
 
 @Controller('marketplaces')
@@ -23,8 +24,13 @@ export class MarketplacesController {
     }
     
     @Get('/server/:id')
-    findAllByServer(@Param('id') id: string): Promise<Marketplace[]> {
-        return this.marketplacesService.findAllByServer(+id);
+    async findAllByServer(@Param('id') id: string): Promise<MarketplaceWithServerIdSerialization[]> {
+        const marketplaces = await this.marketplacesService.findAllByServer(+id);
+
+        return marketplaces.map(marketplace => ({
+            ...marketplace,
+            serverId: +id,
+        }));
     }
     
     @Get(':id')

@@ -13,7 +13,7 @@ module.exports = {
     ],
     "root": true,
     "rules": {
-        "max-len": ["error", { "code": 120, "comments": 160, "tabWidth": 4 }],
+        "max-len": ["error", { "code": 120, "comments": 160, "tabWidth": 4, ignorePattern: '^import .*', }],
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": ["warn"],
         "unused-imports/no-unused-imports": "error",
