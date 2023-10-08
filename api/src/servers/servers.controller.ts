@@ -22,6 +22,11 @@ export class ServersController {
         return this.serversService.create(createServerDto);
     }
 
+    @Get(':id')
+    find(@Param('id') id: string): Promise<Server> {
+        return this.serversService.find(+id);
+    }
+    
     @Get('/game/:id')
     findAllByGame(@Param('id') id: string): Promise<Server[]> {
         return this.serversService.findAllByGame(+id);

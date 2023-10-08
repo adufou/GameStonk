@@ -10,15 +10,19 @@ const addServer = (server: Partial<ServerModel>): Promise<ApiResponseBody<Server
 const deleteServer = (server: ServerModel): Promise<ApiResponseStatus> => 
     apiCall(`servers/${ server.id }`, 'DELETE');
 
-const getServersFromGame = (game: GameModel): Promise<ApiResponseBody<ServerModel[]>> => 
-    apiCall(`servers/game/${ game.id }`, 'GET');
+const getServer = (id: ServerModel['id']): Promise<ApiResponseBody<ServerModel>> =>
+    apiCall(`servers/${ id }`, 'GET');
 
+const getServersFromGame = (gameId: GameModel['id']): Promise<ApiResponseBody<ServerModel[]>> => 
+    apiCall(`servers/game/${ gameId }`, 'GET');
+    
 const updateServer = (server: ServerModel): Promise<ApiResponseBody<ServerModel>> => 
     apiCall(`servers/${ server.id }`, 'PATCH', server );
 
 const serversApi = {
     addServer,
     deleteServer,
+    getServer,
     getServersFromGame,
     updateServer,
 };

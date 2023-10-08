@@ -26,6 +26,10 @@ export class ServersService {
         return this.serverRepository.save(createServerDto);
     }
     
+    find(id: number): Promise<Server> {
+        return this.serverRepository.findOneBy({ id });
+    }
+    
     async findAllByGame(gameId: number): Promise<Server[]> {
         return this.gamesService.getServers(gameId);
     }
@@ -36,7 +40,15 @@ export class ServersService {
             relations: ['marketplaces'],
         });
 
-        return server.marketplaces;
+        return server?.marketplaces.sort((m1, m2) => {
+            if (m1.name < m2.name) {
+                return -1;
+            }
+            if (m1.name > m2.name) {
+                return 1;
+            }
+            return 0;
+        }) ?? [];
     }
     
     async update(id: number, updateServerDto: UpdateServerDto): Promise<Server> {

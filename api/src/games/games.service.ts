@@ -21,7 +21,7 @@ export class GamesService {
     }
     
     findAll(): Promise<Game[]> {
-        return this.gameRepository.find();
+        return this.gameRepository.find({ order: { name: 'ASC' } });
     }
     
     findOne(id: number): Promise<Game | null> {
@@ -33,8 +33,16 @@ export class GamesService {
             where: { id },
             relations: ['servers'],
         });
-
-        return game.servers;
+        
+        return game?.servers.sort((s1, s2) => {
+            if (s1.name < s2.name) {
+                return -1;
+            }
+            if (s1.name > s2.name) {
+                return 1;
+            }
+            return 0;
+        }) ?? [];
     }
     
     async update(id: number, updateGameDto: UpdateGameDto): Promise<Game> {

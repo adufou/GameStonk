@@ -10,7 +10,6 @@ import Signup from '@/components/Auth/Signup';
 import Games from '@/components/Game/Games';
 import Navbar from '@/components/Navbar/Navbar';
 import MyWallets from '@/components/Wallet/MyWallets';
-import { fetchGames } from '@/stores/game/gameStore.tools';
 import { authFlowOnStartup } from '@/tools/authTools';
 
 function App(): React.ReactElement {
@@ -18,9 +17,9 @@ function App(): React.ReactElement {
         document.title = 'GameStonk';
 
         authFlowOnStartup();
-        fetchGames().catch((e) => {
-            console.warn(e);
-        });
+        // fetchGames().catch((e) => {
+        //     console.warn(e);
+        // });
     }, []);
 
     return (
