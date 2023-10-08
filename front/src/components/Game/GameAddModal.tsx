@@ -1,8 +1,11 @@
-import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -11,9 +14,7 @@ import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import gamesApi from '@/http/api/games/games.api';
-import { addGame } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
+import GameModel from '@/models/game.model';
 
 interface GameAddModalProps {
     isOpen: boolean;
@@ -25,19 +26,19 @@ const GameAddModal = ({
 }: GameAddModalProps): React.ReactElement => {
     const [newGameName, setGameName] = useState('');
 
-    const addNewGame = (): void => {
-        const newGame = { name: newGameName };
-
-        gamesApi.addGame(newGame)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.Created)) {
-                    store.dispatch(addGame(response.body));
-                    setGameName('');
-                }
-            })
-            .catch(e => console.warn(e));
-        
+    const queryClient = useQueryClient();
+    
+    const handleAddGameMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries('games');
         closeModal();
+    };
+    
+    const addGameMutation = useMutation(
+        (newGame: Partial<GameModel>) => gamesApi.addGame(newGame) ,
+        { onSuccess: handleAddGameMutationSuccess });
+    
+    const handleClickAddNewGameButton = (): void => {
+        addGameMutation.mutate({ name: newGameName });
     };
     
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -74,7 +75,7 @@ const GameAddModal = ({
                 </Button>
                 <Button
                     className='game-add-modal__footer-button'
-                    onClick={addNewGame}
+                    onClick={handleClickAddNewGameButton}
                 >
                     <span>Accept</span>
                 </Button>

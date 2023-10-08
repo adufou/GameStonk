@@ -32,6 +32,7 @@ import { WalletsModule } from '@/wallets/wallets.module';
         autoLoadEntities: true,
         retryDelay: 5000,
         retryAttempts: 25,
+        cache: false,
             
     }),
     AuthModule,

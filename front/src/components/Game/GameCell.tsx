@@ -1,5 +1,5 @@
 import React, {
-    useEffect,
+    Fragment,
     useMemo,
     useState,
 } from 'react';
@@ -7,6 +7,7 @@ import {
     MdAdd,
     MdChevronRight,
 } from 'react-icons/md';
+import { useQuery } from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import Separator from '@/components/DesignSystem/Misc/Separator';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
@@ -14,21 +15,34 @@ import GameCard from '@/components/Game/GameCard';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerAddModal from '@/components/Server/ServerAddModal';
 import ServerCell from '@/components/Server/ServerCell';
+import gamesApi from '@/http/api/games/games.api';
 import serversApi from '@/http/api/servers/servers.api';
 import GameModel from '@/models/game.model';
-import { updateGame } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
 import { optinalClassNames } from '@/tools/classNames';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameCellProps {
-    game: GameModel;
+    game: Pick<GameModel, 'name' | 'id'>;
 }
 
-const GameCell = ({ game }: GameCellProps): React.ReactElement => {
+const GameCell = ({ game: propsGame }: GameCellProps): React.ReactElement => {
     const [isAddServerModalOpen, setIsAddServerModalOpen] = useState(false);
     const [isServerListOpen, setIsServerListOpen] = useState(false);
-    
+
+    const {
+        data: getGameData,
+        isSuccess: getGameIsSuccess, 
+    } = useQuery(['games', propsGame.id], () => 
+        gamesApi.getGame(propsGame.id),
+    );
+
+    const {
+        data: getServersFromGameQueryData,
+        isLoading: getServersFromGameQueryIsLoading,
+    } = useQuery(
+        ['games', propsGame.id, 'servers'], 
+        () => serversApi.getServersFromGame(propsGame.id),
+    );
+
     function openAddServerModal(): void {
         setIsAddServerModalOpen(true);
     }
@@ -36,19 +50,6 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
     function closeAddServerModal(): void {
         setIsAddServerModalOpen(false);
     }
-
-    const fetchServersFromGame = (): void => {
-        serversApi.getServersFromGame(game)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(updateGame({
-                        ...game,
-                        servers: response.body,
-                    }));
-                }
-            })
-            .catch(e => console.warn(e));
-    };
     
     const handleToggleOpenServerList = (): void => {
         setIsServerListOpen(!isServerListOpen);
@@ -72,64 +73,72 @@ const GameCell = ({ game }: GameCellProps): React.ReactElement => {
         ]);
     }, [isServerListOpen]);
     
+    const serversFromGame = useMemo(() => {
+        if (!getServersFromGameQueryIsLoading && getServersFromGameQueryData) {
+            return getServersFromGameQueryData.body.map(server => (
+                <ServerCell
+                    key={'server-cell-' + String(server.id)}
+                    server={server}
+                />
+            ));
+        } 
+        
+        return (<></>);
+    }, [getServersFromGameQueryData]);
+    
     const toggleOpenServerListTooltipContent = useMemo(() => {
         return isServerListOpen ? 'Close server list' : 'Open server list';
     }, [isServerListOpen]);
-    
-    useEffect(() => {
-        fetchServersFromGame();
-    }, []);
 
-    return (
-        <div className='game-cell'>
-            <GameCard game={game} />
+    if (getGameIsSuccess) {
+        return (
+            <div className='game-cell'>
+                <GameCard game={getGameData?.body} />
             
-            <Separator className='game-cell__separator' />
+                <Separator className='game-cell__separator' />
 
-            <div className='game-cell__body'>
-                <div className='game-cell__body__headers'>
-                    <div className='game-cell__body__headers__title'>
-                        <Tooltip content={toggleOpenServerListTooltipContent}>
-                            <ButtonXSmall onClick={handleToggleOpenServerList}>
-                                <ConfigIcon>
-                                    <MdChevronRight className={transitionIconClassName}/>
-                                </ConfigIcon>
-                            </ButtonXSmall>
-                        </Tooltip>
-                        <span>
+                <div className='game-cell__body'>
+                    <div className='game-cell__body__headers'>
+                        <div className='game-cell__body__headers__title'>
+                            <Tooltip content={toggleOpenServerListTooltipContent}>
+                                <ButtonXSmall onClick={handleToggleOpenServerList}>
+                                    <ConfigIcon>
+                                        <MdChevronRight className={transitionIconClassName}/>
+                                    </ConfigIcon>
+                                </ButtonXSmall>
+                            </Tooltip>
+                            <span>
                         SERVERS
-                        </span>
+                            </span>
+                        </div>
+                        <div>
+                            <Tooltip content='Add a server'>
+                                <ButtonXSmall onClick={openAddServerModal}>
+                                    <ConfigIcon>
+                                        <MdAdd />
+                                    </ConfigIcon>
+                                </ButtonXSmall>
+                            </Tooltip>
+                        </div>
                     </div>
-                    <div>
-                        <Tooltip content='Add a server'>
-                            <ButtonXSmall onClick={openAddServerModal}>
-                                <ConfigIcon>
-                                    <MdAdd />
-                                </ConfigIcon>
-                            </ButtonXSmall>
-                        </Tooltip>
-                    </div>
-                </div>
 
-                <div className={transitionServerListClassName}>
-                    <div className='game-cell__body__server-list'>
-                        {game.servers?.map(server => (
-                            <ServerCell
-                                key={'server-cell-' + String(server.id)}
-                                server={server}
-                            />
-                        ))}
+                    <div className={transitionServerListClassName}>
+                        <div className='game-cell__body__server-list'>
+                            { serversFromGame }
+                        </div>
                     </div>
                 </div>
-            </div>
     
-            <ServerAddModal
-                isOpen={isAddServerModalOpen}
-                closeModal={closeAddServerModal}
-                game={game}
-            />
-        </div>
-    );
+                <ServerAddModal
+                    isOpen={isAddServerModalOpen}
+                    closeModal={closeAddServerModal}
+                    game={getGameData?.body}
+                />
+            </div>
+        );
+    }
+    
+    return (<></>);
 };
 
 export default GameCell;

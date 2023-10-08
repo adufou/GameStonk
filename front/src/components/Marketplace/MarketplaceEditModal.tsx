@@ -2,6 +2,10 @@ import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -11,9 +15,6 @@ import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
 import MarketplaceModel from '@/models/marketplace.model';
-import { updateMarketplace } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface MarketplaceEditModalProps {
     isOpen: boolean;
@@ -26,21 +27,25 @@ const MarketplaceEditModal = ({
 }: MarketplaceEditModalProps): React.ReactElement => {
     const [newMarketplaceName, setMarketplaceName] = useState(marketplace.name);
 
-    const editMarketplace = (): void => {
+    const queryClient = useQueryClient();
+    
+    const handleEditMarketplaceMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['marketplaces', marketplace.id]);
+        await queryClient.invalidateQueries(['servers']);
+        closeModal();
+    };
+
+    const editMarketplaceMutation = useMutation(
+        (updatedMarketplace: MarketplaceModel) => marketplacesApi.updateMarketplace(updatedMarketplace),
+        { onSuccess: handleEditMarketplaceMutationSuccess },
+    );
+
+    const handleClickEditMarketplaceButton = (): void => {
         const updatedMarketplace = {
             ...marketplace,
             name: newMarketplaceName,
         };
-
-        marketplacesApi.updateMarketplace(updatedMarketplace)
-            .then((response) => { 
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(updateMarketplace(response.body)); 
-                }
-            })
-            .catch(e => console.warn(e));
-
-        closeModal();
+        editMarketplaceMutation.mutate(updatedMarketplace);
     };
     
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -77,7 +82,7 @@ const MarketplaceEditModal = ({
                 </Button>
                 <Button
                     className='marketplace-edit-modal__footer-button'
-                    onClick={editMarketplace}
+                    onClick={handleClickEditMarketplaceButton}
                 >
                     <span>Accept</span>
                 </Button>

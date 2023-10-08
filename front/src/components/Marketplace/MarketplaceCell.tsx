@@ -6,11 +6,13 @@ import {
     MdAdd,
     MdChevronRight,
 } from 'react-icons/md';
+import { useQuery } from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import Separator from '@/components/DesignSystem/Misc/Separator';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import MarketplaceCard from '@/components/Marketplace/MarketplaceCard';
+import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
 import MarketplaceModel from '@/models/marketplace.model';
 import { optinalClassNames } from '@/tools/classNames';
 
@@ -18,10 +20,15 @@ interface MarketplaceCellProps {
     marketplace: MarketplaceModel;
 }
 
-const MarketplaceCell = ({ marketplace }: MarketplaceCellProps): React.ReactElement => {
+const MarketplaceCell = ({ marketplace: propsMarketplace }: MarketplaceCellProps): React.ReactElement => {
     const [isAddWalletplaceModalOpen, setIsAddWalletModalOpen] = useState(false);
     const [isWalletListOpen, setIsWalletListOpen] = useState(false);
 
+    const {
+        data: getMarketplaceData,
+        isSuccess: getMarketplaceIsSuccess,
+    } = useQuery(['marketplaces', propsMarketplace.id], () => marketplacesApi.getMarketplace(propsMarketplace.id));
+    
     function openAddMarketplaceModal(): void {
         setIsAddWalletModalOpen(true);
     }
@@ -29,20 +36,6 @@ const MarketplaceCell = ({ marketplace }: MarketplaceCellProps): React.ReactElem
     function closeAddMarketplaceModal(): void {
         setIsAddWalletModalOpen(false);
     }
-
-    // TODO: FETCH LES WALLETS
-    // const fetchMarketplacesFromMarketplace = (): void => {
-    //     marketplacesApi.getMarketplacesFromMarketplace(marketplace)
-    //         .then((response) => {
-    //             if (isCorrectStatusCodeOrNotModified(response.status)) {
-    //                 store.dispatch(updateMarketplace({
-    //                     ...marketplace,
-    //                     marketplaces: response.body,
-    //                 }));
-    //             }
-    //         })
-    //         .catch(e => console.warn(e));
-    // };
 
     const handleToggleOpenMarketplaceList = (): void => {
         setIsWalletListOpen(!isWalletListOpen);
@@ -67,64 +60,47 @@ const MarketplaceCell = ({ marketplace }: MarketplaceCellProps): React.ReactElem
     }, [isWalletListOpen]);
 
     const toggleOpenMarketplaceListTooltipContent = useMemo(() => {
-        return isWalletListOpen ? 'Close marketplace list' : 'Open marketplace list';
+        return isWalletListOpen ? 'Close wallet list' : 'Open wallet list';
     }, [isWalletListOpen]);
 
-    // TODO: fetch les wallets
-    // useEffect(() => {
-    //     fetchMarketplacesFromMarketplace();
-    // }, []);
+    if (getMarketplaceIsSuccess) {
+        return (
+            <div className='marketplace-cell'>
+                <MarketplaceCard marketplace={getMarketplaceData?.body} />
 
-    return (
-        <div className='marketplace-cell'>
-            <MarketplaceCard marketplace={marketplace} />
+                <Separator className='marketplace-cell__separator' />
 
-            <Separator className='marketplace-cell__separator' />
-
-            <div className='marketplace-cell__body'>
-                <div className='marketplace-cell__body__headers'>
-                    <div className='marketplace-cell__body__headers__title'>
-                        <Tooltip content={toggleOpenMarketplaceListTooltipContent}>
-                            <ButtonXSmall onClick={handleToggleOpenMarketplaceList}>
-                                <ConfigIcon>
-                                    <MdChevronRight className={transitionIconClassName}/>
-                                </ConfigIcon>
-                            </ButtonXSmall>
-                        </Tooltip>
-                        <span>
-                        MARKETPLACES
-                        </span>
-                    </div>
-                    <div>
-                        <Tooltip content='Add a marketplace'>
-                            <ButtonXSmall onClick={openAddMarketplaceModal}>
-                                <ConfigIcon>
-                                    <MdAdd />
-                                </ConfigIcon>
-                            </ButtonXSmall>
-                        </Tooltip>
+                <div className='marketplace-cell__body'>
+                    <div className='marketplace-cell__body__headers'>
+                        <div className='marketplace-cell__body__headers__title'>
+                            <Tooltip content={toggleOpenMarketplaceListTooltipContent}>
+                                <ButtonXSmall onClick={handleToggleOpenMarketplaceList}>
+                                    <ConfigIcon>
+                                        <MdChevronRight className={transitionIconClassName}/>
+                                    </ConfigIcon>
+                                </ButtonXSmall>
+                            </Tooltip>
+                            <span>
+                        WALLETS
+                            </span>
+                        </div>
+                        <div>
+                            <Tooltip content='Add a wallet'>
+                                <ButtonXSmall onClick={openAddMarketplaceModal}>
+                                    <ConfigIcon>
+                                        <MdAdd />
+                                    </ConfigIcon>
+                                </ButtonXSmall>
+                            </Tooltip>
+                        </div>
                     </div>
                 </div>
 
-                {/*<div className={transitionMarketplaceListClassName}>*/}
-                {/*    <div className='marketplace-cell__body__wallet-list'>*/}
-                {/*        {marketplace.wallets?.map(marketplace => (*/}
-                {/*            <MarketplaceCard*/}
-                {/*                key={'marketplace-card-' + String(marketplace.id)}*/}
-                {/*                marketplace={marketplace}*/}
-                {/*            />*/}
-                {/*        ))}*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
+        );
+    }
 
-            {/*<WalletAddModal*/}
-            {/*    isOpen={isAddWalletplaceModalOpen}*/}
-            {/*    closeModal={closeAddMarketplaceModal}*/}
-            {/*    marketplace={marketplace}*/}
-            {/*/>*/}
-        </div>
-    );
+    return (<></>);
 };
 
 export default MarketplaceCell;

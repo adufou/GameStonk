@@ -12,6 +12,7 @@ import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
 import { CreateServerDto } from '@/servers/dto/create-server.dto';
 import { UpdateServerDto } from '@/servers/dto/update-server.dto';
 import { Server } from '@/servers/entities/server.entity';
+import sortTools from '@/tools/sort.tools';
 
 @Injectable()
 export class ServersService {
@@ -26,6 +27,10 @@ export class ServersService {
         return this.serverRepository.save(createServerDto);
     }
     
+    find(id: number): Promise<Server> {
+        return this.serverRepository.findOneBy({ id });
+    }
+    
     async findAllByGame(gameId: number): Promise<Server[]> {
         return this.gamesService.getServers(gameId);
     }
@@ -36,7 +41,7 @@ export class ServersService {
             relations: ['marketplaces'],
         });
 
-        return server.marketplaces;
+        return sortTools.ascSort(server.marketplaces, 'name');
     }
     
     async update(id: number, updateServerDto: UpdateServerDto): Promise<Server> {

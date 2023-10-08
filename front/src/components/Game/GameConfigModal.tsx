@@ -2,6 +2,10 @@ import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -11,9 +15,6 @@ import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import gamesApi from '@/http/api/games/games.api';
 import GameModel from '@/models/game.model';
-import { updateGame } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface GameConfigModalProps {
     isOpen: boolean;
@@ -26,21 +27,24 @@ const GameConfigModal = ({
 }: GameConfigModalProps): React.ReactElement => {
     const [newGameName, setGameName] = useState(game.name);
     
-    const configGame = (): void => {
+    const queryClient = useQueryClient();
+
+    const handleUpdateGameMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['games']);
+        closeModal();
+    };
+    
+    const updateGameMutation = useMutation(
+        (updatedGame: GameModel) => gamesApi.updateGame(updatedGame), 
+        { onSuccess: handleUpdateGameMutationSuccess },
+    );
+    
+    const handleClickUpdateButton = (): void => {
         const updatedGame = {
             ...game,
             name: newGameName,
         };
-        
-        gamesApi.updateGame(updatedGame)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(updateGame(response.body));
-                }
-            })
-            .catch(e => console.warn(e));
-        
-        closeModal();
+        updateGameMutation.mutate(updatedGame);
     };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -77,7 +81,7 @@ const GameConfigModal = ({
                 </Button>
                 <Button
                     className='game-config-modal__footer-button'
-                    onClick={configGame}
+                    onClick={handleClickUpdateButton}
                 >
                     <span>Accept</span>
                 </Button>

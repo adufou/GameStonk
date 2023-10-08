@@ -2,6 +2,10 @@ import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -11,9 +15,6 @@ import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import serversApi from '@/http/api/servers/servers.api';
 import ServerModel from '@/models/server.model';
-import { updateServer } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerEditModalProps {
     isOpen: boolean;
@@ -26,21 +27,25 @@ const ServerEditModal = ({
 }: ServerEditModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState(server.name);
 
-    const editServer = (): void => {
+    const queryClient = useQueryClient();
+    
+    const handleEditServerMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['servers', server.id]);
+        await queryClient.invalidateQueries(['games']);
+        closeModal();
+    };
+    
+    const editServerMutation = useMutation(
+        (updatedServer: ServerModel) => serversApi.updateServer(updatedServer),
+        { onSuccess: handleEditServerMutationSuccess },
+    );
+    
+    const handleClickEditServerButton = (): void => {
         const updatedServer = {
             ...server,
             name: newServerName,
         };
-
-        serversApi.updateServer(updatedServer)
-            .then((response) => { 
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(updateServer(response.body)); 
-                }
-            })
-            .catch(e => console.warn(e));
-
-        closeModal();
+        editServerMutation.mutate(updatedServer);
     };
     
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -77,7 +82,7 @@ const ServerEditModal = ({
                 </Button>
                 <Button
                     className='server-edit-modal__footer-button'
-                    onClick={editServer}
+                    onClick={handleClickEditServerButton}
                 >
                     <span>Accept</span>
                 </Button>

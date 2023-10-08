@@ -1,8 +1,11 @@
-import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -11,10 +14,8 @@ import ModalBody from '@/components/DesignSystem/Modal/ModalBody';
 import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
+import MarketplaceModel from '@/models/marketplace.model';
 import ServerModel from '@/models/server.model';
-import { addMarketplace } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface MarketplaceAddModalProps {
     isOpen: boolean;
@@ -27,21 +28,23 @@ const MarketplaceAddModal = ({
 }: MarketplaceAddModalProps): React.ReactElement => {
     const [newMarketplaceName, setMarketplaceName] = useState('');
 
-    const addNewMarketplace = (): void => {
-        const newMarketplace = {
+    const queryClient = useQueryClient();
+    
+    const handleAddMarketplaceMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['servers', server.id, 'marketplaces']);
+        closeModal();
+    };
+    
+    const addMarketplaceMutation = useMutation(
+        (newMarketplace: Partial<MarketplaceModel>) => marketplacesApi.addMarketplace(newMarketplace),
+        { onSuccess: handleAddMarketplaceMutationSuccess },
+    );
+    
+    const handleClickAddMarketplaceButton = (): void => {
+        addMarketplaceMutation.mutate({
             server: server.id,
             name: newMarketplaceName,
-        };
-
-        marketplacesApi.addMarketplace(newMarketplace)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.Created)) {
-                    store.dispatch(addMarketplace(response.body));
-                }      
-            })
-            .catch(e => console.warn(e));
-
-        closeModal();
+        });
     };
     
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -78,7 +81,7 @@ const MarketplaceAddModal = ({
                 </Button>
                 <Button
                     className='marketplace-add-modal__footer-button'
-                    onClick={addNewMarketplace}
+                    onClick={handleClickAddMarketplaceButton}
                 >
                     <span>Accept</span>
                 </Button>

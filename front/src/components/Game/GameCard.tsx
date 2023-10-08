@@ -4,6 +4,10 @@ import {
     MdRemove,
 } from 'react-icons/md';
 import { MdInventory } from 'react-icons/md';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
@@ -11,9 +15,6 @@ import GameConfigModal from '@/components/Game/GameConfigModal';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import gamesApi from '@/http/api/games/games.api';
 import GameModel from '@/models/game.model';
-import { deleteGame } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 interface GameCardProps {
     game: GameModel;
 }
@@ -22,16 +23,21 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
     const [isDeleteGameModalOpen, setIsDeleteGameModalOpen] = useState(false);
     const [isConfigGameModalOpen, setIsConfigGameModalOpen] = useState(false);
 
-    function acceptGameDeletion(): void {
-        gamesApi.deleteGame(game)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(deleteGame(game));
-                }
-            })
-            .catch(e => console.warn(e));
-    }
+    const queryClient = useQueryClient();
 
+    const handleDeleteGameMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['games']);
+    };
+    
+    const deleteGameMutation = useMutation(
+        () => gamesApi.deleteGame(game), 
+        { onSuccess: handleDeleteGameMutationSuccess },
+    );
+    
+    const handleClickDeleteButton = (): void => {
+        deleteGameMutation.mutate();
+    };
+    
     function openModalDeleteGame(): void {
         setIsDeleteGameModalOpen(true);
     }
@@ -84,7 +90,7 @@ const GameCard = ({ game }: GameCardProps): React.ReactElement => {
 
             <TwoCTAsModal
                 isOpen={isDeleteGameModalOpen}
-                onAccept={acceptGameDeletion}
+                onAccept={handleClickDeleteButton}
                 onClose={closeModalDeleteGame}
             />
             <GameConfigModal

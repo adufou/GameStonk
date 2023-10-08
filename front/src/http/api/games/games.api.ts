@@ -9,8 +9,8 @@ const addGame = (game: Partial<GameModel>): Promise<ApiResponseBody<GameModel>> 
 const deleteGame = (game: GameModel): Promise<ApiResponseStatus> => 
     apiCall(`games/${ game.id }`, 'DELETE');
 
-const getGame = (game: GameModel): Promise<ApiResponseBody<GameModel>> =>
-    apiCall(`games/${ game.id }`, 'GET');
+const getGame = (id: GameModel['id']): Promise<ApiResponseBody<GameModel>> =>
+    apiCall(`games/${ id }`, 'GET');
 
 const getGames = (): Promise<ApiResponseBody<GameModel[]>> => 
     apiCall('games', 'GET');

@@ -3,6 +3,10 @@ import {
     MdEdit,
     MdRemove,
 } from 'react-icons/md';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
@@ -10,9 +14,6 @@ import ConfigIcon from '@/components/Icon/ConfigIcon';
 import ServerEditModal from '@/components/Server/ServerEditModal';
 import serversApi from '@/http/api/servers/servers.api';
 import ServerModel from '@/models/server.model';
-import { deleteServer } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface ServerCardProps {
     server: ServerModel;
@@ -22,15 +23,20 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
     const [isDeleteServerModalOpen, setIsDeleteServerModalOpen] = useState(false);
     const [isUpdateServerModalOpen, setIsUpdateServerModalOpen] = useState(false);
 
-    function acceptServerDeletion(): void {
-        serversApi.deleteServer(server)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(deleteServer(server));
-                }
-            })
-            .catch(e => console.warn(e));
-    }
+    const queryClient = useQueryClient();
+    
+    const handleDeleteServerMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['games']);
+    };
+    
+    const deleteServerMutation = useMutation(
+        () => serversApi.deleteServer(server),
+        { onSuccess: handleDeleteServerMutationSuccess },
+    );
+    
+    const handleClickDeleteServerButton = (): void => {
+        deleteServerMutation.mutate();
+    };
 
     function openModalDeleteServer(): void {
         setIsDeleteServerModalOpen(true);
@@ -74,7 +80,7 @@ const ServerCard = ({ server }: ServerCardProps): React.ReactElement => {
 
             <TwoCTAsModal 
                 isOpen={isDeleteServerModalOpen}
-                onAccept={acceptServerDeletion}
+                onAccept={handleClickDeleteServerButton}
                 onClose={closeModalDeleteServer}
             /> 
             <ServerEditModal

@@ -1,8 +1,11 @@
-import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
 } from 'react';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import Separator from '@/components/DesignSystem/Misc/Separator';
@@ -12,9 +15,7 @@ import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import serversApi from '@/http/api/servers/servers.api';
 import GameModel from '@/models/game.model';
-import { addServer } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
+import ServerModel from '@/models/server.model';
 
 interface ServerAddModalProps {
     isOpen: boolean;
@@ -27,21 +28,23 @@ const ServerAddModal = ({
 }: ServerAddModalProps): React.ReactElement => {
     const [newServerName, setServerName] = useState('');
 
-    const addNewServer = (): void => {
-        const newServer = {
+    const queryClient = useQueryClient();
+    
+    const handleAddServerMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['games', game.id, 'servers']);
+        closeModal();
+    };
+    
+    const addServerMutation = useMutation(
+        (newServer: Partial<ServerModel>) => serversApi.addServer(newServer),
+        { onSuccess: handleAddServerMutationSuccess },
+    );
+    
+    const handleClickAddServerButton = (): void => {
+        addServerMutation.mutate({
             game: game.id,
             name: newServerName,
-        };
-
-        serversApi.addServer(newServer)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status, HttpStatusCode.Created)) {
-                    store.dispatch(addServer(response.body));
-                }      
-            })
-            .catch(e => console.warn(e));
-
-        closeModal();
+        });
     };
     
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -78,7 +81,7 @@ const ServerAddModal = ({
                 </Button>
                 <Button
                     className='server-add-modal__footer-button'
-                    onClick={addNewServer}
+                    onClick={handleClickAddServerButton}
                 >
                     <span>Accept</span>
                 </Button>

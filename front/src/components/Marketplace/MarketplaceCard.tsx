@@ -4,6 +4,10 @@ import {
     MdOutlineAccountBalanceWallet,
     MdRemove,
 } from 'react-icons/md';
+import {
+    useMutation,
+    useQueryClient,
+} from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
@@ -11,9 +15,6 @@ import ConfigIcon from '@/components/Icon/ConfigIcon';
 import MarketplaceEditModal from '@/components/Marketplace/MarketplaceEditModal';
 import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
 import MarketplaceModel from '@/models/marketplace.model';
-import { deleteMarketplace } from '@/stores/game/gamesReducer';
-import store from '@/stores/globalStore';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 
 interface MarketplaceCardProps {
     marketplace: MarketplaceModel;
@@ -23,15 +24,20 @@ const MarketplaceCard = ({ marketplace }: MarketplaceCardProps): React.ReactElem
     const [isDeleteMarketplaceModalOpen, setIsDeleteMarketplaceModalOpen] = useState(false);
     const [isUpdateMarketplaceModalOpen, setIsUpdateMarketplaceModalOpen] = useState(false);
 
-    function acceptMarketplaceDeletion(): void {
-        marketplacesApi.deleteMarketplace(marketplace)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    store.dispatch(deleteMarketplace(marketplace));
-                }
-            })
-            .catch(e => console.warn(e));
-    }
+    const queryClient = useQueryClient();
+    
+    const handleDeleteMarketplaceMutationSuccess = async (): Promise<void> => {
+        await queryClient.invalidateQueries(['servers']);
+    };
+    
+    const deleteMarketplaceMutation = useMutation(
+        () => marketplacesApi.deleteMarketplace(marketplace),
+        { onSuccess: handleDeleteMarketplaceMutationSuccess },
+    );
+
+    const handleClickDeletMarketplaceButton = (): void => {
+        deleteMarketplaceMutation.mutate();
+    };
 
     function openModalDeleteMarketplace(): void {
         setIsDeleteMarketplaceModalOpen(true);
@@ -83,7 +89,7 @@ const MarketplaceCard = ({ marketplace }: MarketplaceCardProps): React.ReactElem
 
             <TwoCTAsModal 
                 isOpen={isDeleteMarketplaceModalOpen}
-                onAccept={acceptMarketplaceDeletion}
+                onAccept={handleClickDeletMarketplaceButton}
                 onClose={closeModalDeleteMarketplace}
             /> 
             <MarketplaceEditModal

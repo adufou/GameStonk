@@ -10,8 +10,11 @@ const addMarketplace = (marketplace: Partial<MarketplaceModel>): Promise<ApiResp
 const deleteMarketplace = (marketplace: MarketplaceModel): Promise<ApiResponseStatus> =>
     apiCall(`marketplaces/${ marketplace.id }`, 'DELETE');
 
-const getMarketplacesFromServer = (server: ServerModel): Promise<ApiResponseBody<MarketplaceModel[]>> => 
-    apiCall(`marketplaces/server/${ server.id }`, 'GET');
+const getMarketplace = (id: MarketplaceModel['id']): Promise<ApiResponseBody<MarketplaceModel>> =>
+    apiCall(`marketplaces/${ id }`, 'GET');
+
+const getMarketplacesFromServer = (serverId: ServerModel['id']): Promise<ApiResponseBody<MarketplaceModel[]>> => 
+    apiCall(`marketplaces/server/${ serverId }`, 'GET');
 
 const updateMarketplace = (marketplace: MarketplaceModel): Promise<ApiResponseBody<MarketplaceModel>> =>
     apiCall(`marketplaces/${ marketplace.id }`, 'PATCH', marketplace);
@@ -19,6 +22,7 @@ const updateMarketplace = (marketplace: MarketplaceModel): Promise<ApiResponseBo
 const marketplacesApi = {
     addMarketplace,
     deleteMarketplace,
+    getMarketplace,
     getMarketplacesFromServer,
     updateMarketplace,
 };
