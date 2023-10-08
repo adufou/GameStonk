@@ -25,7 +25,6 @@ const Navbar = (): React.ReactElement => {
 
     const handleDebug = (): void => {
         console.log('DEBUG START');
-        console.log(store.getState().gamesStore);
         console.log(store.getState().userStore);
         console.log(store.getState().userStore.token);
         console.log('DEBUG STOP');

@@ -12,6 +12,7 @@ import { Marketplace } from '@/marketplaces/entities/marketplace.entity';
 import { CreateServerDto } from '@/servers/dto/create-server.dto';
 import { UpdateServerDto } from '@/servers/dto/update-server.dto';
 import { Server } from '@/servers/entities/server.entity';
+import sortTools from '@/tools/sort.tools';
 
 @Injectable()
 export class ServersService {
@@ -40,15 +41,7 @@ export class ServersService {
             relations: ['marketplaces'],
         });
 
-        return server?.marketplaces.sort((m1, m2) => {
-            if (m1.name < m2.name) {
-                return -1;
-            }
-            if (m1.name > m2.name) {
-                return 1;
-            }
-            return 0;
-        }) ?? [];
+        return sortTools.ascSort(server.marketplaces, 'name');
     }
     
     async update(id: number, updateServerDto: UpdateServerDto): Promise<Server> {

@@ -31,6 +31,7 @@ const ServerEditModal = ({
     
     const handleEditServerMutationSuccess = async (): Promise<void> => {
         await queryClient.invalidateQueries(['servers', server.id]);
+        await queryClient.invalidateQueries(['games']);
         closeModal();
     };
     

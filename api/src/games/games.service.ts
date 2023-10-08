@@ -8,6 +8,7 @@ import { CreateGameDto } from '@/games/dto/create-game.dto';
 import { UpdateGameDto } from '@/games/dto/update-game.dto';
 import { Game } from '@/games/entities/game.entity';
 import { Server } from '@/servers/entities/server.entity';
+import sortTools from '@/tools/sort.tools';
 
 @Injectable()
 export class GamesService {
@@ -34,15 +35,11 @@ export class GamesService {
             relations: ['servers'],
         });
         
-        return game?.servers.sort((s1, s2) => {
-            if (s1.name < s2.name) {
-                return -1;
-            }
-            if (s1.name > s2.name) {
-                return 1;
-            }
-            return 0;
-        }) ?? [];
+        if (!game || !game.servers) {
+            return [];
+        }
+        
+        return sortTools.ascSort(game.servers, 'name');
     }
     
     async update(id: number, updateGameDto: UpdateGameDto): Promise<Game> {

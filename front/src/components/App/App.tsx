@@ -17,9 +17,6 @@ function App(): React.ReactElement {
         document.title = 'GameStonk';
 
         authFlowOnStartup();
-        // fetchGames().catch((e) => {
-        //     console.warn(e);
-        // });
     }, []);
 
     return (

@@ -19,7 +19,6 @@ import gamesApi from '@/http/api/games/games.api';
 import serversApi from '@/http/api/servers/servers.api';
 import GameModel from '@/models/game.model';
 import { optinalClassNames } from '@/tools/classNames';
-import ApiResponseBody from '@/types/ApiResponseBody';
 
 interface GameCellProps {
     game: Pick<GameModel, 'name' | 'id'>;
@@ -36,14 +35,12 @@ const GameCell = ({ game: propsGame }: GameCellProps): React.ReactElement => {
         gamesApi.getGame(propsGame.id),
     );
 
-    // TODO on peut pas direct utiliser propsGame.id ???
     const {
         data: getServersFromGameQueryData,
         isLoading: getServersFromGameQueryIsLoading,
     } = useQuery(
         ['games', propsGame.id, 'servers'], 
-        () => serversApi.getServersFromGame((getGameData as ApiResponseBody<GameModel>).body.id),
-        { enabled: getGameData !== undefined && getGameData.body?.id !== undefined },
+        () => serversApi.getServersFromGame(propsGame.id),
     );
 
     function openAddServerModal(): void {
@@ -127,12 +124,6 @@ const GameCell = ({ game: propsGame }: GameCellProps): React.ReactElement => {
 
                     <div className={transitionServerListClassName}>
                         <div className='game-cell__body__server-list'>
-                            {/*{ getServersFromGameQueryIsSuccess ? getServersFromGameQueryData.body?.map(server => (*/}
-                            {/*    <ServerCell*/}
-                            {/*        key={'server-cell-' + String(server.id)}*/}
-                            {/*        server={server}*/}
-                            {/*    />*/}
-                            {/*)) : <></>}*/}
                             { serversFromGame }
                         </div>
                     </div>

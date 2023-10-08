@@ -31,6 +31,7 @@ const MarketplaceEditModal = ({
     
     const handleEditMarketplaceMutationSuccess = async (): Promise<void> => {
         await queryClient.invalidateQueries(['marketplaces', marketplace.id]);
+        await queryClient.invalidateQueries(['servers']);
         closeModal();
     };
 
