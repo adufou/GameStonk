@@ -2,18 +2,13 @@ import React, {
     Fragment,
     useState,
 } from 'react';
+import LogoutModal from '@/components/Auth/LogoutModal';
 import ButtonLink from '@/components/DesignSystem/Button/ButtonLink';
-import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
 import store from '@/stores/globalStore';
-import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
 import mappedStateComponent from '@/tools/mappedStateComponent';
 
 const Navbar = (): React.ReactElement => {
     const [isModalLogoutOpen, setIsLogoutModalOpen] = useState(false);
-    
-    const handleLougout = (): void => {
-        clearLocalTokenAndRedirectToLogin();
-    };
     
     const openLogoutModal = (): void => {
         setIsLogoutModalOpen(true);
@@ -48,15 +43,6 @@ const Navbar = (): React.ReactElement => {
                 <div className='navbar__navigation'>
                     {store.getState().userStore.token ? (
                         <Fragment>
-                            {/* <li>
-                            <ButtonLink layout="link" tag='a' href='/companion'>Companion</ButtonLink>
-                        </li>
-                        <li>
-                            <ButtonLink layout="link" tag='a' href='/holdings'>Report</ButtonLink>
-                        </li>
-                        <li>
-                            <ButtonLink layout="link" tag='a' href='/dashboard'>Dashboard</ButtonLink>
-                        </li> */}
                             <div className='navbar__navigation__button'>
                                 <ButtonLink href='/admin'>
                                     <span>Admin</span>
@@ -95,10 +81,9 @@ const Navbar = (): React.ReactElement => {
                 </div>
             </nav>
             
-            <TwoCTAsModal
+            <LogoutModal
                 isOpen={isModalLogoutOpen}
-                onAccept={handleLougout}
-                onClose={closeLogoutModal}
+                closeModal={closeLogoutModal}
             />
         </>
     );
