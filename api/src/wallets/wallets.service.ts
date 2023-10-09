@@ -38,6 +38,8 @@ export class WalletsService {
                 user: user,
             } });
         }
+        
+        return [];
     }
     
     async update(id: number, updateWalletDto: UpdateWalletDto): Promise<Wallet> {

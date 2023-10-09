@@ -1,4 +1,5 @@
 import {
+    Column,
     Entity,
     ManyToOne,
     OneToMany,
@@ -12,6 +13,9 @@ import { User } from '@/users/entities/user.entity';
 export class Wallet {
     @PrimaryGeneratedColumn()
         id: number;
+
+    @Column()
+        name: string;
 
     @ManyToOne(() => Marketplace, marketplace => marketplace.wallets, { onDelete: 'CASCADE' })
         marketplace: Marketplace;
