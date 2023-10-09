@@ -78,6 +78,4 @@ Serveur: https://www.ovh.com/manager/#/dedicated/server/ns399800.ip-5-196-67.eu
 
 # Doc
 
-https://dzone.com/articles/a-new-way-to-implement-redux-like-global-store-wit
-
 https://dev.to/chukwutosin_/step-by-step-guide-setting-up-a-nestjs-application-with-docker-and-postgresql-5hei
