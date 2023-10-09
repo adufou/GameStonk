@@ -1,16 +1,15 @@
+import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import authApi from '@/http/api/auth/auth.api';
-import store from '@/stores/globalStore';
-import { setToken } from '@/stores/user/userReducer';
-import { fetchCurrentUser } from '@/stores/user/userStore.tools';
-import isCorrectStatusCodeOrNotModified from '@/tools/isCorrectStatusCodeOrNotModified';
 import { setLocalToken } from '@/tools/localToken';
+import redirect from '@/tools/redirect';
+import ApiResponseBody from '@/types/ApiResponseBody';
 
 const Signup = (): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -19,9 +18,38 @@ const Signup = (): React.ReactElement => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [errors, setErrors] = useState(false);
-
-    const navigate = useNavigate();
-
+    
+    const handleSignupQuerySuccess = (data: ApiResponseBody<{ access_token: string }>): void => {
+        if (data.status !== HttpStatusCode.Ok || !data?.body?.access_token) {
+            setErrors(true);
+            return;
+        }
+        
+        setLocalToken(data.body.access_token);
+        redirect('games');
+    };
+    
+    const signupQuery = useQuery('user', () => authApi.registerUser({
+        email,
+        password: password1,
+        firstName,
+        lastName,
+    }),
+    {
+        enabled: false,
+        onSuccess: handleSignupQuerySuccess,
+    });
+    
+    const handleClickSignupButton = (): void => {
+        if (password1 !== password2) {
+            setErrors(true);
+            return;
+        }
+        
+        signupQuery.refetch()
+            .catch(e => console.error(e));
+    };
+    
     const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
         event.preventDefault();
         setEmail(event.target.value);
@@ -45,44 +73,6 @@ const Signup = (): React.ReactElement => {
     const handleChangeLastName = (event: ChangeEvent<HTMLInputElement>): void => {
         event.preventDefault();
         setLastName(event.target.value);
-    };
-
-    const handleSignup = (): void => {
-        if (password1 !== password2) {
-            setErrors(true);
-        }
-        
-        const user = {
-            email,
-            password: password1,
-            firstName,
-            lastName,
-        };
-
-        authApi.registerUser(user)
-            .then((response) => {
-                if (isCorrectStatusCodeOrNotModified(response.status)) {
-                    if (response.body.access_token) {
-                        store.dispatch(setToken(response.body.access_token));
-                        setLocalToken(response.body.access_token);
-
-                        fetchCurrentUser().catch((e) => {
-                            console.warn(e);
-                        });
-
-                        navigate('dashboard');
-                    }
-                    
-                    return;
-                }
-
-                setPassword1('');
-                setPassword2('');
-                setErrors(true);
-            })
-            .catch(
-                e => console.error(e),
-            );
     };
 
     return (
@@ -147,7 +137,7 @@ const Signup = (): React.ReactElement => {
                 
                 <Button
                     className='signup__body__button'
-                    onClick={handleSignup}
+                    onClick={handleClickSignupButton}
                 >
                     <p>Sign Up</p>
                 </Button>

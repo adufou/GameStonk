@@ -2,18 +2,15 @@ import React, {
     Fragment,
     useState,
 } from 'react';
+import LogoutModal from '@/components/Auth/LogoutModal';
 import ButtonLink from '@/components/DesignSystem/Button/ButtonLink';
-import TwoCTAsModal from '@/components/DesignSystem/Modal/TwoCTAsModal';
-import store from '@/stores/globalStore';
-import { clearLocalTokenAndRedirectToLogin } from '@/tools/authTools';
-import mappedStateComponent from '@/tools/mappedStateComponent';
 
-const Navbar = (): React.ReactElement => {
+interface NavbarProps {
+    isUserLogged: boolean
+}
+
+const Navbar = ({ isUserLogged }: NavbarProps): React.ReactElement => {
     const [isModalLogoutOpen, setIsLogoutModalOpen] = useState(false);
-    
-    const handleLougout = (): void => {
-        clearLocalTokenAndRedirectToLogin();
-    };
     
     const openLogoutModal = (): void => {
         setIsLogoutModalOpen(true);
@@ -21,13 +18,6 @@ const Navbar = (): React.ReactElement => {
     
     const closeLogoutModal = (): void => {
         setIsLogoutModalOpen(false);
-    };
-
-    const handleDebug = (): void => {
-        console.log('DEBUG START');
-        console.log(store.getState().userStore);
-        console.log(store.getState().userStore.token);
-        console.log('DEBUG STOP');
     };
 
     return (
@@ -40,23 +30,14 @@ const Navbar = (): React.ReactElement => {
                 </div>
 
                 <div className='navbar__debug-button'>
-                    <ButtonLink onClick={handleDebug}>
+                    <ButtonLink onClick={undefined /* noop */}>
                         <span>DEBUG</span>
                     </ButtonLink>
                 </div>
 
                 <div className='navbar__navigation'>
-                    {store.getState().userStore.token ? (
+                    {isUserLogged ? (
                         <Fragment>
-                            {/* <li>
-                            <ButtonLink layout="link" tag='a' href='/companion'>Companion</ButtonLink>
-                        </li>
-                        <li>
-                            <ButtonLink layout="link" tag='a' href='/holdings'>Report</ButtonLink>
-                        </li>
-                        <li>
-                            <ButtonLink layout="link" tag='a' href='/dashboard'>Dashboard</ButtonLink>
-                        </li> */}
                             <div className='navbar__navigation__button'>
                                 <ButtonLink href='/admin'>
                                     <span>Admin</span>
@@ -95,13 +76,12 @@ const Navbar = (): React.ReactElement => {
                 </div>
             </nav>
             
-            <TwoCTAsModal
+            <LogoutModal
                 isOpen={isModalLogoutOpen}
-                onAccept={handleLougout}
-                onClose={closeLogoutModal}
+                closeModal={closeLogoutModal}
             />
         </>
     );
 };
 
-export default mappedStateComponent(Navbar);
+export default Navbar;
