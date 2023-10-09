@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, {
+    useEffect,
+    useState,
+} from 'react';
+import { useQueryClient } from 'react-query';
 import {
-    BrowserRouter,
     Route,
     Routes,
+    useNavigate,
 } from 'react-router-dom';
 import Admin from '@/components/Admin/Admin';
 import Login from '@/components/Auth/Login';
@@ -13,40 +17,47 @@ import MyWallets from '@/components/Wallet/MyWallets';
 import { authFlowOnStartup } from '@/tools/authTools';
 
 function App(): React.ReactElement {
+    const [isUserLogged, setIsUserLogged] = useState(false);
+    
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    
     useEffect(() => {
         document.title = 'GameStonk';
 
-        authFlowOnStartup();
+        authFlowOnStartup(
+            queryClient, 
+            () => navigate('login'),
+            () => setIsUserLogged(true),
+        );
     }, []);
 
     return (
         <div className='App'>
-            <BrowserRouter>
-                <Navbar />
-                <Routes>
-                    <Route
-                        path="/login"
-                        element={< Login />}
-                    />
-                    <Route
-                        path="/signup"
-                        element={< Signup />}
-                    />
-                    <Route
-                        path="/wallets"
-                        element={< MyWallets />}
-                    />
-                    <Route
-                        path="/games"
-                        element={< Games />}
-                    />
-                    {/* <Route path="/games/:gameId" element={< GameModel games="gameId" />} /> */}
-                    <Route
-                        path="/admin"
-                        element={< Admin />}
-                    />
-                </Routes>
-            </BrowserRouter>
+            <Navbar isUserLogged={isUserLogged}/>
+            <Routes>
+                <Route
+                    path="/login"
+                    element={< Login />}
+                />
+                <Route
+                    path="/signup"
+                    element={< Signup />}
+                />
+                <Route
+                    path="/wallets"
+                    element={< MyWallets />}
+                />
+                <Route
+                    path="/games"
+                    element={< Games />}
+                />
+                {/* <Route path="/games/:gameId" element={< GameModel games="gameId" />} /> */}
+                <Route
+                    path="/admin"
+                    element={< Admin />}
+                />
+            </Routes>
         </div>
     );
 }

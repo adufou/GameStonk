@@ -7,7 +7,6 @@ import { useQuery } from 'react-query';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import authApi from '@/http/api/auth/auth.api';
-import { fetchCurrentUser } from '@/stores/user/userStore.tools';
 import { setLocalToken } from '@/tools/localToken';
 import redirect from '@/tools/redirect';
 import ApiResponseBody from '@/types/ApiResponseBody';
@@ -19,19 +18,14 @@ const Signup = (): React.ReactElement => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [errors, setErrors] = useState(false);
-
+    
     const handleSignupQuerySuccess = (data: ApiResponseBody<{ access_token: string }>): void => {
         if (data.status !== HttpStatusCode.Ok || !data?.body?.access_token) {
             setErrors(true);
             return;
         }
         
-        { setLocalToken(data.body.access_token); }
-
-        fetchCurrentUser().catch((e) => {
-            console.warn(e);
-        });
-
+        setLocalToken(data.body.access_token);
         redirect('games');
     };
     

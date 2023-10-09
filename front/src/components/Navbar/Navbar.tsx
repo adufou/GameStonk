@@ -4,10 +4,12 @@ import React, {
 } from 'react';
 import LogoutModal from '@/components/Auth/LogoutModal';
 import ButtonLink from '@/components/DesignSystem/Button/ButtonLink';
-import store from '@/stores/globalStore';
-import mappedStateComponent from '@/tools/mappedStateComponent';
 
-const Navbar = (): React.ReactElement => {
+interface NavbarProps {
+    isUserLogged: boolean
+}
+
+const Navbar = ({ isUserLogged }: NavbarProps): React.ReactElement => {
     const [isModalLogoutOpen, setIsLogoutModalOpen] = useState(false);
     
     const openLogoutModal = (): void => {
@@ -16,13 +18,6 @@ const Navbar = (): React.ReactElement => {
     
     const closeLogoutModal = (): void => {
         setIsLogoutModalOpen(false);
-    };
-
-    const handleDebug = (): void => {
-        console.log('DEBUG START');
-        console.log(store.getState().userStore);
-        console.log(store.getState().userStore.token);
-        console.log('DEBUG STOP');
     };
 
     return (
@@ -35,13 +30,13 @@ const Navbar = (): React.ReactElement => {
                 </div>
 
                 <div className='navbar__debug-button'>
-                    <ButtonLink onClick={handleDebug}>
+                    <ButtonLink onClick={undefined /* noop */}>
                         <span>DEBUG</span>
                     </ButtonLink>
                 </div>
 
                 <div className='navbar__navigation'>
-                    {store.getState().userStore.token ? (
+                    {isUserLogged ? (
                         <Fragment>
                             <div className='navbar__navigation__button'>
                                 <ButtonLink href='/admin'>
@@ -89,4 +84,4 @@ const Navbar = (): React.ReactElement => {
     );
 };
 
-export default mappedStateComponent(Navbar);
+export default Navbar;

@@ -13,7 +13,7 @@ const LogoutModal = ({
 }: LogoutModalProps): React.ReactElement => {
     const handleClickLogoutButton = (): void => {
         clearLocalToken();
-        redirect('/login');
+        redirect('login');
     };
     
     return (

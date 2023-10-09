@@ -1,7 +1,7 @@
 import jwtDecode, { InvalidTokenError } from 'jwt-decode';
-import store from '@/stores/globalStore';
-import { setToken } from '@/stores/user/userReducer';
-import { fetchCurrentUser } from '@/stores/user/userStore.tools';
+import { QueryClient } from 'react-query';
+import usersApi from '@/http/api/users/users.api';
+import UserModel from '@/models/user.model';
 import JwtInterface from '@/tools/jwtInterface';
 import {
     clearLocalToken,
@@ -9,25 +9,47 @@ import {
 } from '@/tools/localToken';
 import redirect from '@/tools/redirect';
 
-const LOGIN_URI = 'login';
 const MIN_EXP_REMAINING_DURATION_IN_MS = 86400000; // 1 day
 
-export const clearLocalTokenAndRedirectToLogin = (): void => {
-    store.dispatch(setToken(null));
-    clearLocalToken();
-
-    if (window.location.pathname !== `/${ LOGIN_URI }`) {
-        redirect(LOGIN_URI);
-    }
-};
-
-export const authFlowOnStartup = (): void => {
+export const fetchCurrentUser = (
+    queryClient: QueryClient, 
+    callbackFailure?: () => void,
+    callbackSuccess?: (user: UserModel) => void): void => {
     const localToken = getLocalToken();
     if (localToken === null) {
-        clearLocalTokenAndRedirectToLogin();
+        clearLocalToken();
+        redirect('login');
         return;
     }
+    const decodedJwt = jwtDecode<JwtInterface>(localToken);
     
+    usersApi.getUser(decodedJwt.sub)
+        .then((userResponse) => {
+            queryClient.setQueryData('user', userResponse.body);
+            if (callbackSuccess) {
+                callbackSuccess(userResponse.body);
+            }
+        })
+        .catch((e) => {
+            if (callbackFailure) {
+                callbackFailure();
+            }
+            console.error(e);
+        });
+};
+
+export const authFlowOnStartup = (
+    queryClient: QueryClient,
+    callbackFailure: () => void,
+    callbackSuccess: () => void,
+): void => {
+    const localToken = getLocalToken();
+    if (localToken === null) {
+        clearLocalToken();
+        callbackFailure();
+        return;
+    }
+
     try {
         const decodedJwt = jwtDecode<JwtInterface>(localToken);
         
@@ -35,16 +57,16 @@ export const authFlowOnStartup = (): void => {
         const exp = (decodedJwt.exp * 1000);
         
         if (exp - now < MIN_EXP_REMAINING_DURATION_IN_MS) {
-            clearLocalTokenAndRedirectToLogin();
+            clearLocalToken();
+            callbackFailure();
         } else {
-            fetchCurrentUser().catch(e => console.warn(e));
+            fetchCurrentUser(queryClient, callbackFailure, callbackSuccess);
         }
     } catch (e) {
         if (!(e instanceof InvalidTokenError)) {
             console.warn(e);
         }
-        clearLocalTokenAndRedirectToLogin();
+        clearLocalToken();
+        callbackFailure();
     }
-    
-    store.dispatch(setToken(getLocalToken()));
 };

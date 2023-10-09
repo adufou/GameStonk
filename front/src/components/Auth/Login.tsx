@@ -1,34 +1,34 @@
+
+import { HttpStatusCode } from 'axios';
 import React, {
     ChangeEvent,
     useState,
 } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import Button from '@/components/DesignSystem/Button/Button';
 import Input from '@/components/DesignSystem/Input/Input';
 import authApi from '@/http/api/auth/auth.api';
-import { fetchCurrentUser } from '@/stores/user/userStore.tools';
 import { setLocalToken } from '@/tools/localToken';
+import redirect from '@/tools/redirect';
 import ApiResponseBody from '@/types/ApiResponseBody';
 
 const Login = (): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
-
-    const navigate = useNavigate();
     
     const handleLoginQuerySuccess = (data: ApiResponseBody<{ access_token: string }>): void => {
-        setLocalToken(data.body.access_token);
-
-        fetchCurrentUser().catch((e) => {
-            console.warn(e);
-        });
+        if (data.status !== HttpStatusCode.Ok || !data?.body?.access_token) {
+            setErrors(true);
+            return;
+        }
         
-        navigate('/games');
+        setLocalToken(data.body.access_token);
+        // fetchCurrentUser(queryClient, () => { setErrors(true); });
+        redirect('games');
     };
     
-    const loginQuery = useQuery('user', () => authApi.loginUser({
+    const loginQuery = useQuery(['user', 'accessToken'], () => authApi.loginUser({
         email,
         password,
     }),

@@ -7,7 +7,6 @@ import GameAddModal from '@/components/Game/GameAddModal';
 import GameCell from '@/components/Game/GameCell';
 import ConfigIcon from '@/components/Icon/ConfigIcon';
 import gamesApi from '@/http/api/games/games.api';
-import mappedStateComponent from '@/tools/mappedStateComponent';
 
 const Games = (): React.ReactElement => {
     const [isAddGameModalOpen, setIsAddGameModalOpen] = useState(false);
@@ -55,4 +54,4 @@ const Games = (): React.ReactElement => {
     );
 };
 
-export default mappedStateComponent(Games);
+export default Games;

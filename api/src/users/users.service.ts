@@ -22,8 +22,19 @@ export class UsersService {
         return this.usersRepository.find();
     }
 
-    findOne(id: number): Promise<User | null> {
-        return this.usersRepository.findOneBy({ id });
+    async findOne(id: number): Promise<User | null> {
+        const user = await this.usersRepository.find({
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                isActive: true,
+            },
+            where: { id }, 
+        });
+        
+        return (user && user[ 0 ]) ? user[ 0 ] : null;
     }
 
     findOneByEmail(email: string): Promise<User | null> {
