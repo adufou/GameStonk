@@ -2,6 +2,7 @@ import {
     Body,
     Controller,
     Delete,
+    Get,
     Param,
     Patch,
     Post,
@@ -30,6 +31,11 @@ export class WalletsController {
             findAllByMarketplaceForUserDto.marketplaceId, 
             findAllByMarketplaceForUserDto.userId,
         );
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: string): Promise<Wallet> {
+        return this.walletsService.findOne(+id);
     }
     
     @Patch(':id')

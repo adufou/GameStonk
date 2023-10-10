@@ -6,7 +6,10 @@ import {
     MdAdd,
     MdChevronRight,
 } from 'react-icons/md';
-import { useQuery } from 'react-query';
+import {
+    useQuery,
+    useQueryClient,
+} from 'react-query';
 import ButtonXSmall from '@/components/DesignSystem/Button/ButtonXSmall';
 import Separator from '@/components/DesignSystem/Misc/Separator';
 import Tooltip from '@/components/DesignSystem/Tooltip/Tooltip';
@@ -17,6 +20,7 @@ import WalletCell from '@/components/Wallet/WalletCell';
 import marketplacesApi from '@/http/api/marketplaces/marketplaces.api';
 import walletsApi from '@/http/api/wallets/wallets.api';
 import MarketplaceModel from '@/models/marketplace.model';
+import UserModel from '@/models/user.model';
 import { optinalClassNames } from '@/tools/classNames';
 
 interface MarketplaceCellProps {
@@ -27,6 +31,8 @@ const MarketplaceCell = ({ marketplace: propsMarketplace }: MarketplaceCellProps
     const [isAddWalletModalOpen, setIsAddWalletModalOpen] = useState(false);
     const [isWalletListOpen, setIsWalletListOpen] = useState(false);
 
+    const queryClient = useQueryClient();
+    
     const {
         data: getMarketplaceData,
         isSuccess: getMarketplaceIsSuccess,
@@ -37,9 +43,20 @@ const MarketplaceCell = ({ marketplace: propsMarketplace }: MarketplaceCellProps
         isLoading: getWalletsFromMarketplaceIsLoading,
     } = useQuery(
         ['marketplaces', propsMarketplace.id, 'wallets'],
-        
-        // TODO : get le user courant
-        () => walletsApi.getWalletsByMarketplaceForUser(propsMarketplace.id),
+        () => {
+            const user: UserModel | undefined = queryClient.getQueryData('user');
+            
+            if (user) {
+                return walletsApi.getWalletsByMarketplaceForUser(
+                    {
+                        marketplaceId: propsMarketplace.id,
+                        userId: user.id,
+                    },
+                );
+            }
+            
+            return undefined;
+        },
     );
     
     function openAddWalletModal(): void {

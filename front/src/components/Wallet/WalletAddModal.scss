@@ -1,0 +1,7 @@
+@use 'colors.scss' as *;
+
+.wallet-add-modal {
+    &__footer-button {
+        background: $blue50;
+    }
+}

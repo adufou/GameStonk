@@ -15,7 +15,7 @@ import ModalFooter from '@/components/DesignSystem/Modal/ModalFooter';
 import ModalHeader from '@/components/DesignSystem/Modal/ModalHeader';
 import walletsApi from '@/http/api/wallets/wallets.api';
 import MarketplaceModel from '@/models/marketplace.model';
-import WalletModel from '@/models/wallet.model';
+import UserModel from '@/models/user.model';
 
 interface WalletAddModalProps {
     isOpen: boolean;
@@ -36,15 +36,24 @@ const WalletAddModal = ({
     };
 
     const addWalletMutation = useMutation(
-        (newWallet: Partial<WalletModel>) => walletsApi.addWallet(newWallet),
+        (newWallet: {
+            user: UserModel['id'],
+            marketplace: MarketplaceModel['id'],
+            name: string,
+        }) => walletsApi.addWallet(newWallet),
         { onSuccess: handleAddWalletMutationSuccess },
     );
 
     const handleClickAddWalletButton = (): void => {
-        addWalletMutation.mutate({
-            marketplace: marketplace.id,
-            name: newWalletName,
-        });
+        const user: UserModel | undefined = queryClient.getQueryData('user');
+
+        if (user) {
+            addWalletMutation.mutate({
+                user: user.id,
+                marketplace: marketplace.id,
+                name: newWalletName,
+            });
+        }
     };
 
     const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {

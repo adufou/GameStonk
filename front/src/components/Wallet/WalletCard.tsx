@@ -26,8 +26,7 @@ const WalletCard = ({ wallet }: WalletCardProps): React.ReactElement => {
     const queryClient = useQueryClient();
 
     const handleDeleteWalletMutationSuccess = async (): Promise<void> => {
-        // await queryClient.invalidateQueries(['marketplaces']);
-        await queryClient.invalidateQueries(['marketplaces', wallet.marketplace]);
+        await queryClient.invalidateQueries(['marketplaces']);
     };
     
     const deleteWalletMutation = useMutation(

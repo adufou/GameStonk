@@ -41,6 +41,10 @@ export class WalletsService {
         
         return [];
     }
+
+    findOne(id: number): Promise<Wallet | null> {
+        return this.walletRepository.findOneBy({ id });
+    }
     
     async update(id: number, updateWalletDto: UpdateWalletDto): Promise<Wallet> {
         const wallet = await this.walletRepository.findOneBy({ id });

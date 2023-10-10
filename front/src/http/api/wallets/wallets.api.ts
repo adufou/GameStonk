@@ -5,7 +5,11 @@ import { apiCall } from '@/tools/apiCall';
 import ApiResponseBody from '@/types/ApiResponseBody';
 import ApiResponseStatus from '@/types/ApiResponseStatus';
 
-const addWallet = (wallet: Partial<WalletModel>): Promise<ApiResponseBody<WalletModel>> =>
+const addWallet = (wallet: {
+    user: UserModel['id'],
+    marketplace: MarketplaceModel['id'],
+    name: string,
+}): Promise<ApiResponseBody<WalletModel>> =>
     apiCall('wallets', 'POST', wallet);
 
 const deleteWallet = (wallet: WalletModel): Promise<ApiResponseStatus> =>
