@@ -38,6 +38,12 @@ export class WalletsService {
                 user: user,
             } });
         }
+        
+        return [];
+    }
+
+    findOne(id: number): Promise<Wallet | null> {
+        return this.walletRepository.findOneBy({ id });
     }
     
     async update(id: number, updateWalletDto: UpdateWalletDto): Promise<Wallet> {
